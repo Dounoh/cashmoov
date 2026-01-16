@@ -1,0 +1,79 @@
+version: '3.8'
+
+services:
+  postgres:
+    image: postgres:16.4
+    environment:
+      POSTGRES_DB: app_production
+      POSTGRES_USER: ${POSTGRES_USER:-app_prod_user}
+      POSTGRES_PASSWORD: ${POSTGRES_PASSWORD:-change-this-password}
+      POSTGRES_HOST_AUTH_METHOD: trust
+    volumes:
+      - postgres_data_prod:/var/lib/postgresql/data
+    restart: unless-stopped
+    command: >
+      postgres -c max_connections=100 
+               -c shared_buffers=256MB 
+               -c effective_cache_size=1GB
+
+  rabbitmq:
+    image: rabbitmq:3-management
+    restart: unless-stopped
+    ports:
+      - "5672:5672"
+      - "15672:15672"
+    environment:
+      RABBITMQ_DEFAULT_USER: ${RABBITMQ_DEFAULT_USER:-prod_user}
+      RABBITMQ_DEFAULT_PASS: ${RABBITMQ_DEFAULT_PASS:-prod_password}
+
+  web:
+    build:
+      context: .
+      dockerfile: compose/prod/Dockerfile
+    environment:
+      DJANGO_SECRET_KEY: ${DJANGO_SECRET_KEY:-change-this-to-secure-key}
+      DEBUG: "False"
+      DJANGO_SETTINGS_MODULE: config.settings
+
+      # Base de données
+      DATABASE_URL: postgres://${POSTGRES_USER:-app_prod_user}:${POSTGRES_PASSWORD:-change-this-password}@postgres:5432/app_production
+
+      # Celery / RabbitMQ
+      CELERY_BROKER_URL: amqp://${RABBITMQ_DEFAULT_USER:-prod_user}:${RABBITMQ_DEFAULT_PASS:-prod_password}@rabbitmq:5672//
+      CELERY_RESULT_BACKEND: rpc://
+
+    command: >
+      bash -c "python manage.py migrate &&
+               gunicorn --bind 0.0.0.0:8000 
+                        --workers ${GUNICORN_WORKERS:-3} 
+                        --threads ${GUNICORN_THREADS:-2} 
+                        config.wsgi:application"
+    ports:
+      - "8000:8000"
+    depends_on:
+      - postgres
+      - rabbitmq
+    restart: unless-stopped
+    healthcheck:
+      test: ["CMD", "curl", "-f", "http://localhost:8000/ || exit 1"]
+      interval: 30s
+      timeout: 10s
+      retries: 3
+
+  celery:
+    build:
+      context: .
+      dockerfile: compose/prod/Dockerfile
+    command: celery -A config worker -l info
+    volumes:
+      - .:/app
+    depends_on:
+      - rabbitmq
+      - web
+    restart: unless-stopped
+    environment:
+      CELERY_BROKER_URL: amqp://${RABBITMQ_DEFAULT_USER:-prod_user}:${RABBITMQ_DEFAULT_PASS:-prod_password}@rabbitmq:5672//
+      CELERY_RESULT_BACKEND: rpc://
+
+volumes:
+  postgres_data_prod:
