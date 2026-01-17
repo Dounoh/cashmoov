@@ -4,28 +4,49 @@ from cashmoov_api.chatbot.models import Document
 from cashmoov_api.chatbot.rags.lezy_model import get_model
 from config.settings import FAISS_PATH
 import faiss
-
-
-
+from cashmoov_api.chatbot.rags.lezy_index import FAISS_INDEX
+import os
 
 @shared_task
 def save_embedding(slug):
+    """  
+        La fonction asynchrone pour calculer le embedding des mots et 
+        ajouter sa normalisation en db + indexation FAISS immédiate
+    """
     model = get_model()
 
     try:
         document = Document.objects.get(slug=slug) 
     except Document.DoesNotExist:
-        pass
+        return
 
     text = document.content
-    titile = document.title
-    vector_text = f"{text} {titile}"
-    if document:
-        vec = model.encode([vector_text], convert_to_numpy=True)[0]
-        vec = vec / np.linalg.norm(vec)  
+    title = document.title
+    vector_text = f"{text} {title}"
 
-        document.embedding = vec.tolist()
-        document.save()
+    vec = model.encode([vector_text], convert_to_numpy=True)[0]  # (dim,)
+    vec = vec / np.linalg.norm(vec) 
+    document.embedding = vec.tolist()
+    document.save()
+
+    try:
+        index = faiss.read_index(FAISS_PATH)
+    except:
+        dimension = vec.shape[0]
+        base = faiss.IndexFlatL2(dimension)
+        index = faiss.IndexIDMap(base)
+
+    index.add_with_ids(
+        np.array([vec], dtype=np.float32),         
+        np.array([document.id], dtype=np.int64)   
+    )
+
+    faiss.write_index(index, FAISS_PATH)
+
+    global FAISS_INDEX
+    FAISS_INDEX = index
+
+    return True
 
 
 
@@ -51,37 +72,58 @@ def build_vec():
 
 
 
-# def add_embeddings(new_docs):
-#     """
-#     Ajoute des nouveaux documents à l'index existant.
-#     new_docs: liste de documents Django avec .embedding
-#     """
-#     index = get_index()
-#     if index is None:
-#         build_vec()  # si index n'existe pas, rebuild complet
-#         index = get_index()
-#         if index is None:
-#             return False
+# @shared_task
+# def delete_from_faiss(document_id):
+#     from .faiss_utils import FAISS_INDEX
 
-#     vectors = np.array([d.embedding for d in new_docs], dtype=np.float32)
-#     ids = np.array([d.pk for d in new_docs], dtype=np.int64)
+#     if os.path.exists(FAISS_PATH):
+#         index = faiss.read_index(FAISS_PATH)
+#     else:
+#         return False
 
-#     index.add_with_ids(vectors, ids)
+#     try:
+#         index.remove_ids(np.array([document_id], dtype=np.int64))
+#     except Exception as e:
+#         print(f"Erreur suppression FAISS: {e}")
+#         return False
+
 #     faiss.write_index(index, FAISS_PATH)
+
+#     # Mettre à jour le cache mémoire
+#     global FAISS_INDEX
+#     FAISS_INDEX = index
 
 #     return True
 
-# def remove_document(doc_id):
-#     """
-#     Supprime un document de l'index (si nécessaire, après suppression dans la DB)
-#     """
-#     index = get_index()
-#     if index is None:
-#         return False
 
-#     if hasattr(index, "remove_ids"):
-#         ids = np.array([doc_id], dtype=np.int64)
-#         index.remove_ids(ids)
-#         faiss.write_index(index, FAISS_PATH)
-#         return True
-#     return False
+
+# @shared_task
+# def save_embedding(slug):
+#     """  
+#         La fonction asynchrone pour calculer le embedding des mots et 
+#         ajouter sa normalisation en db
+#     """
+#     model = get_model()
+
+#     try:
+#         document = Document.objects.get(slug=slug) 
+#     except Document.DoesNotExist:
+#         pass
+
+#     if document:
+#         text = document.content
+#         titile = document.title
+#         vector_text = f"{text} {titile}"
+
+#         vec = model.encode([vector_text], convert_to_numpy=True)[0]
+#         vec = vec / np.linalg.norm(vec)  
+
+#         document.embedding = vec.tolist()
+#         document.save()
+
+#         return 
+
+
+
+
+

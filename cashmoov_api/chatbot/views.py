@@ -18,6 +18,11 @@ class DocumentViewSet(viewsets.ModelViewSet):
     permission_classes = [AllowAny]
     lookup_field = 'slug'
 
+    def get_serializer(self, *args, **kwargs):
+        if self.action == 'create':
+            kwargs['many'] = True
+        return super().get_serializer(*args, **kwargs)
+
 
 class ChatbotViewSet(viewsets.GenericViewSet):
     """

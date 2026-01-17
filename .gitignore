@@ -105,3 +105,6 @@ venv.bak/
 
 # mypy
 .mypy_cache/
+faiss_data/*
+./faiss_data/*
+faiss_data/

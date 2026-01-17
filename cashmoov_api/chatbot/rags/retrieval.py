@@ -1,6 +1,6 @@
 import numpy as np
 from cashmoov_api.chatbot.models import Document
-from .build_verctors import get_index
+from .lezy_index import get_index
 from .lezy_model import get_model
 from .prompt_llm import llm_humanise
 
@@ -29,4 +29,4 @@ def search_documents(query_text, top_k=5):
 
     # return response_llm
     
-    return list_docs
+    return reversed(list_docs)
