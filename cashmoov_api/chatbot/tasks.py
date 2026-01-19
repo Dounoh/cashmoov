@@ -2,128 +2,72 @@ from celery import shared_task
 import numpy as np
 from cashmoov_api.chatbot.models import Document
 from cashmoov_api.chatbot.rags.lezy_model import get_model
-from config.settings import FAISS_PATH
-import faiss
-from cashmoov_api.chatbot.rags.lezy_index import FAISS_INDEX
-import os
+import logging
+logger = logging.getLogger(__name__)
+
+
+def normalize_embedding(content):
+    """
+    Calcule et normalise l'embedding pour la similarité cosinus.
+    """
+    if not content or not content.strip():
+        raise ValueError("Le contenu ne peut pas être vide")
+    
+    model = get_model()
+    embedding = model.encode(content)
+    norm = embedding / np.linalg.norm(embedding)
+    return norm.tolist()
+
 
 @shared_task
 def save_embedding(slug):
-    """  
-        La fonction asynchrone pour calculer le embedding des mots et 
-        ajouter sa normalisation en db + indexation FAISS immédiate
     """
-    model = get_model()
-
+    Sauvegarde l'embedding d'un document en base de données.
+    Tâche Celery asynchrone.
+    """
     try:
-        document = Document.objects.get(slug=slug) 
+        document = Document.objects.get(slug=slug)
     except Document.DoesNotExist:
-        return
-
-    text = document.content
-    title = document.title
-    vector_text = f"{text} {title}"
-
-    vec = model.encode([vector_text], convert_to_numpy=True)[0]  # (dim,)
-    vec = vec / np.linalg.norm(vec) 
-    document.embedding = vec.tolist()
-    document.save()
-
-    try:
-        index = faiss.read_index(FAISS_PATH)
-    except:
-        dimension = vec.shape[0]
-        base = faiss.IndexFlatL2(dimension)
-        index = faiss.IndexIDMap(base)
-
-    index.add_with_ids(
-        np.array([vec], dtype=np.float32),         
-        np.array([document.id], dtype=np.int64)   
-    )
-
-    faiss.write_index(index, FAISS_PATH)
-
-    global FAISS_INDEX
-    FAISS_INDEX = index
-
-    return True
-
-
-
-@shared_task
-def build_vec():
-    documents = Document.objects.exclude(embedding=None).order_by('id')
-    normalized = np.array(
-        [document.embedding for document in documents], 
-        dtype=np.float32
-    )
-    ids = np.array([d.pk for d in documents], dtype=np.int64)
-
-    dimansion = normalized.shape[1]
-    index = faiss.IndexFlatL2(dimansion)
-    index = faiss.IndexIDMap(index)
-
-    # index.add(normalized)
-    index.add_with_ids(normalized, ids)
-    faiss.write_index(index, FAISS_PATH)
+        logger.error(f"Document avec slug '{slug}' introuvable")
+        return {"success": False, "error": "Document not found"}
     
-    return True
+    try:
+        # Prendre un titre plus long si nécessaire
+        title = document.title or document.content[:100].strip()
+        
+        # Générer l'embedding
+        embedding = normalize_embedding(content=document.content)
+        
+        # Sauvegarder
+        document.title = title
+        document.embedding = embedding
+        document.save()
+        
+        logger.info(f"Embedding sauvegardé pour le document: {slug}")
+        return {"success": True, "slug": slug}
+        
+    except Exception as e:
+        logger.error(f"Erreur lors de la génération de l'embedding pour {slug}: {str(e)}")
+        return {"success": False, "error": str(e)}
+    
 
 
-
-
-# @shared_task
-# def delete_from_faiss(document_id):
-#     from .faiss_utils import FAISS_INDEX
-
-#     if os.path.exists(FAISS_PATH):
-#         index = faiss.read_index(FAISS_PATH)
-#     else:
-#         return False
-
-#     try:
-#         index.remove_ids(np.array([document_id], dtype=np.int64))
-#     except Exception as e:
-#         print(f"Erreur suppression FAISS: {e}")
-#         return False
-
-#     faiss.write_index(index, FAISS_PATH)
-
-#     # Mettre à jour le cache mémoire
-#     global FAISS_INDEX
-#     FAISS_INDEX = index
-
-#     return True
-
-
-
-# @shared_task
-# def save_embedding(slug):
-#     """  
-#         La fonction asynchrone pour calculer le embedding des mots et 
-#         ajouter sa normalisation en db
-#     """
-#     model = get_model()
-
-#     try:
-#         document = Document.objects.get(slug=slug) 
-#     except Document.DoesNotExist:
-#         pass
-
-#     if document:
-#         text = document.content
-#         titile = document.title
-#         vector_text = f"{text} {titile}"
-
-#         vec = model.encode([vector_text], convert_to_numpy=True)[0]
-#         vec = vec / np.linalg.norm(vec)  
-
-#         document.embedding = vec.tolist()
-#         document.save()
-
-#         return 
-
-
-
-
-
+def chunk_text(text, chunk_size=500, overlap=100):
+    """
+    Découpe un texte long en morceaux avec chevauchement.
+    Utile pour de longs documents.
+    
+    Args:
+        text: Texte à découper
+        chunk_size: Taille des morceaux en mots
+        overlap: Chevauchement entre morceaux en mots
+    """
+    words = text.split()
+    chunks = []
+    
+    for i in range(0, len(words), chunk_size - overlap):
+        chunk = ' '.join(words[i:i + chunk_size])
+        if chunk.strip():
+            chunks.append(chunk)
+    
+    return chunks if chunks else [text]

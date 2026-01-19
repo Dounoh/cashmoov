@@ -46,7 +46,6 @@ class ChatbotViewSet(viewsets.GenericViewSet):
             return Response({'error': 'Question manquante'}, status=400)
         
         result = search_documents(question)
-        
         return Response({'response': result})
 
     

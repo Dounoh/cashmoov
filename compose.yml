@@ -1,17 +1,15 @@
-version: "3.8"
 
 services:
   postgres:
-    image: postgres:16.4
+    image: pgvector/pgvector:pg16
     environment:
       POSTGRES_DB: ${POSTGRES_DB}
       POSTGRES_USER: ${POSTGRES_USER}
       POSTGRES_PASSWORD: ${POSTGRES_PASSWORD}
-      POSTGRES_HOST_AUTH_METHOD: trust
     ports:
       - "5432:5432"
     volumes:
-      - postgres_data_dev:/var/lib/postgresql/data
+      - postgres_data_dev:/var/lib/postgresql
       - ./init/script.sql:/docker-entrypoint-initdb.d/init.sql
 
   rabbitmq:
@@ -27,15 +25,19 @@ services:
     build:
       context: .
       dockerfile: compose/local/Dockerfile
-    environment:
-      DJANGO_SECRET_KEY: ${DJANGO_SECRET_KEY}
-      DEBUG: "True"
-      DJANGO_SETTINGS_MODULE: ${DJANGO_SETTINGS_MODULE}
-      DATABASE_URL: ${DATABASE_URL}
-      CELERY_BROKER_URL: ${CELERY_BROKER_URL}
+    env_file:
+      - .env
+    # environment:
+    #   DJANGO_SECRET_KEY: ${DJANGO_SECRET_KEY}
+    #   DEBUG: "True"
+    #   DJANGO_SETTINGS_MODULE: ${DJANGO_SETTINGS_MODULE}
+    #   DATABASE_URL: ${DATABASE_URL}
+    #   CELERY_BROKER_URL: ${CELERY_BROKER_URL}
     command: >
-      bash -c "python manage.py migrate &&
-               python manage.py runserver 0.0.0.0:8000"
+      bash -c "
+      python manage.py migrate --noinput &&
+      exec uvicorn config.asgi:application --host 0.0.0.0 --port 8000 --workers 4
+      "
     volumes:
       - ./:/app
       - ./requirements:/app/requirements
@@ -57,17 +59,36 @@ services:
     depends_on:
       - rabbitmq
       - django
-    environment:
-      DJANGO_SECRET_KEY: ${DJANGO_SECRET_KEY}
-      DJANGO_SETTINGS_MODULE: ${DJANGO_SETTINGS_MODULE}
-      CELERY_BROKER_URL: ${CELERY_BROKER_URL}
-      DATABASE_URL: ${DATABASE_URL}
+    env_file:
+      - .env
+    # environment:
+    #   DJANGO_SECRET_KEY: ${DJANGO_SECRET_KEY}
+    #   DJANGO_SETTINGS_MODULE: ${DJANGO_SETTINGS_MODULE}
+    #   CELERY_BROKER_URL: ${CELERY_BROKER_URL}
+    #   DATABASE_URL: ${DATABASE_URL}
+    #   REDIS_HOST=${REDIS_HOST} 
+    #   REDIS_PORT=${REDIS_PORT}
+    #   REDIS_PASSWORD=${REDIS_PASSWORD:-yourpassword}
 
 
   redis:
     image: redis:7-alpine
+    container_name: cashmoov_redis
+    restart: unless-stopped
     ports:
       - "6379:6379"
+    volumes:
+      - redis_data:/data
+    command: redis-server --appendonly yes --requirepass ${REDIS_PASSWORD}
+    env_file:
+      - .env
+    
+    healthcheck:
+      test: ["CMD", "redis-cli", "ping"]
+      interval: 10s
+      timeout: 5s
+      retries: 3
 
 volumes:
   postgres_data_dev:
+  redis_data:

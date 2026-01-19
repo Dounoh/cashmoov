@@ -28,18 +28,18 @@ SECRET_KEY = os.getenv('DJANGO_SECRET_KEY')
 # SECURITY WARNING: don't run with debug turned on in production!
 DEBUG = True
 
-ALLOWED_HOSTS = []
+ALLOWED_HOSTS =os.getenv('ALLOWED_HOSTS','*').split(',')
 
 
-# Application definition
 LOCALS_APPS = [
     'django.contrib.admin',
-    'channels',
     'django.contrib.auth',
     'django.contrib.contenttypes',
     'django.contrib.sessions',
     'django.contrib.messages',
     'django.contrib.staticfiles',
+    'channels',
+    'channels_redis',
 ]
 
 THIRD_APPS = [
@@ -64,6 +64,7 @@ INSTALLED_APPS = LOCALS_APPS + THIRD_APPS + MY_APPS
 
 MIDDLEWARE = [
     'django.middleware.security.SecurityMiddleware',
+    'whitenoise.middleware.WhiteNoiseMiddleware',
     'django.contrib.sessions.middleware.SessionMiddleware',
     'django.middleware.common.CommonMiddleware',
     'django.middleware.csrf.CsrfViewMiddleware',
@@ -127,7 +128,7 @@ AUTH_PASSWORD_VALIDATORS = [
 # Internationalization
 # https://docs.djangoproject.com/en/5.1/topics/i18n/
 
-LANGUAGE_CODE = 'en-us'
+LANGUAGE_CODE = 'fr'
 
 TIME_ZONE = 'UTC'
 
@@ -169,7 +170,6 @@ REST_FRAMEWORK = {
         'rest_framework.filters.SearchFilter',
         'rest_framework.filters.OrderingFilter',
     ],
-    # 'DEFAULT_SCHEMA_CLASS': 'drf_spectacular.openapi.AutoSchema',
 }
 
 
@@ -187,52 +187,71 @@ SIMPLE_JWT = {
 
 
 # DJOSER = {
-#     'PASSWORD_RESET_CONFIRM_URL': '#/password/reset/confirm/{slug}/{token}',
-#     # 'USERNAME_RESET_CONFIRM_URL': '#/username/reset/confirm/{slug}/{token}',
-#     'ACTIVATION_URL': '#/activate/{slug}/{token}',
+#     'LOGIN_FIELD': 'email',
+#     'USER_ID_FIELD': 'email',
+
+#     'USERNAME_REQUIRED':False,
+#     'USERNAME_CHANGED_EMAIL_CONFIRMATION': False,
+#     'USER_CREATE_PASSWORD_RETYPE': True,
+#     'SET_USERNAME_RETYPE': False,
+#     'SET_PASSWORD_RETYPE': True,
+    
 #     'SEND_ACTIVATION_EMAIL': True,
-#     'SERIALIZERS': {},
+#     'ACTIVATION_URL': 'activate/{slug}/{token}',
+    
+#     'PASSWORD_RESET_CONFIRM_URL': 'password/reset/confirm/{slug}/{token}',
+#     'SEND_CONFIRMATION_EMAIL': False,
+    
+#     'USERNAME_CHANGED_EMAIL_CONFIRMATION': False,
+#     'PASSWORD_CHANGED_EMAIL_CONFIRMATION': False,
+    
+#     'SERIALIZERS': {
+#         'user_create': 'cashmoov_api.users.serializers.UserCreateSerializer',
+#         'user': 'djoser.serializers.UserSerializer',
+#         'current_user': 'djoser.serializers.UserSerializer',
+#     },
+    
+#     'PERMISSIONS': {
+#         'user': ['djoser.permissions.CurrentUserOrAdmin'],
+#         'user_list': ['rest_framework.permissions.IsAdminUser'],
+#     },
+    
+#     'HIDE_USERS': True,
 # }
 
-
 DJOSER = {
-    # Désactive tout ce qui est lié au username
+    'PASSWORD_RESET_CONFIRM_URL': 'password/reset/confirm/{uid}/{token}',
+    'USERNAME_RESET_CONFIRM_URL': 'username/reset/confirm/{uid}/{token}',
+    'ACTIVATION_URL': 'confirm/{uid}/{token}',
+    # 'SEND_ACTIVATION_EMAIL': True,
+    'SEND_ACTIVATION_EMAIL': False,  
+    'SEND_CONFIRMATION_EMAIL': True,
+    'PASSWORD_CHANGED_EMAIL_CONFIRMATION': True,
+
+    'USER_ID_FIELD': 'slug',
     'LOGIN_FIELD': 'email',
-    'USER_CREATE_PASSWORD_RETYPE': True,
-    'SET_USERNAME_RETYPE': False,
-    'SET_PASSWORD_RETYPE': True,
-    
-    # Activation par email
-    'SEND_ACTIVATION_EMAIL': True,
-    'ACTIVATION_URL': 'activate/{slug}/{token}',
-    
-    # Réinitialisation de mot de passe
-    'PASSWORD_RESET_CONFIRM_URL': 'password/reset/confirm/{slug}/{token}',
-    'SEND_CONFIRMATION_EMAIL': False,
-    
-    # Désactive les fonctionnalités username
-    'USERNAME_CHANGED_EMAIL_CONFIRMATION': False,
-    'PASSWORD_CHANGED_EMAIL_CONFIRMATION': False,
-    
-    # Serializers personnalisés (optionnel)
-    'SERIALIZERS': {
-        'user_create': 'djoser.serializers.UserCreateSerializer',
-        'user': 'djoser.serializers.UserSerializer',
-        'current_user': 'djoser.serializers.UserSerializer',
-    },
-    
-    # Permissions
+    'LOGOUT_ON_PASSWORD_CHANGE': True,
+    'TOKEN_MODEL': None,
     'PERMISSIONS': {
-        'user': ['djoser.permissions.CurrentUserOrAdmin'],
-        'user_list': ['rest_framework.permissions.IsAdminUser'],
+        'user_create': ['rest_framework.permissions.IsAdminUser'],
+        'activation': ['rest_framework.permissions.AllowAny'],
     },
-    
-    # Désactive les endpoints liés au username
-    'HIDE_USERS': False,
+    'EMAIL': {
+        'activation': 'cashmoov_api.users.emails.UserCreatedEmail',
+        'confirmation': 'cashmoov_api.users.emails.UserCreatedConfirmationEmail',
+    },
+    'SERIALIZERS': {
+        'user_create': 'cashmoov_api.users.api.serializers.UserCreateSerializer',
+        'user': 'djoser.serializers.UserSerializer',
+        'current_user': 'cashmoov_api.users.api.serializers.CurrentUserDetailSerializer',
+    },
+
 }
 
+
 AUTHENTICATION_BACKENDS = [
-    "djoser.auth_backends.LoginFieldBackend",
+    'django.contrib.auth.backends.ModelBackend',
+    # "djoser.auth_backends.LoginFieldBackend", 
 ]
 
 CELERY_BROKER_URL = os.getenv('CELERY_BROKER_URL', 'amqp://guest:guest@localhost:5672//')
@@ -244,25 +263,26 @@ CELERY_ACCEPT_CONTENT = ['json']
 CELERY_TIMEZONE = 'UTC'
 CELERY_ENABLE_UTC = True
 
-FAISS_PATH = os.path.join("faiss_data", "faiss.index")
-
 
 ASGI_APPLICATION = 'config.asgi.application' 
 
-# CHANNEL_LAYERS = {
-#     'default': {
-#         'BACKEND': 'channels_redis.core.RedisChannelLayer',
-#         'CONFIG': {
-#             "hosts": [("rabbitmq", 5672)],  # 'redis' = nom du service dans docker-compose
-#         },
-#     },
-# }
+
+REDIS_HOST = os.getenv("REDIS_HOST")
+REDIS_PORT = os.getenv("REDIS_PORT", "6379")
+REDIS_PASSWORD = os.getenv("REDIS_PASSWORD")
+
+redis_url = f"redis://:{REDIS_PASSWORD}@{REDIS_HOST}:{REDIS_PORT}/0"
 
 CHANNEL_LAYERS = {
-    'default': {
-        'BACKEND': 'channels_redis.core.RedisChannelLayer',
-        'CONFIG': {
-            "hosts": [("redis", 6379)], 
+    "default": {
+        "BACKEND": "channels_redis.core.RedisChannelLayer",
+        "CONFIG": {
+            "hosts": [redis_url],
         },
     },
 }
+
+
+STATIC_URL = 'static/'
+STATIC_ROOT = BASE_DIR / 'staticfiles'
+STATICFILES_STORAGE = 'whitenoise.storage.CompressedManifestStaticFilesStorage'

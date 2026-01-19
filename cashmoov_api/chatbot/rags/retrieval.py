@@ -1,32 +1,46 @@
-import numpy as np
 from cashmoov_api.chatbot.models import Document
-from .lezy_index import get_index
-from .lezy_model import get_model
 from .prompt_llm import llm_humanise
+from cashmoov_api.chatbot.tasks import normalize_embedding
+from pgvector.django import CosineDistance
+import logging
 
+logger = logging.getLogger(__name__)
 
-def search_documents(query_text, top_k=5):
+def search_documents(query_text, top_k=5, max_similarity=0.7):
     """
-    Recherche les documents les plus proches d'une normalisation embedding avec FAISS.
-
+    Recherche sémantique des documents les plus pertinents.
+    Cette fonction nous permet de retrouver les 5 documents les plus pertinents
+    concernant la question poser par le user et envoyer à LLM pour reformuler et renvoyer le resultat
     """
-    model = get_model()
-
-    query_vector = model.encode(query_text, convert_to_numpy=True)
-    query_vector = query_vector / np.linalg.norm(query_vector)
-
-    index = get_index()
-    if index is None:
-        return [], []
-
-    q = np.array([query_vector], dtype=np.float32)
-    distances, doc_ids = index.search(q, top_k) 
-    docs = Document.objects.filter(pk__in=doc_ids[0])
-
-    list_docs = [f"{do.title} : {do.content}" for do in docs]
-
-    # response_llm = llm_humanise(query=query_text, context=list_docs)
-
-    # return response_llm
+    if not query_text or not query_text.strip():
+        return []
     
-    return reversed(list_docs)
+    try:
+
+        norm_query = normalize_embedding(content=query_text)
+        
+        documents = (
+            Document.objects
+            .filter(is_active=True)
+            .annotate(similarity=CosineDistance('embedding', norm_query))
+            .filter(similarity__lte=max_similarity)
+            .order_by('similarity')[:top_k]
+        )
+        
+        if not documents.exists():
+            logger.info(f"Aucun document pertinent trouvé pour: {query_text}")
+            return []
+        
+        results = [{
+            'title': doc.title,
+            'context': doc.content,
+            'similarity_score': float(doc.similarity)
+        } for doc in documents]
+        
+        logger.info(f"Trouvé {len(results)} documents pour: {query_text}")
+        resultats_llm = llm_humanise(results)
+        return resultats_llm
+        
+    except Exception as e:
+        logger.error(f"Erreur lors de la recherche: {str(e)}")
+        return []

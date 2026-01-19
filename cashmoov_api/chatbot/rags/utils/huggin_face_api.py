@@ -1,8 +1,12 @@
 import os
-from openai import OpenAI  # uniquement, on supprime huggingface_hub
+from openai import OpenAI 
 
 class HugginClient:
-    base_url = "https://router.huggingface.co/v1"  # pas de virgule !
+    """
+    Le clien api de deepseek 
+    """
+
+    base_url = "https://router.huggingface.co/v1"  
     api_key = os.getenv('HUGGIN_FACE_KEY')
     model_ia = "moonshotai/Kimi-K2-Instruct-0905"
 

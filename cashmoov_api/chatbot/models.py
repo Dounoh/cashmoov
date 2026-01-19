@@ -2,7 +2,7 @@ from django.db import models
 from cashmoov_api.common.models import Base
 import numpy as np
 import uuid
-
+from pgvector.django import VectorField
 
 class Document(models.Model):
     training ="training"
@@ -14,9 +14,9 @@ class Document(models.Model):
     )
     
     slug = models.SlugField(unique=True, default=uuid.uuid4, max_length=255)
-    title = models.CharField(max_length=255, blank=True)
+    title = models.CharField(max_length=255, blank=True, null=True)
     content = models.TextField()
-    embedding = models.JSONField(null=True)
+    embedding = VectorField(dimensions=384, null=True)
     embedding_model = models.CharField(
         max_length=100,
         default="all-MiniLM-L6-v2"
@@ -30,9 +30,6 @@ class Document(models.Model):
     created_at = models.DateTimeField(auto_now_add=True)
     updated_at = models.DateTimeField(auto_now=True)
 
-    # def save(self, *args, **kwargs):
-    #     super().save(*args, **kwargs)
-    #     save_embedding.delay(self.slug)
     
 
 

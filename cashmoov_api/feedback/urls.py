@@ -3,8 +3,8 @@ from rest_framework.routers import DefaultRouter
 from .views import FeedbackViewSet
 
 router = DefaultRouter()
-router.register(r'feedback', FeedbackViewSet, basename='feedback')
+router.register(r'', FeedbackViewSet)
 
 urlpatterns = [
-    path('', include(router.urls)),
-]
+
+] + router.urls

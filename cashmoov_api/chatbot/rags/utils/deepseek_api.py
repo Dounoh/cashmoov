@@ -2,6 +2,10 @@ import os
 from openai import OpenAI
 
 class DeepSeekClient:
+    """
+    Le clien api de deepseek 
+    """
+    
     base_url="https://api.deepseek.com"
     api_key = os.getenv('DEEPSEEK_KEY')
     model_ia ="deepseek-chat"

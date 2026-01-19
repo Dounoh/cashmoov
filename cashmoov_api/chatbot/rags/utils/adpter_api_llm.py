@@ -3,6 +3,12 @@ from .deepseek_api import DeepSeekClient
 
 
 class AdpterLlm:
+    """ 
+    Cette fonction est un adaptateur des Clients api
+    il nous permet de garder le meme syntaxe quelque soit le client api qu'on appel 
+    deepseek, chatgpt, hugginface, kimi etc.. 
+    il vas retourne le meme resultat sans probleme pour ne pas casser la view
+    """
     username = "CashMoov IA"
 
     def __init__(self,client):
