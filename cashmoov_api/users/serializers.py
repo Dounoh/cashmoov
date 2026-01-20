@@ -54,7 +54,6 @@ class UserDetailSerializer(UserSerializerBase):
 
 
 class CurrentUserDetailSerializer(UserSerializerBase):
-    is_admin = serializers.CharField(source="is_superuser")
     class Meta:
         model = User
         fields = (

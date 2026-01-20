@@ -2,11 +2,13 @@ from cashmoov_api.chatbot.models import Document
 from .prompt_llm import llm_humanise
 from cashmoov_api.chatbot.tasks import normalize_embedding
 from pgvector.django import CosineDistance
+from channels.db import database_sync_to_async
+from asgiref.sync import sync_to_async
 import logging
 
 logger = logging.getLogger(__name__)
 
-def search_documents(query_text, top_k=5, max_similarity=0.7):
+def search_documents_sync(query_text, top_k=5, max_similarity=0.7):
     """
     Recherche sémantique des documents les plus pertinents.
     Cette fonction nous permet de retrouver les 5 documents les plus pertinents
@@ -38,9 +40,25 @@ def search_documents(query_text, top_k=5, max_similarity=0.7):
         } for doc in documents]
         
         logger.info(f"Trouvé {len(results)} documents pour: {query_text}")
-        resultats_llm = llm_humanise(results)
-        return resultats_llm
+        
+        return results
         
     except Exception as e:
         logger.error(f"Erreur lors de la recherche: {str(e)}")
         return []
+    
+
+
+async def search_documents(query_text, top_k=5, max_similarity=0.7):
+    results = await database_sync_to_async(search_documents_sync)(query_text, top_k, max_similarity)
+
+    if not results:
+        return []
+
+    try:
+        resultats_llm = await sync_to_async(llm_humanise)(results)
+        return resultats_llm
+    except Exception as e:
+        logger.error(f"Erreur LLM: {str(e)}")
+        return []
+

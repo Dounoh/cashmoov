@@ -2,7 +2,6 @@ import json
 from channels.generic.websocket import AsyncWebsocketConsumer
 from django.core.exceptions import ValidationError
 
-from cashmoov_api.chatbot.rags.retrieval import search_documents
 
 class ChatConsumer(AsyncWebsocketConsumer):
     async def connect(self):
@@ -45,8 +44,7 @@ class ChatConsumer(AsyncWebsocketConsumer):
             )
 
             response = await self.search_response_ia(message)
-
-            if not response or response.get("type") == "response_none":
+            if not response or (response and response.get("type") == "response_none"):
                 await self.send(text_data=json.dumps({
                     "type": "waiting",
                     "message": "Le message est transmis à un assistant humain."
@@ -80,7 +78,7 @@ class ChatConsumer(AsyncWebsocketConsumer):
         await self.send(text_data=json.dumps({
             "type": "chat.message",
             "username": event.get("username"),
-            "groupe_name": event.get("groupe_name"),
+            "group_name": event.get("group_name"),
             "message": event["message"]
         }))
 
@@ -100,23 +98,27 @@ class ChatConsumer(AsyncWebsocketConsumer):
         }))
 
     async def search_response_ia(self, query_text):
+        from cashmoov_api.chatbot.rags.retrieval import search_documents
+
+        response = None 
+
         try:
             response = await search_documents(query_text)
         except Exception as e:
             await self.send_error(f"Erreur IA: {str(e)}")
+            response = f"Erreur lors du traitement du message: {str(e)}"
 
-            return response
-
+        return response
     
 
 
 
 class NotificationConsumer(AsyncWebsocketConsumer):
+    unanswered_counts = {}
+
     async def connect(self):
         await self.channel_layer.group_add("notifications", self.channel_name)
         await self.accept()
-
-        self.unanswered_counts = {}
 
         await self.send(text_data=json.dumps({
             "type": "notification.init",
@@ -129,27 +131,27 @@ class NotificationConsumer(AsyncWebsocketConsumer):
 
 
     async def new_message(self, event):
-        groupe_name = event["groupe_name"]
+        group_name = event["group_name"]
 
-        self.unanswered_counts[groupe_name] = self.unanswered_counts.get(groupe_name, 0) + 1
+        self.unanswered_counts[group_name] = self.unanswered_counts.get(group_name, 0) + 1
 
         await self.send(text_data=json.dumps({
             "type": "notification",
-            "groupe_name": groupe_name,
-            "count": self.unanswered_counts[groupe_name],
+            "group_name": group_name,
+            "count": self.unanswered_counts[group_name],
             "username": event["username"],
             "message": event["message"]
         }))
 
 
     async def message_answered(self, event):
-        groupe_name = event["groupe_name"]
+        group_name = event["group_name"]
 
-        if groupe_name in self.unanswered_counts:
-            self.unanswered_counts[groupe_name] = max(0, self.unanswered_counts[groupe_name] - 1)
+        if group_name in self.unanswered_counts:
+            self.unanswered_counts[group_name] = max(0, self.unanswered_counts[group_name] - 1)
 
         await self.send(text_data=json.dumps({
             "type": "notification.decrement",
-            "groupe_name": groupe_name,
-            "count": self.unanswered_counts.get(groupe_name, 0)
+            "groupe_name": group_name,
+            "count": self.unanswered_counts.get(group_name, 0)
         }))

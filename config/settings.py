@@ -55,6 +55,7 @@ MY_APPS = [
     # 'cashmoov_api.chatbot',
     'cashmoov_api.chatbot.apps.ChatbotConfig',
     'cashmoov_api.feedback',
+    'cashmoov_api.users'
 ]
 
 
@@ -241,13 +242,13 @@ DJOSER = {
         'confirmation': 'cashmoov_api.users.emails.UserCreatedConfirmationEmail',
     },
     'SERIALIZERS': {
-        'user_create': 'cashmoov_api.users.api.serializers.UserCreateSerializer',
+        'user_create': 'cashmoov_api.users.serializers.UserCreateSerializer',
         'user': 'djoser.serializers.UserSerializer',
-        'current_user': 'cashmoov_api.users.api.serializers.CurrentUserDetailSerializer',
+        'current_user': 'cashmoov_api.users.serializers.CurrentUserDetailSerializer',
     },
 
 }
-
+AUTH_USER_MODEL = 'users.User'
 
 AUTHENTICATION_BACKENDS = [
     'django.contrib.auth.backends.ModelBackend',
