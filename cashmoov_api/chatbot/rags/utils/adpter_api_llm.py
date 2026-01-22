@@ -18,7 +18,7 @@ class AdapterLlm:
 
         return {
             "username": self.username,
-            "response": resultat,
+            "message": resultat,
             "type": type,
             "source": "",
             "destination": ""

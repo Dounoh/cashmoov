@@ -111,3 +111,4 @@ djoser==2.2.0
 pgvector==0.4.2
 whitenoise==6.6.0
 uvicorn[standard]>=0.25.0
+django-redis==6.0.0

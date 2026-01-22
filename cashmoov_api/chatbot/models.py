@@ -16,10 +16,11 @@ class Document(models.Model):
     slug = models.SlugField(unique=True, default=uuid.uuid4, max_length=255)
     title = models.CharField(max_length=255, blank=True, null=True)
     content = models.TextField()
-    embedding = VectorField(dimensions=384, null=True)
+    # embedding = VectorField(dimensions=384, null=True)768
+    embedding = VectorField(dimensions=768, null=True)
     embedding_model = models.CharField(
         max_length=100,
-        default="all-MiniLM-L6-v2"
+        default="intfloat/multilingual-e5-base"
     )
     source_type = models.CharField(
         max_length=50,
@@ -30,11 +31,25 @@ class Document(models.Model):
     created_at = models.DateTimeField(auto_now_add=True)
     updated_at = models.DateTimeField(auto_now=True)
 
-    
+ 
+class Group(Base):
+    name = models.CharField(max_length=250, unique=True)
 
+    def __str__(self):
+        return self.name
 
+class Chatbot(Base):
+    username = models.CharField(max_length=250)
+    group = models.ForeignKey(
+        Group, 
+        on_delete=models.CASCADE,
+        related_name='chatbots',
+        null=True)
+    question = models.TextField()
+    answers = models.TextField(null=True)
+    assistant_answer = models.CharField(null=True)
 
-
-
+    def __str__(self):
+        return self.username
 
 

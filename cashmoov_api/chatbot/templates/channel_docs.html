@@ -1,0 +1,162 @@
+<!DOCTYPE html>
+<html lang="fr">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Documentation API CashMoov v2.1</title>
+    <script src="https://cdn.tailwindcss.com"></script>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+    <style>
+        body { font-family: 'Inter', sans-serif; scroll-behavior: smooth; }
+        pre { background-color: #0f172a; color: #38bdf8; padding: 1.25rem; border-radius: 0.75rem; border: 1px solid #1e293b; font-size: 0.85rem; line-height: 1.5; }
+        .json-key { color: #f472b6; }
+        .json-val { color: #fbbf24; }
+        .endpoint-badge { background: #f1f5f9; color: #475569; font-family: monospace; padding: 0.4rem 0.8rem; border-radius: 6px; border: 1px solid #e2e8f0; font-size: 0.8rem; }
+    </style>
+</head>
+<body class="bg-slate-50 text-slate-900">
+
+    <nav class="sticky top-0 z-50 bg-white/90 backdrop-blur-md border-b border-slate-200 px-6 py-4">
+        <div class="max-w-7xl mx-auto flex justify-between items-center">
+            <div class="flex items-center gap-3">
+                <div class="bg-blue-600 text-white px-3 py-1 rounded font-black">CM</div>
+                <span class="font-bold text-xl tracking-tight">CashMoov <span class="text-blue-600">Dev Portal</span></span>
+            </div>
+            <div class="flex items-center gap-4">
+                <span class="px-3 py-1 bg-green-100 text-green-700 rounded-full text-[10px] font-bold uppercase tracking-wider">
+                    <i class="fas fa-shield-alt mr-1"></i> Accès Sécurisé
+                </span>
+            </div>
+        </div>
+    </nav>
+
+    <div class="max-w-6xl mx-auto px-6 py-12 grid grid-cols-1 lg:grid-cols-4 gap-12">
+        
+        <aside class="lg:col-span-1 space-y-4 h-fit sticky top-28">
+            <h5 class="text-xs font-bold text-slate-400 uppercase tracking-widest leading-none">Navigation</h5>
+            <nav class="flex flex-col gap-2 text-sm font-medium">
+                <a href="#chat" class="text-blue-600 flex items-center gap-2"><i class="fas fa-comments w-4"></i> Chat de groupe</a>
+                <a href="#notif" class="text-slate-600 hover:text-blue-600 flex items-center gap-2"><i class="fas fa-bell w-4"></i> Notifications Admin</a>
+                <a href="#presence" class="text-slate-600 hover:text-blue-600 flex items-center gap-2"><i class="fas fa-users w-4"></i> Présence Online</a>
+                <a href="#logic" class="text-slate-600 hover:text-blue-600 flex items-center gap-2"><i class="fas fa-brain w-4"></i> Logique IA</a>
+            </nav>
+        </aside>
+
+        <div class="lg:col-span-3">
+            
+            <section id="chat" class="mb-16 scroll-mt-24">
+                <div class="flex flex-col md:flex-row md:items-center justify-between gap-4 mb-8">
+                    <h2 class="text-2xl font-black uppercase tracking-tight">1. WebSocket Chat de Groupe</h2>
+                    <span class="endpoint-badge">ws://localhost:8000/ws/chat/group/</span>
+                </div>
+
+                <div class="space-y-8">
+                    <div>
+                        <span class="text-xs font-bold text-slate-400 uppercase mb-2 block">Message envoyé par le Client :</span>
+<pre><code>{
+  <span class="json-key">"type"</span>: <span class="json-val">"chat.message"</span>,
+  <span class="json-key">"username"</span>: <span class="json-val">"client"</span>,
+  <span class="json-key">"groupe_name"</span>: <span class="json-val">"room1"</span>,
+  <span class="json-key">"message"</span>: <span class="json-val">"Comment recharger mon compte CashMoov ?"</span>,
+  <span class="json-key">"user_type"</span>: <span class="json-val">"customer"</span>
+}</code></pre>
+                    </div>
+
+                    <div class="bg-blue-50/50 p-6 rounded-2xl border border-blue-100">
+                        <span class="text-xs font-bold text-blue-500 uppercase mb-2 block">Message reçu Assistant IA :</span>
+<pre><code>{
+  <span class="json-key">"type"</span>: <span class="json-val">"ia.message"</span>,
+  <span class="json-key">"username"</span>: <span class="json-val">"CashMoov IA"</span>,
+  <span class="json-key">"groupe_name"</span>: <span class="json-val">"Nom du groupe"</span>,
+  <span class="json-key">"message"</span>: <span class="json-val">"Pour recharger, veuillez..."</span>,
+  <span class="json-key">"user_type"</span>: <span class="json-val">"ia"</span>
+}</code></pre>
+                    </div>
+
+                    <div class="bg-green-50/50 p-6 rounded-2xl border border-green-100">
+                        <span class="text-xs font-bold text-green-600 uppercase mb-2 block">Message reçu Assistant Humain :</span>
+<pre><code>{
+  <span class="json-key">"type"</span>: <span class="json-val">"chat.message"</span>,
+  <span class="json-key">"username"</span>: <span class="json-val">"assistant nom"</span>,
+  <span class="json-key">"groupe_name"</span>: <span class="json-val">"nom group"</span>,
+  <span class="json-key">"message"</span>: <span class="json-val">"réponse à la question"</span>,
+  <span class="json-key">"user_type"</span>: <span class="json-val">"assistant"</span>
+}</code></pre>
+                    </div>
+                </div>
+            </section>
+
+            <section id="notif" class="mb-16 scroll-mt-24">
+                <div class="flex flex-col md:flex-row md:items-center justify-between gap-4 mb-8">
+                    <h2 class="text-2xl font-black uppercase tracking-tight text-orange-600">2. Notifications Admin</h2>
+                    <span class="endpoint-badge">ws://localhost:8000/ws/notifications/</span>
+                </div>
+                
+                <div class="space-y-6">
+                    <div>
+                        <span class="text-xs font-bold text-slate-400 uppercase mb-2 block italic">À l’établissement de la connexion :</span>
+<pre><code>{
+  <span class="json-key">"type"</span>: <span class="json-val">"notification.init"</span>,
+  <span class="json-key">"count"</span>: <span class="json-val">0</span>
+}</code></pre>
+                    </div>
+                    <div>
+                        <span class="text-xs font-bold text-slate-400 uppercase mb-2 block italic">Lorsqu’un message est reçu :</span>
+<pre><code>{
+  <span class="json-key">"type"</span>: <span class="json-val">"notification"</span>,
+  <span class="json-key">"group_name"</span>: <span class="json-val">"Nom du groupe"</span>,
+  <span class="json-key">"count"</span>: <span class="json-val">4</span>,
+  <span class="json-key">"username"</span>: <span class="json-val">"Nom du client"</span>,
+  <span class="json-key">"message"</span>: <span class="json-val">"le message envoyé"</span>
+}</code></pre>
+                    </div>
+                </div>
+            </section>
+
+            <section id="presence" class="mb-16 scroll-mt-24">
+                <div class="flex flex-col md:flex-row md:items-center justify-between gap-4 mb-8">
+                    <h2 class="text-2xl font-black uppercase tracking-tight text-green-600">3. Présence Assistants</h2>
+                    <span class="endpoint-badge">ws://localhost:8000/ws/online/</span>
+                </div>
+                <div class="bg-white p-8 rounded-3xl border border-slate-200 shadow-sm">
+                    <p class="text-sm text-slate-500 mb-6 italic">Permet au client de savoir s’il y a des personnes en ligne ou non via Redis.</p>
+                    
+                    <span class="text-xs font-bold text-slate-400 uppercase mb-2 block italic">Format de réponse (Mise à jour en temps réel) :</span>
+<pre><code>{
+  <span class="json-key">"type"</span>: <span class="json-val">"online_users"</span>,
+  <span class="json-key">"count"</span>: <span class="json-val">2</span>,
+  <span class="json-key">"members"</span>: [<span class="json-val">"Moussa"</span>, <span class="json-val">"fanta"</span>],
+  <span class="json-key">"message"</span>: <span class="json-val">"client est maintenant en ligne"</span>
+}</code></pre>
+                </div>
+            </section>
+
+            <section id="logic" class="mb-16 scroll-mt-24 bg-slate-900 rounded-3xl p-8 text-white">
+                <h2 class="text-2xl font-bold mb-6 flex items-center gap-2">
+                    <i class="fas fa-brain text-blue-400"></i> Logique de traitement
+                </h2>
+                <div class="space-y-6 text-sm text-slate-300">
+                    <div class="flex gap-4">
+                        <div class="text-blue-400 font-bold">01.</div>
+                        <p><strong class="text-white">Résolution IA :</strong> Réponse instantanée si une correspondance fiable est trouvée dans la base NLP.</p>
+                    </div>
+                    <div class="flex gap-4">
+                        <div class="text-orange-400 font-bold">02.</div>
+                        <p><strong class="text-white">Transfert :</strong> Si l'IA échoue, basculement vers le support humain avec notification de transfert à l'utilisateur.</p>
+                    </div>
+                    <div class="flex gap-4">
+                        <div class="text-red-400 font-bold">03.</div>
+                        <p><strong class="text-white">Indisponibilité :</strong> Si aucun conseiller n'est dans la liste <code class="text-xs bg-slate-800 px-1 rounded text-green-400">members</code>, le client reçoit une alerte d'indisponibilité.</p>
+                    </div>
+                </div>
+            </section>
+
+        </div>
+    </div>
+
+    <footer class="bg-white border-t border-slate-200 py-10 text-center text-xs text-slate-400 uppercase tracking-widest font-bold">
+        <p>&copy; 2026 CashMoov - API Doc v{{ version }}</p>
+    </footer>
+
+</body>
+</html>

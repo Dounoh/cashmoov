@@ -24,6 +24,7 @@ class DocumentViewSet(viewsets.ModelViewSet):
         return super().get_serializer(*args, **kwargs)
 
 
+
 class ChatbotViewSet(viewsets.GenericViewSet):
     """
     Endpoint pour interagir avec le chatbot
@@ -50,8 +51,8 @@ class ChatbotViewSet(viewsets.GenericViewSet):
             return Response({'error': 'Question manquante'}, status=400)
         
         result = search_documents_sync(question)
-        llm_response = llm_humanise(query=question, context=result)
+        # llm_response = llm_humanise(query=question, context=result)
         
-        return Response({'response': llm_response})
+        return Response({'response': result})
 
     
