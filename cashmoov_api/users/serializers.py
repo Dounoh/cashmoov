@@ -63,7 +63,7 @@ class CurrentUserDetailSerializer(UserSerializerBase):
             "email",
             "address",
             )
-        read_only_fields = fields
+        read_only_fields = ('slug','email',)
 
 
 class UserUpdateSerializer(UserSerializerBase):

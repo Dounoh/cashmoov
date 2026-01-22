@@ -1,22 +1,47 @@
 from celery import shared_task
 import numpy as np
+import torch
 from cashmoov_api.chatbot.models import Document
 from cashmoov_api.chatbot.rags.lezy_model import get_model
 import logging
 logger = logging.getLogger(__name__)
 
 
-def normalize_embedding(content):
-    """
-    Calcule et normalise l'embedding pour la similarité cosinus.
-    """
+# def normalize_embedding(content):
+#     """
+#     Calcule et normalise l'embedding pour la similarité cosinus.
+#     """
+#     if not content or not content.strip():
+#         raise ValueError("Le contenu ne peut pas être vide")
+    
+#     model = get_model()
+#     embedding = model.encode(content)
+#     norm = embedding / np.linalg.norm(embedding)
+#     return norm.tolist()
+
+
+def normalize_embedding(content: str, *, is_query: bool = False):
     if not content or not content.strip():
         raise ValueError("Le contenu ne peut pas être vide")
-    
-    model = get_model()
-    embedding = model.encode(content)
-    norm = embedding / np.linalg.norm(embedding)
-    return norm.tolist()
+
+    prefix = "query: " if is_query else "passage: "
+    text = prefix + content.strip()
+
+    model, tokenizer = get_model()
+
+    with torch.no_grad():
+        inputs = tokenizer(
+            text,
+            return_tensors="pt",
+            padding=True,
+            truncation=True,
+            max_length=512
+        )
+        outputs = model(**inputs)
+        embedding = outputs.last_hidden_state.mean(dim=1)
+        embedding = torch.nn.functional.normalize(embedding, p=2, dim=1)
+
+    return embedding[0].cpu().numpy().tolist()
 
 
 @shared_task
@@ -32,13 +57,10 @@ def save_embedding(slug):
         return {"success": False, "error": "Document not found"}
     
     try:
-        # Prendre un titre plus long si nécessaire
         title = document.title or document.content[:100].strip()
         
-        # Générer l'embedding
         embedding = normalize_embedding(content=document.content)
         
-        # Sauvegarder
         document.title = title
         document.embedding = embedding
         document.save()
@@ -57,10 +79,6 @@ def chunk_text(text, chunk_size=500, overlap=100):
     Découpe un texte long en morceaux avec chevauchement.
     Utile pour de longs documents.
     
-    Args:
-        text: Texte à découper
-        chunk_size: Taille des morceaux en mots
-        overlap: Chevauchement entre morceaux en mots
     """
     words = text.split()
     chunks = []
@@ -71,3 +89,4 @@ def chunk_text(text, chunk_size=500, overlap=100):
             chunks.append(chunk)
     
     return chunks if chunks else [text]
+

@@ -1,21 +1,23 @@
+import torch
+from transformers import AutoTokenizer, AutoModel
+
+MODEL_NAME = "intfloat/multilingual-e5-base"
 
 MODEL = None
+TOKENIZER = None
 
 
 def get_model():
-    """ 
-    Cette fonction nous permet de charger le model utiliser pour faire le embedding
-    une seul fois et le garder dasn une variable gloabal pour eviter de le charger à chaque requette
-    pour optimiser le temps de chargement et la consomation de resourse.
     """
+    Charge le modèle et le tokenizer E5 une seule fois et les garde en mémoire.
     
-    from sentence_transformers import SentenceTransformer
+    Retourne : (model, tokenizer)
+    """
+    global MODEL, TOKENIZER
+
+    if MODEL is None or TOKENIZER is None:
+        TOKENIZER = AutoTokenizer.from_pretrained(MODEL_NAME)
+        MODEL = AutoModel.from_pretrained(MODEL_NAME)
+        MODEL.eval() 
     
-    global MODEL
-
-    if MODEL is None:
-        MODEL = SentenceTransformer('all-MiniLM-L6-v2')
-
-    return MODEL
-
-
+    return MODEL, TOKENIZER

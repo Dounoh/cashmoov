@@ -26,7 +26,7 @@ BASE_DIR = Path(__file__).resolve().parent.parent
 SECRET_KEY = os.getenv('DJANGO_SECRET_KEY')
 
 # SECURITY WARNING: don't run with debug turned on in production!
-DEBUG = True
+DEBUG = os.getenv('DEBUG',True)
 
 ALLOWED_HOSTS =os.getenv('ALLOWED_HOSTS','*').split(',')
 
@@ -55,7 +55,8 @@ MY_APPS = [
     # 'cashmoov_api.chatbot',
     'cashmoov_api.chatbot.apps.ChatbotConfig',
     'cashmoov_api.feedback',
-    'cashmoov_api.users'
+    'cashmoov_api.users',
+    'cashmoov_api.convert_money',
 ]
 
 
@@ -187,42 +188,9 @@ SIMPLE_JWT = {
 }
 
 
-# DJOSER = {
-#     'LOGIN_FIELD': 'email',
-#     'USER_ID_FIELD': 'email',
-
-#     'USERNAME_REQUIRED':False,
-#     'USERNAME_CHANGED_EMAIL_CONFIRMATION': False,
-#     'USER_CREATE_PASSWORD_RETYPE': True,
-#     'SET_USERNAME_RETYPE': False,
-#     'SET_PASSWORD_RETYPE': True,
-    
-#     'SEND_ACTIVATION_EMAIL': True,
-#     'ACTIVATION_URL': 'activate/{slug}/{token}',
-    
-#     'PASSWORD_RESET_CONFIRM_URL': 'password/reset/confirm/{slug}/{token}',
-#     'SEND_CONFIRMATION_EMAIL': False,
-    
-#     'USERNAME_CHANGED_EMAIL_CONFIRMATION': False,
-#     'PASSWORD_CHANGED_EMAIL_CONFIRMATION': False,
-    
-#     'SERIALIZERS': {
-#         'user_create': 'cashmoov_api.users.serializers.UserCreateSerializer',
-#         'user': 'djoser.serializers.UserSerializer',
-#         'current_user': 'djoser.serializers.UserSerializer',
-#     },
-    
-#     'PERMISSIONS': {
-#         'user': ['djoser.permissions.CurrentUserOrAdmin'],
-#         'user_list': ['rest_framework.permissions.IsAdminUser'],
-#     },
-    
-#     'HIDE_USERS': True,
-# }
-
 DJOSER = {
     'PASSWORD_RESET_CONFIRM_URL': 'password/reset/confirm/{uid}/{token}',
-    'USERNAME_RESET_CONFIRM_URL': 'username/reset/confirm/{uid}/{token}',
+    # 'USERNAME_RESET_CONFIRM_URL': 'username/reset/confirm/{uid}/{token}',
     'ACTIVATION_URL': 'confirm/{uid}/{token}',
     # 'SEND_ACTIVATION_EMAIL': True,
     'SEND_ACTIVATION_EMAIL': False,  
@@ -236,6 +204,10 @@ DJOSER = {
     'PERMISSIONS': {
         'user_create': ['rest_framework.permissions.IsAdminUser'],
         'activation': ['rest_framework.permissions.AllowAny'],
+        'user_delete': ['rest_framework.permissions.IsAdminUser'],
+        'user': ['rest_framework.permissions.IsAdminUser'],
+        'set_username': ['rest_framework.permissions.IsAdminUser'], 
+        'set_email': ['rest_framework.permissions.IsAdminUser'], 
     },
     'EMAIL': {
         'activation': 'cashmoov_api.users.emails.UserCreatedEmail',
@@ -247,7 +219,9 @@ DJOSER = {
         'current_user': 'cashmoov_api.users.serializers.CurrentUserDetailSerializer',
     },
 
+    'HIDE_USERS': False,
 }
+
 AUTH_USER_MODEL = 'users.User'
 
 AUTHENTICATION_BACKENDS = [
@@ -281,6 +255,17 @@ CHANNEL_LAYERS = {
             "hosts": [redis_url],
         },
     },
+}
+
+CACHES = {
+    "default": {
+        "BACKEND": "django_redis.cache.RedisCache",
+        "LOCATION": f"redis://:{REDIS_PASSWORD}@{REDIS_HOST}:{REDIS_PORT}/1",
+        "OPTIONS": {
+            "CLIENT_CLASS": "django_redis.client.DefaultClient",
+            "IGNORE_EXCEPTIONS": True, 
+        },
+    }
 }
 
 

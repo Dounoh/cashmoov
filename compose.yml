@@ -9,9 +9,8 @@ services:
     ports:
       - "5432:5432"
     volumes:
-      - postgres_data_dev:/var/lib/postgresql
+      - postgres_data_dev:/var/lib/postgresql/data
       - ./init/script.sql:/docker-entrypoint-initdb.d/init.sql
-
   rabbitmq:
     image: rabbitmq:3-management
     ports:
@@ -36,18 +35,24 @@ services:
     command: >
       bash -c "
       python manage.py migrate --noinput &&
-      exec uvicorn config.asgi:application --host 0.0.0.0 --port 8000 --workers 4
+      exec uvicorn config.asgi:application --host 0.0.0.0 --port 8000 --reload --workers 4
       "
     volumes:
       - ./:/app
       - ./requirements:/app/requirements
-      - ./faiss_data:/app/faiss_data
     ports:
       - "8000:8000"
     depends_on:
       - postgres
       - rabbitmq
       - redis
+    # depends_on:
+    #   postgres:
+    #     condition: service_healthy 
+    #   rabbitmq:
+    #     condition: service_started
+    #   redis:
+    #     condition: service_healthy
 
   celery:
     build:

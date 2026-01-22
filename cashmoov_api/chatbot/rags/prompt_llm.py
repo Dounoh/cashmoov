@@ -44,12 +44,10 @@ def llm_humanise(query, context=None):
 
         ---
         ### Format de context 
-        - Tu recevra le context, les documents sur les quelles tu devras te basé pour repondre en une liste de dictionnaire de type:
-        [{{ 
+        - Tu recevra le context, les documents sur les quelles tu devras te basé pour repondre en une liste de dictionnaire qui sera contenu de:
             'title': 'titre',
             'context': 'le contenu',
             'similarity_score': 0.9
-        }}]
 
         **clé disponible:
         - `titre`: le titre du document
@@ -85,5 +83,5 @@ def llm_humanise(query, context=None):
         return response
 
     except Exception as e:
-        logger.error(f"Erreur LLM: {str(e)}")
+        logger.error(f"Erreur LLM: {str(e)} {system_prompt}")
         return f"veillez reesayer"

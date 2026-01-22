@@ -2,7 +2,6 @@ import uuid
 from typing import ClassVar
 
 from django.contrib.auth.models import AbstractUser
-from django.db.models import CharField
 from django.db.models import EmailField
 from django.db import models
 from django.utils.translation import gettext_lazy as _
@@ -13,11 +12,14 @@ from .managers import UserManager
 
 
 class User(AbstractUser,Base):
-    """
-    Default custom user model for Oil Transport.
-    If adding fields that need to be filled at user signup,
-    check forms.SignupForm and forms.SocialSignupForms accordingly.
-    """
+
+    ASSISTANT = "assistant"
+    ADMIN = "admin"
+
+    USER_TYPE_CHOICE = (
+        (ASSISTANT, "assistant",),
+        (ADMIN, "Admin",),
+    ) 
 
     id = models.BigAutoField(primary_key=True)
     email = EmailField(_("email address"), unique=True)
@@ -32,3 +34,8 @@ class User(AbstractUser,Base):
     USERNAME_FIELD = "email"
     REQUIRED_FIELDS = ['first_name', 'last_name']
 
+    objects: ClassVar[UserManager] = UserManager()
+
+    @property
+    def full_name(self):
+        return f"{self.first_name} {self.last_name}"

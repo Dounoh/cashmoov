@@ -1,149 +1,92 @@
 [
-    {
-        "title": "Création de compte Mobile Money Guinéen",
-        "content": "Pour créer un compte Mobile Money en Guinée, composez *144# depuis votre téléphone mobile. Suivez les instructions pour saisir vos informations : nom, prénom, date de naissance. Vous recevrez un code PIN par SMS. Rendez-vous ensuite chez un agent Orange Money, MTN Mobile Money ou Cellcom pour finaliser l'inscription avec votre carte d'identité nationale. Le compte est activé immédiatement.",
-        "source_type": "training"
-    },
-    {
-        "title": "Frais de transfert d'argent",
-        "content": "Les frais de transfert Mobile Money en Guinée : Transfert vers même opérateur : 1% du montant (minimum 500 GNF). Transfert vers autre opérateur : 2% (minimum 1000 GNF). Transfert vers un compte bancaire : 3% (minimum 2000 GNF). Transferts internationaux vers l'Afrique de l'Ouest : 5% (minimum 5000 GNF). Les transferts de moins de 50 000 GNF sont souvent gratuits entre utilisateurs du même opérateur.",
-        "source_type": "training"
-    },
-    {
-        "title": "Vérification d'identité KYC",
-        "content": "La vérification KYC est obligatoire pour les comptes Mobile Money en Guinée. Documents acceptés : Carte nationale d'identité guinéenne, Passeport valide, Permis de conduire guinéen. Présentez le document original chez un agent agréé. Pour les comptes supérieurs à 10 000 000 GNF, un justificatif de domicile est requis. La vérification est instantanée chez l'agent.",
-        "source_type": "training"
-    },
-    {
-        "title": "Limites de transaction Mobile Money",
-        "content": "Compte standard : Dépôt journalier : 5 000 000 GNF. Dépôt mensuel : 15 000 000 GNF. Transfert journalier : 2 000 000 GNF. Transfert mensuel : 10 000 000 GNF. Retrait journalier : 1 000 000 GNF. Compte vérifié (KYC complet) : Dépôt journalier : 10 000 000 GNF. Dépôt mensuel : 30 000 000 GNF. Transfert journalier : 5 000 000 GNF. Transfert mensuel : 20 000 000 GNF. Les limites sont fixées par la BCRG.",
-        "source_type": "training"
-    },
-    {
-        "title": "Comment alimenter son compte Mobile Money",
-        "content": "Méthodes pour créditer votre compte en Guinée : 1. Agent Mobile Money : déposez des espèces chez un agent agréé. 2. Virement bancaire depuis votre compte BICIGUI, SGBG, UBA, etc. 3. Réception de transfert d'un autre utilisateur. 4. Salaire versé par votre employeur. 5. Carte bancaire internationale (frais de 3%). Le minimum de dépôt est de 10 000 GNF chez les agents.",
-        "source_type": "training"
-    },
-    {
-        "title": "Délais de transfert d'argent",
-        "content": "Délais en Guinée : Transfert Mobile Money à Mobile Money : instantané. Transfert vers compte bancaire : 24 heures maximum. Transfert international vers la Guinée : 1-2 jours ouvrables. Transfert depuis la Guinée vers l'étranger : 2-3 jours. Les transferts effectués après 16h sont traités le lendemain. Week-ends et jours fériés : les délais sont rallongés.",
-        "source_type": "training"
-    },
-    {
-        "title": "Compte bloqué - procédure",
-        "content": "Si votre compte Mobile Money est bloqué en Guinée : 1. Contactez le service client de votre opérateur (Orange : 800, MTN : 555). 2. Rendez-vous dans une agence avec votre pièce d'identité. 3. Causes courantes : activité suspecte, PIN erroné plusieurs fois, documents expirés. 4. Le déblocage prend 24 à 48 heures maximum. Conservez toujours votre reçu de transaction comme preuve.",
-        "source_type": "training"
-    },
-    {
-        "title": "Changer son numéro de téléphone",
-        "content": "Pour changer de numéro en Guinée : 1. Rendez-vous dans une agence de votre opérateur. 2. Présentez votre carte d'identité et l'ancienne carte SIM. 3. Payez les frais de changement (environ 5000 GNF). 4. Le transfert du solde et des services prend 24h. Important : gardez l'ancien téléphone allumé pendant la procédure. Informez vos contacts du changement.",
-        "source_type": "training"
-    },
-    {
-        "title": "Fermeture de compte Mobile Money",
-        "content": "Pour fermer votre compte en Guinée : 1. Le solde doit être à 0 GNF. 2. Rendez-vous dans une agence avec votre pièce d'identité. 3. Signez le formulaire de fermeture. 4. Recevez un accusé de fermeture. 5. La fermeture est effective sous 7 jours. Après fermeture, vous ne pourrez plus utiliser le même numéro pour Mobile Money pendant 6 mois.",
-        "source_type": "training"
-    },
-    {
-        "title": "Services aux entreprises",
-        "content": "Solutions Mobile Money pour entreprises en Guinée : 1. Paiement des salaires via Mobile Money. 2. Collecte de paiements clients. 3. Facturation électronique. 4. Gestion de flotte d'agents. Contactez les services entreprises : Orange : entreprise@orange.gn, MTN : business@mtn.gn. Des frais préférentiels sont proposés aux entreprises enregistrées.",
-        "source_type": "training"
-    },
-    {
-        "title": "Transferts internationaux depuis/vers la Guinée",
-        "content": "Transferts depuis l'étranger vers la Guinée : 1. Western Union, MoneyGram : disponible dans toutes les agences. 2. Ria Money Transfer : points de retrait à Conakry. 3. Transferts via Mobile Money international. Délais : 10 minutes à 24 heures. Frais : 3-5% du montant. Documents requis pour retrait : carte d'identité et code de transfert. Maximum : 5 000 000 GNF par transaction.",
-        "source_type": "training"
-    },
-    {
-        "title": "Paiement de factures",
-        "content": "Payer vos factures via Mobile Money en Guinée : Factures d'électricité (EDG) : *144*1#. Factures d'eau (SEG) : *144*2#. Factures de téléphone : recharges automatiques. Frais universitaires : disponibles selon l'institution. Factures TV : canal+ et autres. Procédure : sélectionnez le service, entrez le numéro de compte, confirmez avec PIN. Recevez un reçu électronique.",
-        "source_type": "training"
-    },
-    {
-        "title": "Achat de crédit téléphonique",
-        "content": "Recharger votre crédit via Mobile Money : Orange : *144*numéro*montant#. MTN : *555*numéro*montant#. Cellcom : *133*numéro*montant#. Exemple : *144*622123456*5000# pour recharger 5000 GNF. Pas de frais supplémentaires. Le crédit est crédité instantanément. Vous pouvez aussi recharger le crédit d'un proche.",
-        "source_type": "training"
-    },
-    {
-        "title": "Épargne Mobile Money",
-        "content": "Services d'épargne en Guinée : Orange Money Épargne : taux d'intérêt de 2% par an. MTN MoMo Save : épargne sécurisée avec intérêts. Minimum d'épargne : 50 000 GNF. Retraits : disponibles à tout moment. Sécurité : garantie par l'opérateur. Pour activer : *144*8# pour Orange, *555*8# pour MTN. Consultez votre solde d'épargne via le même code USSD.",
-        "source_type": "training"
-    },
-    {
-        "title": "Prêts Mobile Money",
-        "content": "Obtenir un prêt via Mobile Money en Guinée : Orange Credit : prêts jusqu'à 500 000 GNF. MTN Kash Advance : prêts instantanés. Conditions : compte actif depuis 6 mois, historique de transactions régulières. Taux d'intérêt : 5-10% selon la durée. Remboursement : automatique à la prochaine recharge. Pour demander : *144*9# (Orange) ou *555*9# (MTN). Décision instantanée.",
-        "source_type": "training"
-    },
-    {
-        "title": "Achats en ligne",
-        "content": "Paiements en ligne avec Mobile Money en Guinée : Sites marchands guinéens acceptant Mobile Money : Afrimarket, Jumia Guinée, Jokkolabs Market. Procédure : sélectionnez Mobile Money à la caisse, entrez votre numéro, validez via USSD. Sécurisé avec double authentification. Limite : 1 000 000 GNF par transaction. Pour les sites internationaux, utilisez une carte virtuelle liée à votre compte.",
-        "source_type": "training"
-    },
-    {
-        "title": "Sécurité et protection",
-        "content": "Protégez votre compte Mobile Money en Guinée : 1. Ne partagez jamais votre PIN. 2. Changez votre PIN régulièrement. 3. Vérifiez toujours le numéro du destinataire. 4. Gardez vos reçus de transaction. 5. Signalez immédiatement tout vol de téléphone à votre opérateur. En cas de fraude : appelez le 122 (police) et votre opérateur. Les transactions sont traçables et réversibles sous certaines conditions.",
-        "source_type": "training"
-    },
-    {
-        "title": "Service client en Guinée",
-        "content": "Contacts service client : Orange Money : 800 (gratuit) ou 624 800 800. MTN Mobile Money : 555 ou 622 555 555. Cellcom : 133 ou 622 133 133. Agences à Conakry : Orange (Boulbinet, Taouyah), MTN (Camayenne, Coleah), Cellcom (Sandervalia). Horaires : 8h-18h du lundi au samedi. Pour les plaintes : Commission de Régulation des Télécommunications (CRT) : 3041 4040.",
-        "source_type": "training"
-    },
-    {
-        "title": "Transferts vers les zones rurales",
-        "content": "Envoyer de l'argent en zone rurale en Guinée : 1. Mobile Money : disponible partout où il y a du réseau. 2. Réseau d'agents : présente dans tous les chefs-lieux de préfecture. 3. Pour les zones sans réseau : utilisez les mandats postaux via la Poste Guinéenne. Frais réduits pour les transferts vers les zones rurales. Temps de traitement : instantané à 24h selon la localisation.",
-        "source_type": "training"
-    },
-    {
-        "title": "Change devise GNF/USD/EURO",
-        "content": "Change de devises via Mobile Money : Conversion GNF vers USD/EURO : disponible chez les agents agréés. Taux : taux du marché officiel + 1-2%. Maximum : 5 000 000 GNF par jour. Pour les montants importants : utilisez les bureaux de change agréés BCE (Banque Centrale). Taux affiché avant transaction. Conservez le reçu de change pour tout contrôle.",
-        "source_type": "training"
-    },
-    {
-        "title": "Éducation financière",
-        "content": "Formations gratuites en Guinée : 1. Ateliers Orange Money Academy : bases du Mobile Money. 2. Sessions MTN Business School : entrepreneuriat digital. 3. Programme Cellcom Academy : inclusion financière. Lieux : Conakry, Kindia, Labé, Kankan, Nzérékoré. Inscription gratuite via les agences. Certificat délivré à la fin. Pour les femmes entrepreneures : programmes spéciaux avec accompagnement.",
-        "source_type": "training"
-    },
-    {
-        "title": "Statistiques d'utilisation",
-        "content": "Chiffres Mobile Money en Guinée (2024) : Utilisateurs actifs : 4 millions. Transactions mensuelles : 50 millions. Volume mensuel : 500 milliards GNF. Agents agréés : 15 000 sur tout le territoire. Couverture : 85% de la population. Croissance : +25% par an. Impact : réduction de l'exclusion financière de 40% à 25% en 5 ans. Source : Banque Centrale de la République de Guinée.",
-        "source_type": "training"
-    },
-    {
-        "title": "Nouveautés 2024",
-        "content": "Nouvelles fonctionnalités en Guinée : 1. Paiement QR code : scannez et payez. 2. Compte joint : pour couples et familles. 3. Assurance maladie via Mobile Money : Mutuelle Santé. 4. Épargne projet : épargnez pour un objectif spécifique. 5. API pour développeurs : intégrez Mobile Money dans vos apps. Disponible progressivement sur tous les opérateurs. Consultez les sites officiels pour les dates de déploiement.",
-        "source_type": "training"
-    },
-    {
-        "title": "Création de compte CashMoov",
-        "content": "Pour créer un compte CashMoov en Guinée, téléchargez l'application 'CashMoov' depuis Google Play Store ou l'App Store d'Apple. Une fois installée, ouvrez l'application et cliquez sur 'Créer un compte'. Vous devrez fournir : votre nom complet, votre numéro de téléphone guinéen, votre adresse email, et créer un code PIN sécurisé. Après cette inscription numérique, vous devrez vous rendre physiquement chez l'un des plus de 3 000 agents CashMoov à travers le pays pour finaliser la vérification de votre identité. Présentez votre carte nationale d'identité guinéenne ou votre passeport. Une fois vérifié, votre compte est activé immédiatement et vous pouvez commencer à utiliser tous les services. Il n'est pas nécessaire d'utiliser de code USSD (comme *144#), tout se fait via l'application mobile."
-    },
-    {
-        "title": "Frais de transfert CashMoov",
-        "content": "CashMoov se présente comme offrant les tarifs les plus compétitifs du marché en Guinée. Pour les transferts d'argent nationaux (d'un compte CashMoov à un autre), les frais sont fixés à 1% du montant envoyé. Par exemple, pour envoyer 1 000 000 GNF (un million de francs guinéens), les frais seront de 10 000 GNF. L'entreprise affirme que ce taux de 1% est appliqué de manière transparente, sans frais minimum cachés pour ce type de transfert interne. Pour les transferts internationaux, notamment vers d'autres pays africains, CashMoov propose également des frais compétitifs, se positionnant comme une alternative aux opérateurs traditionnels comme Western Union."
-    },
-    {
-        "title": "Fonctionnalités de l'application CashMoov",
-        "content": "L'application CashMoov est une plateforme tout-en-un pour les services financiers. Ses principales fonctionnalités incluent : la consultation en temps réel de votre solde et de l'historique détaillé de toutes vos transactions ; le transfert d'argent national (vers un autre utilisateur CashMoov) et international (vers plusieurs pays africains) ; le rechargement de crédit téléphonique pour tous les opérateurs en Guinée ; le paiement de factures (comme l'électricité EDG ou l'eau) ; et le paiement chez les commerçants via scan de QR code. Toutes les transactions sont sécurisées et doivent être confirmées par votre code PIN personnel ou, si votre smartphone le permet, par empreinte biométrique."
-    },
-    {
-        "title": "Transferts internationaux avec CashMoov",
-        "content": "CashMoov permet d'envoyer et de recevoir de l'argent depuis l'étranger de manière simple. Le service couvre plusieurs pays africains et est conçu pour des besoins courants comme payer les frais de scolarité, régler des fournisseurs à l'étranger ou soutenir sa famille. Le processus dans l'application est rapide : sélectionnez 'Envoyer à l'international', choisissez le pays et la devise, entrez les coordonnées du bénéficiaire et le montant. Les frais sont clairement affichés avant confirmation. Selon l'entreprise, les transferts internationaux sont traités en quelques clics, offrant une alternative numérique aux services de transfert physiques."
-    },
-    {
-        "title": "Comment déposer de l'argent sur son compte CashMoov ?",
-        "content": "Pour alimenter votre portefeuille CashMoov, vous devez vous rendre chez l'un des nombreux agents agréés répartis dans tout le pays. Ces agents, identifiables par l'enseigne CashMoov, acceptent les dépôts en espèces. Donnez votre numéro de téléphone lié au compte à l'agent, remettez-lui l'argent liquide, et le montant sera crédité sur votre compte CashMoov de manière quasi instantanée. Il s'agit actuellement de la méthode principale pour déposer des espèces. Le virement bancaire depuis un compte en Guinée (BICIGUI, SGBG, UBA, etc.) vers votre compte CashMoov peut également être possible ; il est recommandé de contacter le support pour connaître la procédure exacte."
-    },
-    {
-        "title": "Vérification d'identité (KYC) chez CashMoov",
-        "content": "Comme toute institution financière régulée, CashMoov doit vérifier l'identité de ses clients (procédure KYC). Cette vérification est obligatoire pour activer pleinement votre compte et lever les limites de transaction. Pour finaliser votre inscription après le téléchargement de l'app, vous devez vous présenter physiquement chez un agent CashMoov avec votre pièce d'identité originale en cours de validité : Carte Nationale d'Identité guinéenne ou Passeport. L'agent procède à la vérification sur place. Pour des montants très élevés, un justificatif de domicile (facture d'électricité, d'eau ou de téléphone) pourrait être requis. Ce processus en personne, bien qu'exigeant un déplacement, est une norme de sécurité importante."
-    },
-    {
-        "title": "Service client et contacts CashMoov",
-        "content": "CashMoov Main à Main S.A est une entreprise guinéenne fondée en 2014. Son siège social est situé à l'Immeuble Sonit, Avenue de la République, Kaloum, BP : 3602 (Conakry). Vous pouvez contacter l'entreprise pour toute question ou assistance : Par téléphone : +224 621 64 00 00 ou +224 657 64 00 00. Par email : contact@cashmoov.net. Pour des demandes spécifiques concernant les transferts en Afrique, un contact WhatsApp est également disponible : +224 661 64 00 00. Il est conseillé de conserver ces coordonnées et de toujours garder les reçus de vos transactions comme preuve en cas de litige."
-    },
-    {
-        "title": "Devenir agent CashMoov",
-        "content": "CashMoov s'appuie sur un vaste réseau de plus de 3 000 agents pour assurer ses services de dépôt et de retrait d'espèces à travers la Guinée. L'entreprise propose une opportunité de revenus en devenant agent. Les agents disposent d'une application dédiée, distincte de l'application client, qui leur permet de gérer les transactions de leurs clients, de consulter leur propre solde et historique, et d'effectuer des virements. Le développeur officiel de cette application agent est bien la 'SOCIETE CASH MOOV-MAIN A MAIN'. Les agents gagnent des commissions sur les transactions effectuées. Les personnes intéressées peuvent probablement se renseigner directement auprès du siège de l'entreprise."
-    }
+  {
+    "title": "Création de compte CashMoov",
+    "content": "Pour créer un compte CashMoov : 1. Téléchargez l'app depuis App Store ou Google Play. 2. Remplissez le formulaire avec nom, prénom, email, téléphone. 3. Validez votre numéro via code SMS. 4. Téléchargez pièce d'identité + justificatif de domicile pour KYC. 5. Validation sous 24h. Documents acceptés : CNI recto-verso, passeport, permis de conduire. Justificatif de domicile : facture électricité/eau/téléphone de moins de 3 mois.",
+    "source_type": "training"
+  },
+  {
+    "title": "Suppression de compte - Conditions",
+    "content": "Conditions préalables pour suppression : 1. Solde à 0€ (transférer ou retirer tout argent). 2. Aucune transaction en attente. 3. Résilier tous abonnements Premium. 4. Exporter son historique si besoin. Important : La suppression est IRREVERSIBLE. Vous perdrez accès à tout l'historique.",
+    "source_type": "training"
+  },
+  {
+    "title": "Suppression de compte - Procédure",
+    "content": "Procédure de suppression : 1. Envoyer email à suppression@cashmoov.net avec : nom complet, numéro de compte, copie pièce d'identité, motif. 2. Recevoir SMS de confirmation sur votre numéro enregistré. 3. Suppression effective sous 30 jours. 4. Pendant ces 30 jours, possibilité d'annuler la demande. Après suppression, vos données sont anonymisées conformément RGPD.",
+    "source_type": "training"
+  },
+  {
+    "title": "Frais de transfert - National/Europe",
+    "content": "Frais transferts nationaux : 1% du montant (minimum 0.50€). Transferts Europe : 2% (minimum 2€). Transferts instantanés : +1€ de frais supplémentaires. Les 3 premiers transferts du mois gratuits pour utilisateurs vérifiés KYC. Tous frais affichés avant validation. Pas de frais cachés.",
+    "source_type": "training"
+  },
+  {
+    "title": "Frais de transfert - International",
+    "content": "Transferts vers Afrique : 3% (minimum 3€). Transferts vers autres continents : 4% (minimum 5€). Taux de change : taux interbancaire + marge affichée. Délais : Europe 1-2 jours, Afrique 2-3 jours, autres 3-5 jours. Maximum : 5 000€ par transfert, 10 000€ par mois.",
+    "source_type": "training"
+  },
+  {
+    "title": "Vérification KYC - Documents",
+    "content": "KYC obligatoire pour toutes fonctionnalités. Documents acceptés : CNI recto-verso valide, passeport valide, permis de conduire (selon pays). Justificatif domicile < 3 mois : facture électricité/eau/téléphone, quittance loyer, taxe d'habitation. Prendre photo claire + selfie avec pièce d'identité. Sans KYC : limite 500€/mois.",
+    "source_type": "training"
+  },
+  {
+    "title": "Vérification KYC - Délais",
+    "content": "Délais vérification KYC : Vérification automatique (IA) : 5-10 minutes (80% cas). Vérification manuelle : 24-48h. Vérification renforcée (montants élevés) : 48-72h. Week-ends rallongent délais. Accélérer : photos nettes sans reflets, documents non expirés, noms correspondants. Notification SMS/email à chaque étape.",
+    "source_type": "training"
+  },
+  {
+    "title": "Alimentation compte - Méthodes",
+    "content": "Méthodes pour créditer compte : 1. Carte bancaire Visa/Mastercard : instantané, frais 1.5%. 2. Virement SEPA : 1-2 jours ouvrables, gratuit. 3. Espèces points partenaires (relais/tabacs) : frais 2%. 4. Apple/Google Pay : instantané, frais 1%. 5. Virement CashMoov vers CashMoov : instantané gratuit. Minimum dépôt : 5€.",
+    "source_type": "training"
+  },
+  {
+    "title": "Limites transactions - Standard",
+    "content": "Compte standard non vérifié : Dépôt journalier 1 000€. Dépôt mensuel 5 000€. Transfert journalier 2 000€. Transfert mensuel 10 000€. Retrait journalier 500€. Ces limites s'appliquent sans KYC complet.",
+    "source_type": "training"
+  },
+  {
+    "title": "Limites transactions - Vérifié",
+    "content": "Compte vérifié KYC complet : Dépôt journalier 5 000€. Dépôt mensuel 25 000€. Transfert journalier 5 000€. Transfert mensuel 25 000€. Retrait journalier 1 000€. Augmentation limites possible sur demande avec justificatifs revenus. Contactez support pour demande augmentation.",
+    "source_type": "training"
+  },
+  {
+    "title": "Carte physique - Commande",
+    "content": "Commander carte physique : 1. App > Section Carte. 2. Commander carte physique. 3. Choisir design standard noire (10€) ou premium métal (25€). 4. Valider adresse livraison. Livraison : France 3-5 jours, DOM-TOM 7-10 jours, International 10-15 jours. Carte activée automatiquement. PIN reçu par SMS séparé.",
+    "source_type": "training"
+  },
+  {
+    "title": "CashMoov Premium - Avantages",
+    "content": "Premium 9.99€/mois : Retraits illimités sans frais mondial. Assurance voyage (annulation, bagages, médical). Conciergerie 24/7. Support prioritaire réponse < 2min. Taux change -0.2%. Carte métal personnalisée. Accès salons aéroport (4 entrées/an). Essai gratuit 14 jours. Résiliation anytime. Famille : 14.99€/mois pour 4 cartes.",
+    "source_type": "training"
+  },
+  {
+    "title": "Support client - Contacts",
+    "content": "Support disponible : Chat dans app 24/7 (réponse < 5min). Email support@cashmoov.net (réponse < 24h). Téléphone 09 70 80 90 10 (Lun-Ven 9h-18h). Twitter @CashMoovSupport (réponse < 2h). Pour urgence : utiliser chat. Préparer numéro compte avant appel. Réclamations formelles par email avec pièces jointes.",
+    "source_type": "training"
+  },
+  {
+    "title": "Sécurité - Mesures",
+    "content": "Sécurité CashMoov : Chiffrement AES-256 bout en bout. 2FA obligatoire transactions > 500€. Options 2FA : SMS, Google Authenticator, clé physique. Notifications instantanées transactions. Vérification biométrique mobile (empreinte/facial). Audit sécurité annuel. En cas perte téléphone : contacter support IMMEDIATEMENT pour bloquer accès.",
+    "source_type": "training"
+  },
+  {
+    "title": "Pays supportés - Zones",
+    "content": "CashMoov disponible : Zone Euro : FR, BE, DE, ES, IT, PT, NL, IE, AT. Afrique : SN, CI, CM, ML, MA, TN, DZ, BJ, TG. Amérique : CA (beta), US (transferts uniquement). Transferts vers 60+ pays. Restrictions pays sous embargo. Pour pays non listés : contacter support. App en FR, EN, ES, PT.",
+    "source_type": "training"
+  },
+  {
+    "title": "Transferts internationaux - Procédure",
+    "content": "Transfert international : 1. Envoyer > International. 2. Choisir pays + devise. 3. Entrer coordonnées bénéficiaire (nom, banque, IBAN, mobile). 4. Vérifier taux change. 5. Confirmer avec PIN. Taux : interbancaire + marge affichée. Délais : Europe 1-2j, Afrique 2-3j. Suivi temps réel dans app. Max 5 000€/transfert.",
+    "source_type": "training"
+  },
+  {
+    "title": "Compte bloqué - Causes",
+    "content": "Causes blocage compte : Activité suspecte détectée. Documents KYC expirés. Tentative connexion frauduleuse. Plainte autre utilisateur. Retours de paiement fréquents. Usage contraire CGU. Solde négatif non régularisé. Suspicion blanchiment. Contact support avec documents identité pour déblocage.",
+    "source_type": "training"
+  },
+  {
+    "title": "Compte bloqué - Déblocage",
+    "content": "Procédure déblocage : 1. Vérifier emails équipe sécurité. 2. Contacter support via chat app. 3. Fournir documents identité demandés. 4. Attendre vérification. Délais déblocage : 24-72h après réception documents. Pendant blocage : aucun transfert/retrait possible. Dépôts toujours acceptés. Support peut accélérer si urgence justifiée.",
+    "source_type": "training"
+  }
 ]

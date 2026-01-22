@@ -5,6 +5,8 @@ from pgvector.django import CosineDistance
 from channels.db import database_sync_to_async
 from asgiref.sync import sync_to_async
 import logging
+from django.db.models import F, FloatField
+from django.db.models.functions import Cast
 
 logger = logging.getLogger(__name__)
 
@@ -19,14 +21,27 @@ def search_documents_sync(query_text, top_k=5, max_similarity=0.7):
     
     try:
 
-        norm_query = normalize_embedding(content=query_text)
+        norm_query = normalize_embedding(content=query_text, is_query=True)
         
+        # documents = (
+        #     Document.objects
+        #     .filter(is_active=True)
+        #     .annotate(similarity=CosineDistance('embedding', norm_query))
+        #     .filter(similarity__lte=max_similarity)
+        #     .order_by('similarity')[:top_k]
+        # )
+
         documents = (
             Document.objects
             .filter(is_active=True)
-            .annotate(similarity=CosineDistance('embedding', norm_query))
-            .filter(similarity__lte=max_similarity)
-            .order_by('similarity')[:top_k]
+            .annotate(
+                distance=CosineDistance('embedding', norm_query),
+                # Utiliser Cast pour convertir en float avant la soustraction
+                similarity=1.0 - Cast(F('distance'), FloatField())
+            )
+            .filter(similarity__gte=0.2)
+            .order_by('-similarity')
+            .only('title', 'content', 'source_type')[:top_k]
         )
         
         if not documents.exists():
@@ -56,8 +71,9 @@ async def search_documents(query_text, top_k=5, max_similarity=0.7):
         return []
 
     try:
-        resultats_llm = await sync_to_async(llm_humanise)(results)
+        resultats_llm = await sync_to_async(llm_humanise)(query=query_text,context=results)
         return resultats_llm
+        # return []
     except Exception as e:
         logger.error(f"Erreur LLM: {str(e)}")
         return []
