@@ -18,8 +18,7 @@ RUN --mount=type=cache,target=/root/.cache/pip \
     pip install --upgrade pip wheel setuptools && \
     pip install -r requirements.txt
 
-# Une seule ligne pour télécharger le modèle
-RUN python -c "import sentence_transformers; model = sentence_transformers.SentenceTransformer('all-MiniLM-L6-v2'); model.save('/app/local_model')"
+RUN python -c "import sentence_transformers; model = sentence_transformers.SentenceTransformer('intfloat/multilingual-e5-base'); model.save('/app/local_model')"
 
 COPY . .
 

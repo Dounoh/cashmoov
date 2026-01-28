@@ -6,7 +6,7 @@
   },
   {
     "title": "Suppression de compte - Conditions",
-    "content": "Conditions préalables pour suppression : 1. Solde à 0€ (transférer ou retirer tout argent). 2. Aucune transaction en attente. 3. Résilier tous abonnements Premium. 4. Exporter son historique si besoin. Important : La suppression est IRREVERSIBLE. Vous perdrez accès à tout l'historique.",
+    "content": "Conditions préalables pour suppression : 1. Solde à 0 GNF (transférer ou retirer tout argent). 2. Aucune transaction en attente. 3. Résilier tous abonnements Premium. 4. Exporter son historique si besoin. Important : La suppression est IRREVERSIBLE. Vous perdrez accès à tout l'historique.",
     "source_type": "training"
   },
   {
@@ -16,17 +16,17 @@
   },
   {
     "title": "Frais de transfert - National/Europe",
-    "content": "Frais transferts nationaux : 1% du montant (minimum 0.50€). Transferts Europe : 2% (minimum 2€). Transferts instantanés : +1€ de frais supplémentaires. Les 3 premiers transferts du mois gratuits pour utilisateurs vérifiés KYC. Tous frais affichés avant validation. Pas de frais cachés.",
+    "content": "Frais transferts nationaux : 1% du montant (minimum 0.50 GNF). Transferts Europe : 2% (minimum 2 GNF). Transferts instantanés : +1 GNF de frais supplémentaires. Les 3 premiers transferts du mois gratuits pour utilisateurs vérifiés KYC. Tous frais affichés avant validation. Pas de frais cachés.",
     "source_type": "training"
   },
   {
     "title": "Frais de transfert - International",
-    "content": "Transferts vers Afrique : 3% (minimum 3€). Transferts vers autres continents : 4% (minimum 5€). Taux de change : taux interbancaire + marge affichée. Délais : Europe 1-2 jours, Afrique 2-3 jours, autres 3-5 jours. Maximum : 5 000€ par transfert, 10 000€ par mois.",
+    "content": "Transferts vers Afrique : 3% (minimum 3 GNF). Transferts vers autres continents : 4% (minimum 5 GNF). Taux de change : taux interbancaire + marge affichée. Délais : Europe 1-2 jours, Afrique 2-3 jours, autres 3-5 jours. Maximum : 5 000 GNF par transfert, 10 000 GNF par mois.",
     "source_type": "training"
   },
   {
     "title": "Vérification KYC - Documents",
-    "content": "KYC obligatoire pour toutes fonctionnalités. Documents acceptés : CNI recto-verso valide, passeport valide, permis de conduire (selon pays). Justificatif domicile < 3 mois : facture électricité/eau/téléphone, quittance loyer, taxe d'habitation. Prendre photo claire + selfie avec pièce d'identité. Sans KYC : limite 500€/mois.",
+    "content": "KYC obligatoire pour toutes fonctionnalités. Documents acceptés : CNI recto-verso valide, passeport valide, permis de conduire (selon pays). Justificatif domicile < 3 mois : facture électricité/eau/téléphone, quittance loyer, taxe d'habitation. Prendre photo claire + selfie avec pièce d'identité. Sans KYC : limite 500 GNF/mois.",
     "source_type": "training"
   },
   {
@@ -36,27 +36,27 @@
   },
   {
     "title": "Alimentation compte - Méthodes",
-    "content": "Méthodes pour créditer compte : 1. Carte bancaire Visa/Mastercard : instantané, frais 1.5%. 2. Virement SEPA : 1-2 jours ouvrables, gratuit. 3. Espèces points partenaires (relais/tabacs) : frais 2%. 4. Apple/Google Pay : instantané, frais 1%. 5. Virement CashMoov vers CashMoov : instantané gratuit. Minimum dépôt : 5€.",
+    "content": "Méthodes pour créditer compte : 1. Carte bancaire Visa/Mastercard : instantané, frais 1.5%. 2. Virement SEPA : 1-2 jours ouvrables, gratuit. 3. Espèces points partenaires (relais/tabacs) : frais 2%. 4. Apple/Google Pay : instantané, frais 1%. 5. Virement CashMoov vers CashMoov : instantané gratuit. Minimum dépôt : 5 GNF.",
     "source_type": "training"
   },
   {
     "title": "Limites transactions - Standard",
-    "content": "Compte standard non vérifié : Dépôt journalier 1 000€. Dépôt mensuel 5 000€. Transfert journalier 2 000€. Transfert mensuel 10 000€. Retrait journalier 500€. Ces limites s'appliquent sans KYC complet.",
+    "content": "Compte standard non vérifié : Dépôt journalier 1 000 GNF. Dépôt mensuel 5 000 GNF. Transfert journalier 2 000 GNF. Transfert mensuel 10 000 GNF. Retrait journalier 500 GNF. Ces limites s'appliquent sans KYC complet.",
     "source_type": "training"
   },
   {
     "title": "Limites transactions - Vérifié",
-    "content": "Compte vérifié KYC complet : Dépôt journalier 5 000€. Dépôt mensuel 25 000€. Transfert journalier 5 000€. Transfert mensuel 25 000€. Retrait journalier 1 000€. Augmentation limites possible sur demande avec justificatifs revenus. Contactez support pour demande augmentation.",
+    "content": "Compte vérifié KYC complet : Dépôt journalier 5 000 GNF. Dépôt mensuel 25 000 GNF. Transfert journalier 5 000 GNF. Transfert mensuel 25 000 GNF. Retrait journalier 1 000 GNF. Augmentation limites possible sur demande avec justificatifs revenus. Contactez support pour demande augmentation.",
     "source_type": "training"
   },
   {
     "title": "Carte physique - Commande",
-    "content": "Commander carte physique : 1. App > Section Carte. 2. Commander carte physique. 3. Choisir design standard noire (10€) ou premium métal (25€). 4. Valider adresse livraison. Livraison : France 3-5 jours, DOM-TOM 7-10 jours, International 10-15 jours. Carte activée automatiquement. PIN reçu par SMS séparé.",
+    "content": "Commander carte physique : 1. App > Section Carte. 2. Commander carte physique. 3. Choisir design standard noire (10 GNF) ou premium métal (25 GNF). 4. Valider adresse livraison. Livraison : France 3-5 jours, DOM-TOM 7-10 jours, International 10-15 jours. Carte activée automatiquement. PIN reçu par SMS séparé.",
     "source_type": "training"
   },
   {
     "title": "CashMoov Premium - Avantages",
-    "content": "Premium 9.99€/mois : Retraits illimités sans frais mondial. Assurance voyage (annulation, bagages, médical). Conciergerie 24/7. Support prioritaire réponse < 2min. Taux change -0.2%. Carte métal personnalisée. Accès salons aéroport (4 entrées/an). Essai gratuit 14 jours. Résiliation anytime. Famille : 14.99€/mois pour 4 cartes.",
+    "content": "Premium 9.99 GNF/mois : Retraits illimités sans frais mondial. Assurance voyage (annulation, bagages, médical). Conciergerie 24/7. Support prioritaire réponse < 2min. Taux change -0.2%. Carte métal personnalisée. Accès salons aéroport (4 entrées/an). Essai gratuit 14 jours. Résiliation anytime. Famille : 14.99 GNF/mois pour 4 cartes.",
     "source_type": "training"
   },
   {
@@ -66,7 +66,7 @@
   },
   {
     "title": "Sécurité - Mesures",
-    "content": "Sécurité CashMoov : Chiffrement AES-256 bout en bout. 2FA obligatoire transactions > 500€. Options 2FA : SMS, Google Authenticator, clé physique. Notifications instantanées transactions. Vérification biométrique mobile (empreinte/facial). Audit sécurité annuel. En cas perte téléphone : contacter support IMMEDIATEMENT pour bloquer accès.",
+    "content": "Sécurité CashMoov : Chiffrement AES-256 bout en bout. 2FA obligatoire transactions > 500 GNF. Options 2FA : SMS, Google Authenticator, clé physique. Notifications instantanées transactions. Vérification biométrique mobile (empreinte/facial). Audit sécurité annuel. En cas perte téléphone : contacter support IMMEDIATEMENT pour bloquer accès.",
     "source_type": "training"
   },
   {
@@ -76,7 +76,7 @@
   },
   {
     "title": "Transferts internationaux - Procédure",
-    "content": "Transfert international : 1. Envoyer > International. 2. Choisir pays + devise. 3. Entrer coordonnées bénéficiaire (nom, banque, IBAN, mobile). 4. Vérifier taux change. 5. Confirmer avec PIN. Taux : interbancaire + marge affichée. Délais : Europe 1-2j, Afrique 2-3j. Suivi temps réel dans app. Max 5 000€/transfert.",
+    "content": "Transfert international : 1. Envoyer > International. 2. Choisir pays + devise. 3. Entrer coordonnées bénéficiaire (nom, banque, IBAN, mobile). 4. Vérifier taux change. 5. Confirmer avec PIN. Taux : interbancaire + marge affichée. Délais : Europe 1-2j, Afrique 2-3j. Suivi temps réel dans app. Max 5 000 GNF/transfert.",
     "source_type": "training"
   },
   {

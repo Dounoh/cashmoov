@@ -108,3 +108,4 @@ venv.bak/
 faiss_data/*
 ./faiss_data/*
 faiss_data/
+.pytest_cache/

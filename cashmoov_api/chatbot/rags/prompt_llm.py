@@ -1,7 +1,9 @@
-from cashmoov_api.chatbot.rags.utils.adpter_api_llm import AdapterLlm
-from .utils.huggin_face_api import HugginClient
-import json 
+import json
 import logging
+
+from cashmoov_api.chatbot.rags.utils.adpter_api_llm import AdapterLlm
+
+from .utils.huggin_face_api import HugginClient
 
 logger = logging.getLogger(__name__)
 
@@ -43,7 +45,7 @@ def llm_humanise(query, context=None):
         "response_none"
 
         ---
-        ### Format de context 
+        ### Format de context
         - Tu recevra le context, les documents sur les quelles tu devras te basé pour repondre en une liste de dictionnaire qui sera contenu de:
             'title': 'titre',
             'context': 'le contenu',
@@ -57,7 +59,10 @@ def llm_humanise(query, context=None):
         ----
 
         ### Format de réponse OBLIGATOIRE (La reponse en str strict)
-        Tu DOIS répondre avec un avec un str contenant la reponse a la question
+        Tu DOIS répondre avec un avec un str contenant la reponse a la question le string de reponse
+        doit pas contenir des `\n` pour le retour a la ligne ou autre caractere speciale.
+        exemple de reponse correcte:
+        "vous pouvez effectuer un transfert d'argent en suivant ces étapes: ..."
 
         ---
 
@@ -83,5 +88,5 @@ def llm_humanise(query, context=None):
         return response
 
     except Exception as e:
-        logger.error(f"Erreur LLM: {str(e)} {system_prompt}")
+        logger.error(f"****Erreur lors de l'appel api du LLM: {str(e)} {system_prompt}")
         return f"veillez reesayer"

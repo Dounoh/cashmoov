@@ -1,0 +1,38 @@
+versions: 2
+updates:
+  - package-ecosystem: 'github-action'
+    directory: '/'
+    schedule:
+      interval: 'daily'
+    group:
+      github-action:
+        patterns:
+          '*'
+
+  - package-ecosystem: 'docker'
+    directories:
+      - 'compose/local/Dockerfile'
+      - 'compose/prod/Dockerfile'
+    schedule:
+      interval: 'daily'
+
+    groups:
+      docker:
+        patterns:
+          '*'
+      ignore:
+        dependances-name: '*'
+        update-types:
+          - 'version-update:semver-major'
+          - 'version-update:semver-minor'
+
+  - package-ecosystem: 'pip'
+    directory: '/'
+    schedule:
+      interval: 'daily'
+
+    groups:
+      pip-install:
+        update-types:
+          - 'minor'
+          - 'patch'

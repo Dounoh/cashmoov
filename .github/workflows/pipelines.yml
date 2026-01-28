@@ -1,0 +1,138 @@
+name: CHECK_BYFORE_DEPLOYE
+
+
+on:
+  pull_request:
+    - '*'
+    - '!main'
+
+  push:
+    - '*'
+
+concurrency:
+  group: ${{ github.workflow }}-${{ github.ref }}
+  cancel_in_progress: true
+
+jobs:
+  check_syntaxe:
+
+    runs_on: ubuntu_latest
+    steps:
+      - name: clone Repository
+        uses: actions/checkout@v4
+
+      - name: setup python
+        uses: actions/setup-python@v5
+        with:
+          python-version-files: '.python-version'
+
+      - name: run precommit
+        uses: pre-commit/action@v3.0.1
+
+  check_dependances:
+    runs_on: ubuntu_latest
+    needs: 'check_syntaxe'
+
+    steps:
+      - name: clone Repository
+        uses: actions/checkout@v4
+      - name: setup python
+        uses: actions/setup-python@v5
+        with:
+          python-version-files: '.python-version'
+
+      - name: install dependance projet
+        run: |
+          python -m pip install --upgrade pip
+          pip install -r requirements.txt
+          pip install flake8
+
+      - name: run check dependances flake8
+        run: |
+          flake8 . --exit-zero
+
+  security-audit:
+    runs-on: ubuntu-latest
+    needs: 'pytest'
+    steps:
+      - name: Checkout code
+        uses: actions/checkout@v4
+
+      - name: Set up Python
+        uses: actions/setup-python@v5
+        with:
+          python-version-file: '.python-version'
+
+      - name: Install dependencies
+        run: pip install -r requirements.txt
+
+      - name: Run pip-audit
+        uses: pypa/gh-action-pip-audit@v1.0.0
+        with:
+          inputs: requirements.txt
+
+  test:
+    runs-on: ubuntu-latest
+    needs: 'security-audit'
+    services:
+      postgres:
+        image: pgvector/pgvector:pg16
+        ports:
+          - "5432:5432"
+        env:
+          POSTGRES_USER: cashmoov
+          POSTGRES_PASSWORD : cashmoov
+          POSTGRES_DB: cashmoov_test
+          DATABASE_URL: postgres://cashmoov:cashmoov@postgres:5432/cashmoov_test
+
+    steps:
+      - name: Checkout code
+        uses: actions/checkout@v4
+
+      - name: docker buildx
+        uses: docker/setup-buildx-action@v3
+
+      - name: docker bake action
+        uses: docker/bake-action@v6
+        with:
+          push: false
+          load: true
+          files: compose.yml
+          targets: django
+          set: |
+            django.cache-from=type=gha,scope=django-cached-tests
+            django.cache-to=type=gha,scope=django-cached-tests,mode=max
+
+      - name: check-migrations
+        run: |
+          docker compose run --rm django python manage.py makemigrations --check
+
+      - name: migrations
+        run: |
+          docker compose run --rm django python manage.py migrate
+
+      - name: check pytest
+        run: |
+          docker compose run --rm django pytest
+
+      - name: down container for test
+        run: |
+          docker compose down
+
+  # build_image:
+  #   name: build and push docker image
+  #   runs-on: ubuntu-latest
+  #   needs: 'test'
+
+  #   steps:
+  #       - uses: actions/checkout@v2
+  #       - name: docker login
+  #         env:
+  #           username: ${{ secrets.DOCKERHUB_USER }}
+  #           password: ${{ secrets.DOCKERHUB_PASSWORD }}
+  #         run: |
+  #           docker login -u dounoh0 -p Gnouma2011
+  #       - name: docker build and push
+  #         run: |
+  #           docker build . -t dounoh0/cashmoov_chatbot:latest
+  #           docker push dounoh0/cashmoov_chatbot:latest

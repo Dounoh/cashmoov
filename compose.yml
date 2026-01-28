@@ -26,12 +26,6 @@ services:
       dockerfile: compose/local/Dockerfile
     env_file:
       - .env
-    # environment:
-    #   DJANGO_SECRET_KEY: ${DJANGO_SECRET_KEY}
-    #   DEBUG: "True"
-    #   DJANGO_SETTINGS_MODULE: ${DJANGO_SETTINGS_MODULE}
-    #   DATABASE_URL: ${DATABASE_URL}
-    #   CELERY_BROKER_URL: ${CELERY_BROKER_URL}
     command: >
       bash -c "
       python manage.py migrate --noinput &&
@@ -46,13 +40,6 @@ services:
       - postgres
       - rabbitmq
       - redis
-    # depends_on:
-    #   postgres:
-    #     condition: service_healthy 
-    #   rabbitmq:
-    #     condition: service_started
-    #   redis:
-    #     condition: service_healthy
 
   celery:
     build:
@@ -66,15 +53,6 @@ services:
       - django
     env_file:
       - .env
-    # environment:
-    #   DJANGO_SECRET_KEY: ${DJANGO_SECRET_KEY}
-    #   DJANGO_SETTINGS_MODULE: ${DJANGO_SETTINGS_MODULE}
-    #   CELERY_BROKER_URL: ${CELERY_BROKER_URL}
-    #   DATABASE_URL: ${DATABASE_URL}
-    #   REDIS_HOST=${REDIS_HOST} 
-    #   REDIS_PORT=${REDIS_PORT}
-    #   REDIS_PASSWORD=${REDIS_PASSWORD:-yourpassword}
-
 
   redis:
     image: redis:7-alpine
@@ -87,7 +65,7 @@ services:
     command: redis-server --appendonly yes --requirepass ${REDIS_PASSWORD}
     env_file:
       - .env
-    
+
     healthcheck:
       test: ["CMD", "redis-cli", "ping"]
       interval: 10s

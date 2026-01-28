@@ -40,6 +40,18 @@ docker compose up postgres
 Démarrer le worker Celery :
 docker compose up celery
 
+# Installer les dépendances de test
+pip install pytest pytest-django factory-boy
+
+# Exécuter tous les tests
+pytest
+
+# Exécuter les tests d'un module spécifique
+pytest tests/test_models/
+
+# Exécuter avec coverage
+pytest --cov=cashmoov_api
+
 ---
 
 ## Initialisation de la base de données

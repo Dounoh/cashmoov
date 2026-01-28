@@ -1,20 +1,22 @@
 import json
-from channels.generic.websocket import AsyncWebsocketConsumer
+
 from channels.db import database_sync_to_async
+from channels.generic.websocket import AsyncWebsocketConsumer
+
 from cashmoov_api.chatbot.redis import (
-    get_online_users,
     add_online_user,
+    get_online_users,
     remove_online_user,
 )
 
-USER_TYPE_CUSTOMER = 'customer'
-USER_TYPE_ASSISTANT = 'assistant'
-TYPE_RESPONSE = 'response_none'
+USER_TYPE_CUSTOMER = "customer"
+USER_TYPE_ASSISTANT = "assistant"
+TYPE_RESPONSE = "response_none"
 
 
 class ChatConsumer(AsyncWebsocketConsumer):
     """
-    La view pour le chat la conversation
+    Le consumer pour la gestion de tout ce qui est chat
     """
 
     async def connect(self):
@@ -32,7 +34,7 @@ class ChatConsumer(AsyncWebsocketConsumer):
                     "type": "chat.message",
                     "username": self.user.first_name,
                     "group_name": self.room_name,
-                    "message": "un assistant a rejoint votre discussion",
+                    "message": f"l'assistant {self.user.first_name} {self.user.last_name} a rejoint votre discussion",
                 },
             )
 
@@ -65,9 +67,9 @@ class ChatConsumer(AsyncWebsocketConsumer):
         await self.channel_layer.group_discard(self.room_group_name, self.channel_name)
 
         username = (
-            self.user.first_name
+            f"{self.user.first_name} {self.user.last_name}"
             if self.user.is_authenticated
-            else "client"
+            else USER_TYPE_CUSTOMER
         )
 
         await self.channel_layer.group_send(
@@ -76,7 +78,7 @@ class ChatConsumer(AsyncWebsocketConsumer):
                 "type": "chat.message",
                 "username": username,
                 "group_name": self.room_name,
-                "message": "A quitté votre discussion.",
+                "message": f"{username} A quitté votre discussion.",
             },
         )
 
@@ -86,9 +88,9 @@ class ChatConsumer(AsyncWebsocketConsumer):
             data = json.loads(text_data)
 
             username = (
-                self.user.first_name
+                f"{self.user.first_name} {self.user.last_name}"
                 if self.user.is_authenticated
-                else "client"
+                else USER_TYPE_CUSTOMER
             )
 
             message = data.get("message", "").strip()
@@ -111,9 +113,7 @@ class ChatConsumer(AsyncWebsocketConsumer):
             if user_type == USER_TYPE_CUSTOMER:
                 response = await self.search_response_ia(message)
 
-                if not response or (
-                    response and response.get("type") == TYPE_RESPONSE
-                ):
+                if not response or (response and response.get("type") == TYPE_RESPONSE):
                     users = await database_sync_to_async(get_online_users)()
 
                     if len(users) > 0:
@@ -162,17 +162,17 @@ class ChatConsumer(AsyncWebsocketConsumer):
                         },
                     )
 
-                    await self.create_chat(
-                        group_name=self.room_group_name,
-                        message=response["message"],
-                        username="ia",
-                    )
+                    # await self.create_chat(
+                    #     group_name=self.room_group_name,
+                    #     message=response["message"],
+                    #     username="ia",
+                    # )
 
             else:
                 await self.create_chat(
                     group_name=self.room_group_name,
-                    message=message,
-                    username=self.user.first_name,
+                    answers=message,
+                    username=username,
                 )
 
                 await self.channel_layer.group_send(
@@ -235,7 +235,7 @@ class ChatConsumer(AsyncWebsocketConsumer):
         return response
 
     @database_sync_to_async
-    def create_chat(self, group_name, message, username):
+    def create_chat(self, group_name, message=None, username=None, answers=None):
         from cashmoov_api.chatbot.models import Chatbot, Group
 
         group, _ = Group.objects.get_or_create(name=group_name)
@@ -243,6 +243,7 @@ class ChatConsumer(AsyncWebsocketConsumer):
             username=username,
             group=group,
             question=message,
+            answers=answers,
         )
 
     @database_sync_to_async
@@ -266,14 +267,23 @@ class ChatConsumer(AsyncWebsocketConsumer):
 
 
 class NotificationConsumer(AsyncWebsocketConsumer):
+    """
+    Le consumer pour la gestion des notifications
+    """
+
     unanswered_counts = {}
 
     async def connect(self):
+        user = self.scope["user"]
+        if not user.is_authenticated:
+            self.send(text_data=json.dumps({"error": "Authentication required"}))
+            await self.close()
+            return
+
         await self.channel_layer.group_add("notifications", self.channel_name)
         await self.accept()
 
-        self.user = self.scope["user"]
-        self.username = USER_TYPE_ASSISTANT
+        self.username = f"{user.first_name} {user.last_name}"
 
         await self.send(
             text_data=json.dumps(
@@ -340,28 +350,26 @@ class NotificationConsumer(AsyncWebsocketConsumer):
 
 
 class OnlineUser(AsyncWebsocketConsumer):
+    """
+    Le consumer pour la gestion des assistants en ligne
+    """
+
     async def connect(self):
         await self.channel_layer.group_add("online", self.channel_name)
         await self.accept()
 
-        self.username = (
-            self.scope["user"].first_name
-            if self.scope["user"].is_authenticated
-            else "client"
-        )
+        user = self.scope["user"]
+        if user.is_authenticated:
+            self.username = f"{user.first_name} {user.last_name}"
 
-        await database_sync_to_async(add_online_user)(self.username)
+            await database_sync_to_async(add_online_user)(self.username)
 
-        await self.broadcast_online_state(
-            f"{self.username} est maintenant en ligne"
-        )
+        await self.broadcast_online_state(f"Assistant en ligne.")
 
     async def disconnect(self, close_code):
         await database_sync_to_async(remove_online_user)(self.username)
 
-        await self.broadcast_online_state(
-            f"{self.username} n'est plus en ligne"
-        )
+        await self.broadcast_online_state(f"{self.username} n'est plus en ligne")
 
         await self.channel_layer.group_discard("online", self.channel_name)
 
