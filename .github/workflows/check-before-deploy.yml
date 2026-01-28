@@ -1,17 +1,23 @@
 name: CHECK_BEFORE_DEPLOY
 
 on:
-  pull_request:
-    branches:
-      - '*'
-
   push:
     branches:
-      - '*'
+      - '**'
+    branches-ignore:
+      - 'main'
+
+  pull_request:
+    branches:
+      - '**'
+
+  # Optionnel: permet de déclencher manuellement
+  workflow_dispatch:
 
 concurrency:
   group: ${{ github.workflow }}-${{ github.ref }}
-  cancel-in-progress: true  # Correction: tiret au lieu de underscore
+  cancel-in-progress: true
+
 
 jobs:
   check_syntaxe:
@@ -52,7 +58,7 @@ jobs:
 
   security-audit:
     runs-on: ubuntu-latest
-    needs: check_dependances  # Correction: pas de guillemets inutiles
+    needs: check_dependances
     steps:
       - name: Checkout code
         uses: actions/checkout@v4
