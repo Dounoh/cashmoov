@@ -4,15 +4,15 @@ on:
   push:
     branches:
       - '**'
-    branches-ignore:
-      - 'main'
+    # branches-ignore:
+    #   - 'main'
 
   pull_request:
     branches:
       - '**'
 
   # Optionnel: permet de déclencher manuellement
-  workflow_dispatch:
+  # workflow_dispatch:
 
 concurrency:
   group: ${{ github.workflow }}-${{ github.ref }}
