@@ -148,70 +148,70 @@ jobs:
   #         docker compose down -v
 
 
-test:
-  runs-on: ubuntu-latest
-  needs: security-audit
-  
-  env:
-    DATABASE_URL: postgres://cashmoov:cashmoov@postgres:5432/cashmoov_test
-    DEBUG: "False"
-    SECRET_KEY: ci-secret-${{ github.run_id }}
-    RABBITMQ_DEFAULT_USER: rabbitmq_user
-    RABBITMQ_DEFAULT_PASS: rabbitmq_pass
-    REDIS_PASSWORD: redis_password
-  
-  services:
-    postgres:
-      image: pgvector/pgvector:pg16
-      ports:
-        - "5432:5432"
-      env:
-        POSTGRES_USER: cashmoov
-        POSTGRES_PASSWORD: cashmoov
-        POSTGRES_DB: cashmoov_test
-      options: >-
-        --health-cmd pg_isready
-        --health-interval 10s
-        --health-timeout 5s
-        --health-retries 5
+  test:
+    runs-on: ubuntu-latest
+    needs: security-audit
+    
+    env:
+      DATABASE_URL: postgres://cashmoov:cashmoov@postgres:5432/cashmoov_test
+      DEBUG: "False"
+      SECRET_KEY: ci-secret-${{ github.run_id }}
+      RABBITMQ_DEFAULT_USER: rabbitmq_user
+      RABBITMQ_DEFAULT_PASS: rabbitmq_pass
+      REDIS_PASSWORD: redis_password
+    
+    services:
+      postgres:
+        image: pgvector/pgvector:pg16
+        ports:
+          - "5432:5432"
+        env:
+          POSTGRES_USER: cashmoov
+          POSTGRES_PASSWORD: cashmoov
+          POSTGRES_DB: cashmoov_test
+        options: >-
+          --health-cmd pg_isready
+          --health-interval 10s
+          --health-timeout 5s
+          --health-retries 5
 
-  steps:
-    - name: Checkout code
-      uses: actions/checkout@v4
+    steps:
+      - name: Checkout code
+        uses: actions/checkout@v4
 
-    - name: Create .env file
-      run: |
-        cat > .env << 'EOF'
-        DATABASE_URL=${{ env.DATABASE_URL }}
-        DEBUG=${{ env.DEBUG }}
-        SECRET_KEY=${{ env.SECRET_KEY }}
-        RABBITMQ_DEFAULT_USER=${{ env.RABBITMQ_DEFAULT_USER }}
-        RABBITMQ_DEFAULT_PASS=${{ env.RABBITMQ_DEFAULT_PASS }}
-        CELERY_BROKER_URL=amqp://${{ env.RABBITMQ_DEFAULT_USER }}:${{ env.RABBITMQ_DEFAULT_PASS }}@rabbitmq:5672//
-        REDIS_PASSWORD=${{ env.REDIS_PASSWORD }}
-        REDIS_PORT=6379
-        REDIS_HOST=redis
-        HUGGING_FACE_KEY=${{ secrets.HUGGING_FACE_KEY || '' }}
-        EOF
-        
-        echo "Created .env file"
+      - name: Create .env file
+        run: |
+          cat > .env << 'EOF'
+          DATABASE_URL=${{ env.DATABASE_URL }}
+          DEBUG=${{ env.DEBUG }}
+          SECRET_KEY=${{ env.SECRET_KEY }}
+          RABBITMQ_DEFAULT_USER=${{ env.RABBITMQ_DEFAULT_USER }}
+          RABBITMQ_DEFAULT_PASS=${{ env.RABBITMQ_DEFAULT_PASS }}
+          CELERY_BROKER_URL=amqp://${{ env.RABBITMQ_DEFAULT_USER }}:${{ env.RABBITMQ_DEFAULT_PASS }}@rabbitmq:5672//
+          REDIS_PASSWORD=${{ env.REDIS_PASSWORD }}
+          REDIS_PORT=6379
+          REDIS_HOST=redis
+          HUGGING_FACE_KEY=${{ secrets.HUGGING_FACE_KEY || '' }}
+          EOF
+          
+          echo "Created .env file"
 
-    - name: Set up Docker Buildx
-      uses: docker/setup-buildx-action@v3
+      - name: Set up Docker Buildx
+        uses: docker/setup-buildx-action@v3
 
-    - name: Build with Docker Compose
-      run: |
-        docker compose -f compose.yml build django
+      - name: Build with Docker Compose
+        run: |
+          docker compose -f compose.yml build django
 
-    - name: Run migrations and tests
-      run: |
-        # Run migrations
-        docker compose run --rm django python manage.py migrate
-        
-        # Run tests
-        docker compose run --rm django pytest -v --tb=short
+      - name: Run migrations and tests
+        run: |
+          # Run migrations
+          docker compose run --rm django python manage.py migrate
+          
+          # Run tests
+          docker compose run --rm django pytest -v --tb=short
 
-    - name: Cleanup
-      if: always()
-      run: |
-        docker compose down -v --remove-orphans
+      - name: Cleanup
+        if: always()
+        run: |
+          docker compose down -v --remove-orphans
