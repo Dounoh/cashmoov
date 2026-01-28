@@ -79,7 +79,9 @@ jobs:
           python-version: '3.11'
 
       - name: Install dependencies
-        run: pip install -r requirements.txt
+        run: |
+          pip install pip-audit
+          pip install -r requirements.txt
 
       - name: Run pip-audit
         uses: pypa/gh-action-pip-audit@v1.0.0
