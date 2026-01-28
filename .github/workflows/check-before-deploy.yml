@@ -23,8 +23,8 @@ jobs:
   check_syntaxe:
     runs-on: ubuntu-latest  # Correction: tiret au lieu de underscore
     strategy:
-    matrix:
-      python-version: ['3.12']
+      matrix:
+        python-version: ['3.12']
 
     steps:
       - name: Clone Repository
