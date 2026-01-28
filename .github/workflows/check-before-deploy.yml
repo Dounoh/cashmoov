@@ -1,5 +1,10 @@
 name: CHECK_BEFORE_DEPLOY
 
+
+env:
+  DOCKER_BUILDKIT: "0"
+  COMPOSE_DOCKER_CLI_BUILD: "0"
+
 on:
   push:
     branches:
