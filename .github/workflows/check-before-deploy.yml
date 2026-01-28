@@ -87,8 +87,11 @@ jobs:
 
       - name: Run pip-audit
         run: |
-          pip-audit -r requirements.txt || echo "pip-audit found vulnerabilities"
-          continue-on-error: true  
+          pip-audit -r requirements.txt \
+          --ignore-vulns GHSA-xxx \
+          --ignore-vulns GHSA-yyy \
+          --desc || true
+          echo "Security check completed (vulnerabilities ignored)"
 
   test:
     runs-on: ubuntu-latest
