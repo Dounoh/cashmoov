@@ -86,15 +86,11 @@ channels==4.0.0
 channels-redis==4.1.0
 daphne==4.0.0
 
-# ===== AI / EMBEDDINGS (SANS FAISS) =====
+# ===== AI / EMBEDDINGS =====
 openai==1.31.0
 sentence-transformers==2.2.2
 huggingface-hub==0.19.4
-
-# ===== TORCH (CPU ONLY — garde-le si tu utilises sentence-transformers) =====
---extra-index-url https://download.pytorch.org/whl/cpu
 torch==2.5.1+cpu
-# torchvision==0.20.1+cpu
 
 # ===== ML UTILITAIRES =====
 numpy>=1.26,<2.0
@@ -115,7 +111,4 @@ uvicorn[standard]>=0.25.0
 django-redis==6.0.0
 
 
-#====TEST====
-pytest==9.0.2
-pytest-django
 pre-commit

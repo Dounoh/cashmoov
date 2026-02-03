@@ -119,35 +119,32 @@ services:
     networks:
       - app_network
 
-  celery-beat:
-    build:
-      context: .
-      dockerfile: compose/prod/Dockerfile
-    command: celery -A config beat -l info --scheduler django_celery_beat.schedulers:DatabaseScheduler
-    environment:
-      DATABASE_URL: postgres://${POSTGRES_USER:-app_prod_user}:${POSTGRES_PASSWORD}@postgres:5432/${POSTGRES_DB:-app_production}
-      CELERY_BROKER_URL: amqp://${RABBITMQ_DEFAULT_USER:-prod_user}:${RABBITMQ_DEFAULT_PASS}@rabbitmq:5672//
-      CELERY_RESULT_BACKEND: redis://:${REDIS_PASSWORD}@redis:6379/0
-      DJANGO_SETTINGS_MODULE: config.settings
+caddy:
+    image: caddy:2
+    container_name: caddy
+    ports:
+      - "80:80"
+      - "443:443"
+    volumes:
+      - ./caddy/Caddyfile:/etc/caddy/Caddyfile
+      - caddy_data:/data
+      - caddy_config:/config
     depends_on:
-      postgres:
-        condition: service_healthy
-      rabbitmq:
-        condition: service_healthy
-      redis:
-        condition: service_healthy
-      web:
-        condition: service_healthy
-    restart: unless-stopped
+      - backend
     networks:
       - app_network
 
+
+  
 volumes:
   postgres_data_prod:
   rabbitmq_data:
   redis_data:
   static_volume:
   media_volume:
+  caddy_data:
+  caddy_config:
+
 
 networks:
   app_network:

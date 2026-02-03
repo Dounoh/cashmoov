@@ -1,0 +1,11 @@
+api.mondomaine.com {
+
+    encode gzip
+
+    reverse_proxy django:8000
+
+    log {
+        output stdout
+        format console
+    }
+}
