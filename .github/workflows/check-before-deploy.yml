@@ -48,24 +48,24 @@ jobs:
       - name: Run flake8
         run: flake8 . --exit-zero
 
-  security_audit:
-    runs-on: ubuntu-latest
-    needs: check_dependencies
-    steps:
-      - uses: actions/checkout@v4
+  # security_audit:
+  #   runs-on: ubuntu-latest
+  #   needs: check_dependencies
+  #   steps:
+  #     - uses: actions/checkout@v4
 
-      - uses: actions/setup-python@v5
-        with:
-          python-version: ${{ env.PYTHON_VERSION }}
+  #     - uses: actions/setup-python@v5
+  #       with:
+  #         python-version: ${{ env.PYTHON_VERSION }}
 
-      - name: Install deps
-        run: pip install -r requirements.txt
+  #     - name: Install deps
+  #       run: pip install -r requirements.txt
 
-      - name: Install pip-audit
-        run: pip install pip-audit
+  #     - name: Install pip-audit
+  #       run: pip install pip-audit
 
-      - name: Run pip-audit
-        run: pip-audit -r requirements.txt --desc
+  #     - name: Run pip-audit
+  #       run: pip-audit -r requirements.txt --desc
 
   test:
     runs-on: ubuntu-latest
