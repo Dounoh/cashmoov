@@ -1,125 +1,89 @@
 name: CHECK_BEFORE_DEPLOY
 
-
-env:
-  DOCKER_BUILDKIT: "0"
-  COMPOSE_DOCKER_CLI_BUILD: "0"
-
 on:
   push:
-    branches:
-      - '*'
-    # branches-ignore:
-    #   - 'main'
-
+    branches: ['*']
   pull_request:
-    branches:
-      - '*'
-
-  # # Optionnel: permet de déclencher manuellement
+    branches: ['*']
   workflow_dispatch:
 
 concurrency:
   group: ${{ github.workflow }}-${{ github.ref }}
   cancel-in-progress: true
 
+env:
+  PYTHON_VERSION: "3.11"
 
 jobs:
-  check_syntaxe:
-    runs-on: ubuntu-latest  # Correction: tiret au lieu de underscore
-    strategy:
-      matrix:
-        python-version: ['3.12']
-
+  check_syntax:
+    runs-on: ubuntu-latest
     steps:
-      - name: Clone Repository
-        uses: actions/checkout@v4
+      - uses: actions/checkout@v4
 
-      - name: Setup Python
-        uses: actions/setup-python@v5
+      - uses: actions/setup-python@v5
         with:
-          python-version: '3.11'
+          python-version: ${{ env.PYTHON_VERSION }}
 
       - name: Run pre-commit
         uses: pre-commit/action@v3.0.1
 
-  check_dependances:
+  check_dependencies:
     runs-on: ubuntu-latest
-    needs: check_syntaxe
-    strategy:
-      matrix:
-        python-version: ['3.12']
+    needs: check_syntax
     steps:
-      - name: Clone Repository
-        uses: actions/checkout@v4
+      - uses: actions/checkout@v4
 
-      - name: Setup Python
-        uses: actions/setup-python@v5
+      - uses: actions/setup-python@v5
         with:
-          python-version: '3.11'
+          python-version: ${{ env.PYTHON_VERSION }}
 
-      - name: Install project dependencies
+      - name: Install deps
         run: |
-          python -m pip install --upgrade pip
+          pip install --upgrade pip
           pip install -r requirements.txt
           pip install flake8
 
-      - name: Run flake8 dependencies check
-        run: |
-          flake8 . --exit-zero
+      - name: Run flake8
+        run: flake8 .
 
-  security-audit:
+  security_audit:
     runs-on: ubuntu-latest
-    needs: check_dependances
-    strategy:
-      matrix:
-        python-version: ['3.12']
+    needs: check_dependencies
     steps:
-      - name: Checkout code
-        uses: actions/checkout@v4
+      - uses: actions/checkout@v4
 
-      - name: Set up Python
-        uses: actions/setup-python@v5
+      - uses: actions/setup-python@v5
         with:
-          python-version: '3.11'
+          python-version: ${{ env.PYTHON_VERSION }}
 
-      - name: Install dependencies
-        run: |
-          pip install -r requirements.txt
+      - name: Install deps
+        run: pip install -r requirements.txt
 
       - name: Install pip-audit
         run: pip install pip-audit
 
       - name: Run pip-audit
-        run: |
-          pip-audit -r requirements.txt \
-          --ignore-vulns GHSA-xxx \
-          --ignore-vulns GHSA-yyy \
-          --desc || true
-          echo "Security check completed (vulnerabilities ignored)"
-
+        run: pip-audit -r requirements.txt --desc
 
   test:
     runs-on: ubuntu-latest
-    needs: security-audit
-    strategy:
-      matrix:
-        python-version: ["3.12"]
-    
+    needs: security_audit
+
     env:
-      DATABASE_URL: postgres://cashmoov:cashmoov@postgres:5432/cashmoov_test
+      DATABASE_URL: postgresql://cashmoov:cashmoov@postgres:5432/cashmoov_test
       DEBUG: "False"
-      SECRET_KEY: django-insecure-5pnnjh3p^m^-%$vv8+^px-3r(8g9g)a_5cck%y#dgqqb9@bak6
-    
+      SECRET_KEY: test-secret-key
+      DJANGO_SETTINGS_MODULE: config.settings.test
+
     services:
       postgres:
         image: pgvector/pgvector:pg16
-        ports:
-          - "5432:5432"
         env:
           POSTGRES_USER: cashmoov
           POSTGRES_PASSWORD: cashmoov
           POSTGRES_DB: cashmoov_test
+        ports:
+          - 5432:5432
         options: >-
           --health-cmd pg_isready
           --health-interval 10s
@@ -127,24 +91,17 @@ jobs:
           --health-retries 5
 
     steps:
-      - name: Clone repos
-        uses: actions/checkout@v4
+      - uses: actions/checkout@v4
 
-      - name: Install python 
-        uses: actions/setup-python@v5
+      - uses: actions/setup-python@v5
         with:
-          python-version: '3.11'
+          python-version: ${{ env.PYTHON_VERSION }}
 
-      - name: Install dependance
-        run: |
-          pip install -r requirements.txt
+      - name: Install deps
+        run: pip install -r requirements.txt
 
-      - name: migrations
-        run: |
-          python manage.py migrate
+      - name: Run migrations
+        run: python manage.py migrate
 
-      - name: start text
-        run: |
-          pytest -v --tb=short
-
-
+      - name: Run tests
+        run: pytest -v
