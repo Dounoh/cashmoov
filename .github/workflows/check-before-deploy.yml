@@ -16,8 +16,8 @@ on:
     branches:
       - '*'
 
-  # Optionnel: permet de déclencher manuellement
-  workflow_dispatch:
+  # # Optionnel: permet de déclencher manuellement
+  # workflow_dispatch:
 
 concurrency:
   group: ${{ github.workflow }}-${{ github.ref }}
