@@ -8,13 +8,13 @@ env:
 on:
   push:
     branches:
-      - '**'
+      - '*'
     # branches-ignore:
     #   - 'main'
 
   pull_request:
     branches:
-      - '**'
+      - '*'
 
   # Optionnel: permet de déclencher manuellement
   workflow_dispatch:
