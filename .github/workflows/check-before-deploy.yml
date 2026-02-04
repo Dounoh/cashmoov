@@ -72,7 +72,7 @@ jobs:
     needs: check_dependencies
 
     env:
-      DATABASE_URL: postgresql://cashmoov:cashmoov@postgres:5432/cashmoov_test
+      DATABASE_URL: postgresql://cashmoov:cashmoov@localhost:5432/cashmoov_test
       DEBUG: "False"
       SECRET_KEY: test-secret-key
       DJANGO_SETTINGS_MODULE: config.settings.test
