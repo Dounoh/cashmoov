@@ -54,3 +54,8 @@ services:
 
 volumes:
   redis_data:
+
+
+networks:
+  cashmoov_net:
+    external: true
