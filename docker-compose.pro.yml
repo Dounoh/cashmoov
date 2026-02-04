@@ -29,7 +29,8 @@ services:
     restart: unless-stopped
     env_file: .env
     command: >
-      bash -c "python manage.py migrate --noinput &&
+      bash -c "python manage.py collectstatic --noinput &&
+               python manage.py migrate --noinput &&
                uvicorn config.asgi:application --host 0.0.0.0 --port 8000"
     depends_on:
       redis:
