@@ -3,8 +3,6 @@ example.com {
     encode zstd gzip
 
     header {
-
-        # ===== Content Security Policy =====
         Content-Security-Policy "
             default-src 'self';
             script-src 'self';
@@ -16,8 +14,6 @@ example.com {
             base-uri 'self';
             form-action 'self';
         "
-
-        # ===== Permissions Policy =====
         Permissions-Policy "
             accelerometer=(),
             camera=(),
@@ -28,8 +24,6 @@ example.com {
             payment=(),
             usb=()
         "
-
-        # ===== Autres headers indispensables =====
         X-Frame-Options "DENY"
         X-Content-Type-Options "nosniff"
         Referrer-Policy "strict-origin-when-cross-origin"
