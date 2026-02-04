@@ -146,6 +146,7 @@ jobs:
 
           script: |
             cd backend/cashmoov/
+            git pull origin pipeline_cicd
             docker pull ${{ vars.DOCKER_ACCOUNT }}/cashmoov-api:latest
             docker compose -f docker-compose.pro.yml run --rm django python manage.py migrate 
             docker compose -f docker-compose.pro.yml up -d
