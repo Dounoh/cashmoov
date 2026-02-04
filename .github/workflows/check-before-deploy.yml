@@ -75,7 +75,7 @@ jobs:
       DATABASE_URL: postgresql://cashmoov:cashmoov@localhost:5432/cashmoov_test
       DEBUG: "False"
       SECRET_KEY: test-secret-key
-      DJANGO_SETTINGS_MODULE: config.settings.test
+      DJANGO_SETTINGS_MODULE: config.settings
 
     services:
       postgres:
