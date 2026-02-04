@@ -111,7 +111,7 @@ redis==5.0.1
 
 # ===== DOCS API =====
 drf-yasg==1.21.7
-djoser==2.2.0
+djoser>=2.3.0
 django-channels-jwt==0.0.3
 
 #======PGVECTOR=======

@@ -69,7 +69,7 @@ jobs:
 
   test:
     runs-on: ubuntu-latest
-    needs: check_dependencies
+    needs: security_audit
 
     env:
       DATABASE_URL: postgresql://cashmoov:cashmoov@localhost:5432/cashmoov_test
@@ -112,6 +112,7 @@ jobs:
 
   docker:
     runs-on: ubuntu-latest
+    needs: test
 
     steps:
       - uses: actions/checkout@v4
