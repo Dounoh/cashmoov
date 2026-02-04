@@ -5,23 +5,20 @@ FROM python:3.10-slim AS builder
 
 WORKDIR /app
 
-# Outils nécessaires pour compiler certaines dépendances
 RUN apt-get update && apt-get install -y --no-install-recommends \
     build-essential \
     libpq-dev \
     curl \
     && rm -rf /var/lib/apt/lists/*
 
-COPY requirements.txt ./
+COPY requirements.txt .
 
-# Installer les dépendances dans /root/.local (isolé)
-RUN --mount=type=cache,target=/root/.cache/pip \
-    pip install --upgrade pip wheel setuptools && \
-    pip install --user --no-warn-script-location -r requirements.txt
-
+# Installation des dépendances + téléchargement du modèle IA
+RUN pip install --user --no-cache-dir -r requirements.txt && \
+    python -c "from sentence_transformers import SentenceTransformer; SentenceTransformer('intfloat/multilingual-e5-base').save('/app/local_model')"
 
 # ============================
-# Étape 2: RUNTIME (PRODUCTION)
+# Étape 2: RUNTIME
 # ============================
 FROM python:3.10-slim
 
@@ -29,26 +26,26 @@ WORKDIR /app
 
 ENV PYTHONDONTWRITEBYTECODE=1 \
     PYTHONUNBUFFERED=1 \
-    PATH="/root/.local/bin:$PATH"
+    PATH="/home/appuser/.local/bin:$PATH" \
+    MODEL_PATH="/app/local_model"
 
-# Dépendances système minimales au runtime
 RUN apt-get update && apt-get install -y --no-install-recommends \
     libpq-dev \
     netcat-openbsd \
-    curl \
     && rm -rf /var/lib/apt/lists/*
 
-# Utilisateur non-root
-RUN groupadd -r appuser && useradd -r -g appuser appuser
-
-# Copier les dépendances depuis le builder
-COPY --from=builder /root/.local /root/.local
-
-# Copier le code applicatif
-COPY --chown=appuser:appuser . .
-
+# Créer un utilisateur et son home pour .local
+RUN useradd -m -r appuser
 USER appuser
+
+# Copier les librairies ET le modèle téléchargé depuis le builder
+COPY --from=builder --chown=appuser:appuser /root/.local /home/appuser/.local
+COPY --from=builder --chown=appuser:appuser /app/local_model /app/local_model
+
+# Copier le reste du code
+COPY --chown=appuser:appuser . .
 
 EXPOSE 8000
 
-CMD ["gunicorn", "--bind", "0.0.0.0:8000", "config.wsgi:application"]
+# Utiliser uvicorn pour FastAPI (Asynchrone)
+CMD ["uvicorn", "config.asgi:application", "--host", "0.0.0.0", "--port", "8000"]

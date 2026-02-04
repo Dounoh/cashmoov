@@ -1,151 +1,56 @@
 services:
-  postgres:
-    image: pgvector/pgvector:pg16
-    environment:
-      POSTGRES_DB: ${POSTGRES_DB:-app_production}
-      POSTGRES_USER: ${POSTGRES_USER:-app_prod_user}
-      POSTGRES_PASSWORD: ${POSTGRES_PASSWORD}
-      POSTGRES_HOST_AUTH_METHOD: scram-sha-256
-    volumes:
-      - postgres_data_prod:/var/lib/postgresql/data
-      - ./init/script.sql:/docker-entrypoint-initdb.d/init.sql:ro
+  redis:
+    image: redis:7-alpine
+    container_name: cashmoov_redis
     restart: unless-stopped
-    command: >
-      postgres -c max_connections=200
-               -c shared_buffers=256MB
-               -c effective_cache_size=1GB
-               -c log_statement=all
-    networks:
-      - app_network
+    command: redis-server --appendonly yes --requirepass ${REDIS_PASSWORD}
+    volumes:
+      - redis_data:/data
     healthcheck:
-      test: ["CMD-SHELL", "pg_isready -U ${POSTGRES_USER:-app_prod_user} -d ${POSTGRES_DB:-app_production}"]
+      test: ["CMD", "redis-cli", "-a", "${REDIS_PASSWORD}", "ping"]
       interval: 10s
-      timeout: 5s
-      retries: 5
+    networks:
+      - cashmoov_net
 
   rabbitmq:
     image: rabbitmq:3-management
+    container_name: cashmoov_rabbit
     restart: unless-stopped
     environment:
-      RABBITMQ_DEFAULT_USER: ${RABBITMQ_DEFAULT_USER:-prod_user}
+      RABBITMQ_DEFAULT_USER: ${RABBITMQ_DEFAULT_USER}
       RABBITMQ_DEFAULT_PASS: ${RABBITMQ_DEFAULT_PASS}
-      RABBITMQ_DEFAULT_VHOST: ${RABBITMQ_DEFAULT_VHOST:-/}
-    volumes:
-      - rabbitmq_data:/var/lib/rabbitmq
     networks:
-      - app_network
-    healthcheck:
-      test: ["CMD", "rabbitmq-diagnostics", "ping"]
-      interval: 30s
-      timeout: 10s
-      retries: 3
+      - cashmoov_net
 
-  redis:
-    image: redis:7-alpine
-    container_name: cashmoov_redis_prod
+  django:
+    image: ${DOCKER_ACCOUNT}/cashmoov-api:latest
+    container_name: cashmoov_api
+    pull_policy: always
     restart: unless-stopped
-    volumes:
-      - redis_data:/data
-    command: redis-server --appendonly yes --requirepass ${REDIS_PASSWORD}
-    networks:
-      - app_network
-    healthcheck:
-      test: ["CMD", "redis-cli", "--raw", "incr", "ping"]
-      interval: 10s
-      timeout: 3s
-      retries: 5
-
-  web:
-    build:
-      context: .
-      dockerfile: compose/prod/Dockerfile
-    environment:
-      DJANGO_SECRET_KEY: ${DJANGO_SECRET_KEY}
-      DEBUG: "False"
-      DJANGO_SETTINGS_MODULE: config.settings
-      DATABASE_URL: postgres://${POSTGRES_USER:-app_prod_user}:${POSTGRES_PASSWORD}@postgres:5432/${POSTGRES_DB:-app_production}
-      CELERY_BROKER_URL: amqp://${RABBITMQ_DEFAULT_USER:-prod_user}:${RABBITMQ_DEFAULT_PASS}@rabbitmq:5672//
-      CELERY_RESULT_BACKEND: redis://:${REDIS_PASSWORD}@redis:6379/0
-      REDIS_URL: redis://:${REDIS_PASSWORD}@redis:6379/0
+    env_file: .env
     command: >
       bash -c "python manage.py migrate --noinput &&
-               python manage.py collectstatic --noinput &&
-               gunicorn --bind 0.0.0.0:8000
-                        --workers ${GUNICORN_WORKERS:-4}
-                        --threads ${GUNICORN_THREADS:-2}
-                        --timeout 120
-                        --max-requests 1000
-                        --max-requests-jitter 100
-                        config.wsgi:application"
-    volumes:
-      - static_volume:/app/static
-      - media_volume:/app/media
+               uvicorn config.asgi:application --host 0.0.0.0 --port 8000"
     depends_on:
-      postgres:
-        condition: service_healthy
-      rabbitmq:
-        condition: service_healthy
       redis:
         condition: service_healthy
-    restart: unless-stopped
+      rabbitmq:
+        condition: service_started
     networks:
-      - app_network
-    healthcheck:
-      test: ["CMD", "curl", "-f", "http://localhost:8000/health/"]
-      interval: 30s
-      timeout: 10s
-      retries: 3
+      - cashmoov_net
 
   celery:
-    build:
-      context: .
-      dockerfile: compose/prod/Dockerfile
-    command: celery -A config worker -l info --concurrency=${CELERY_WORKERS:-4}
-    environment:
-      DATABASE_URL: postgres://${POSTGRES_USER:-app_prod_user}:${POSTGRES_PASSWORD}@postgres:5432/${POSTGRES_DB:-app_production}
-      CELERY_BROKER_URL: amqp://${RABBITMQ_DEFAULT_USER:-prod_user}:${RABBITMQ_DEFAULT_PASS}@rabbitmq:5672//
-      CELERY_RESULT_BACKEND: redis://:${REDIS_PASSWORD}@redis:6379/0
-      DJANGO_SETTINGS_MODULE: config.settings
-    depends_on:
-      postgres:
-        condition: service_healthy
-      rabbitmq:
-        condition: service_healthy
-      redis:
-        condition: service_healthy
-      web:
-        condition: service_healthy
+    image: ${DOCKER_ACCOUNT}/cashmoov-api:latest
+    container_name: cashmoov_celery
+    pull_policy: always
     restart: unless-stopped
-    networks:
-      - app_network
-
-caddy:
-    image: caddy:2
-    container_name: caddy
-    ports:
-      - "80:80"
-      - "443:443"
-    volumes:
-      - ./caddy/Caddyfile:/etc/caddy/Caddyfile
-      - caddy_data:/data
-      - caddy_config:/config
+    env_file: .env
+    command: celery -A config worker -l info
     depends_on:
-      - backend
+      - rabbitmq
+      - django
     networks:
-      - app_network
+      - cashmoov_net
 
-
-  
 volumes:
-  postgres_data_prod:
-  rabbitmq_data:
   redis_data:
-  static_volume:
-  media_volume:
-  caddy_data:
-  caddy_config:
-
-
-networks:
-  app_network:
-    driver: bridge
