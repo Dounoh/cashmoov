@@ -142,11 +142,10 @@ jobs:
         with:
           host: ${{secrets.SSH_HOST_CHATBOT}}
           key: ${{secrets.SSH_KEY_CHATBOT}}
-          username: ${{ secrets.SSH_USERNAME_CHATBOT }}
+          username: ${{secrets.SSH_USERNAME_CHATBOT}}
 
           script: |
-            cd backend/
-            git pull origin staging
+            cd backend/cashmoov/
             docker pull ${{ vars.DOCKER_ACCOUNT }}/cashmoov-api:latest
             docker compose -f docker-compose.pro.yml run --rm django python manage.py migrate 
             docker compose -f docker-compose.pro.yml up -d
