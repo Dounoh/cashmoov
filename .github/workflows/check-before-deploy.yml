@@ -132,7 +132,6 @@ jobs:
           tags: |
             ${{ vars.DOCKER_ACCOUNT }}/cashmoov-api:latest
 
-
   pull_and_deploye:
     runs-on: ubuntu-latest
     needs: docker
