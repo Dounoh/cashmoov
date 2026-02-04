@@ -74,7 +74,7 @@ jobs:
     env:
       DATABASE_URL: postgresql://cashmoov:cashmoov@localhost:5432/cashmoov_test
       DEBUG: "False"
-      SECRET_KEY: test-secret-key
+      SECRET_KEY: django-insecure-5pnnjh3p^m^-%$vv8+^px-3r(8g9g)a_5cck%y#dgqqb9@bak6
       DJANGO_SETTINGS_MODULE: config.settings
 
     services:
