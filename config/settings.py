@@ -234,13 +234,17 @@ AUTHENTICATION_BACKENDS = [
 CELERY_BROKER_URL = os.getenv(
     "CELERY_BROKER_URL", "amqp://guest:guest@localhost:5672//"
 )
-# CELERY_RESULT_BACKEND = os.getenv('CELERY_RESULT_BACKEND', 'amqp://guest:guest@localhost:5672//')
 
 CELERY_TASK_SERIALIZER = "json"
 CELERY_RESULT_SERIALIZER = "json"
 CELERY_ACCEPT_CONTENT = ["json"]
 CELERY_TIMEZONE = "UTC"
 CELERY_ENABLE_UTC = True
+
+if os.getenv("CI") == "true":
+    CELERY_TASK_ALWAYS_EAGER = True
+    CELERY_TASK_EAGER_PROPAGATES = True
+
 
 
 ASGI_APPLICATION = "config.asgi.application"
