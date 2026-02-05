@@ -9,9 +9,9 @@ class AdapterLlm:
     def __init__(self, client):
         self.client = client
 
-    def request(self, query, system_prompt):
+    def request(self, query, system_prompt, context):
         try:
-            resultat = self.client.request_ia(query=query, system_prompt=system_prompt)
+            resultat = self.client.request_ia(query=query, system_prompt=system_prompt, context=context)
         except Exception as e:
             raise Exception(f"Erreur LLM: {str(e)}")
 

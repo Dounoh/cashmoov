@@ -13,19 +13,28 @@ class HugginClient:
         "Content-Type": "application/json"
     }
 
-    model_ia = "zai-org/GLM-4.7:novita" 
+    # model_ia = "zai-org/GLM-4.7:novita" 
+    model_ia ="mistralai/Mistral-7B-Instruct-v0.3"
 
-    def request_ia(self, query, system_prompt):
+    def request_ia(self, query, system_prompt, context):
         """
         Envoie la question et le contexte au LLM et récupère le JSON complet.
         """
 
         payload = {
-            "model": self.model_ia,
-            "messages": [
-                {"role": "system", "content": system_prompt},
-                {"role": "user", "content": query}
-            ]
+        "model": self.model_ia,
+        "messages": [
+        {
+            "role": "system",
+            "content": system_prompt
+        },
+        {
+            "role": "user",
+            "content": f"""Question utilisateur:{query} Contexte disponible: {context}"""
+        }
+            ],
+            "temperature": 0,
+            "max_tokens": 256
         }
 
         response = requests.post(

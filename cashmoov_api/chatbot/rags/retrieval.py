@@ -54,7 +54,7 @@ def search_documents_sync(query_text, top_k=5, min_similarity=0.2):
             {
                 "title": doc.title,
                 "context": doc.content,
-                "similarity_score": float(doc.similarity),
+                "similarity_score":  round(float(doc.similarity), 3),
             }
             for doc in documents
         ]
@@ -70,7 +70,7 @@ def search_documents_sync(query_text, top_k=5, min_similarity=0.2):
 
 async def search_documents(query_text, top_k=5, max_similarity=0.7):
     results = await database_sync_to_async(search_documents_sync)(
-        query_text, top_k, max_similarity
+        query_text, top_k, min_similarity=0.2
     )
 
     if not results:

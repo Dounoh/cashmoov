@@ -10,7 +10,7 @@ class DeepSeekClient:
     api_key = os.getenv('DEEPSEEK_KEY')
     model_ia ="deepseek-chat"
 
-    def request_ia(self, query, prompt_system):
+    def request_ia(self, query, prompt_system,context):
 
         client = OpenAI(
             api_key=self.api_key, 
