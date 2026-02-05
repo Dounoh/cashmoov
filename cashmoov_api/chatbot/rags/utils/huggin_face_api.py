@@ -14,7 +14,7 @@ class HugginClient:
     }
 
     # model_ia = "zai-org/GLM-4.7:novita" 
-    model_ia ="mistralai/Mistral-7B-Instruct-v0.3"
+    model_ia = "meta-llama/Meta-Llama-3-8B-Instruct"
 
     def request_ia(self, query, system_prompt, context):
         """

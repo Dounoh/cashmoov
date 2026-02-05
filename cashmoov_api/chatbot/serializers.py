@@ -36,7 +36,7 @@ class DocumentListSerializer(serializers.ModelSerializer):
             "is_active",
             "created_at",
             "updated_at",
-            "embedding",
+            # "embedding",
         )
         read_only_fields = fields
 
