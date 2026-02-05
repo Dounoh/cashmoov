@@ -17,10 +17,7 @@ class Document(models.Model):
     )
 
     slug = models.SlugField(
-        unique=True,
-        default=uuid.uuid4,
-        max_length=255,
-        editable=False
+        unique=True, default=lambda: str(uuid.uuid4()), max_length=255
     )
     title = models.CharField(max_length=255, blank=True, null=True)
     content = models.TextField()
