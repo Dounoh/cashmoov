@@ -13,12 +13,12 @@ class FeedbackSerializer(serializers.ModelSerializer):
 class FeedbackListSerializer(serializers.ModelSerializer):
     class Meta:
         model = Feedback
-        fields = ["first_name", "last_name","phone_number", "email"]
+        fields = ["slug","first_name", "last_name","phone_number", "email"]
         read_only_fields = fields
 
 
 class FeedbackRetrieveSerializer(serializers.ModelSerializer):
     class Meta:
         model = Feedback
-        fields = ["first_name", "last_name", "phone_number","email", "message"]
+        fields = ["slug","first_name", "last_name", "phone_number","email", "message"]
         read_only_fields = fields
