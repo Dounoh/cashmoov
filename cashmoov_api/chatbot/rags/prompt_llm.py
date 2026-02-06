@@ -24,7 +24,8 @@ def llm_humanise(query, context=None):
         - Si la réponse n’est pas dans le CONTEXTE, répondre exactement : response_none
         - Français simple.
         - Réponse courte, claire, directe.
-        - Reformule la question pour lui donnee une reponse claire et professionnel.
+        - Reformule la question uniquement si tu as des contexts pertinants pour donnee une reponse claire et professionnel.
+        - Si tu n'as pas de contexte pour la question repond simplement: response_none.
 
         Format :
         - Une seule string
