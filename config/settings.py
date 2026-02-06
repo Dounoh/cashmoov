@@ -213,8 +213,8 @@ DJOSER = {
         "set_email": ["rest_framework.permissions.IsAdminUser"],
     },
     "EMAIL": {
-        "activation": "cashmoov_api.users.emails.UserCreatedEmail",
-        "confirmation": "cashmoov_api.users.emails.UserCreatedConfirmationEmail",
+        "activation": "cashmoov_api.users.email.UserCreatedEmail",
+        "confirmation": "cashmoov_api.users.email.UserCreatedConfirmationEmail",
     },
     "SERIALIZERS": {
         "user_create": "cashmoov_api.users.serializers.UserCreateSerializer",
@@ -291,4 +291,4 @@ EMAIL_USE_TLS = True
 EMAIL_HOST_USER = os.getenv('EMAIL_HOST_USER')
 EMAIL_HOST_PASSWORD = os.getenv('EMAIL_HOST_PASSWORD')
 
-DEFAULT_FROM_EMAIL = "cashmoov.assistant.ia@gmail.com>"
+DEFAULT_FROM_EMAIL = EMAIL_HOST_USER
