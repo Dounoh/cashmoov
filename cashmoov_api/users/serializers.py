@@ -24,6 +24,7 @@ class UserCreateSerializer(UserCreateSerializerBase):
 
     class Meta(UserCreateSerializerBase.Meta):
         fields = UserCreateSerializerBase.Meta.fields + (
+            "user_type",
             "address",
             "slug",
         )
@@ -49,6 +50,7 @@ class UserDetailSerializer(UserSerializerBase):
             "first_name",
             "last_name",
             "address",
+            "user_type"
             )
         read_only_fields = ("slug",)
 
@@ -62,6 +64,7 @@ class CurrentUserDetailSerializer(UserSerializerBase):
             "last_name",
             "email",
             "address",
+            "user_type",
             )
         read_only_fields = ('slug','email',)
 
@@ -69,7 +72,7 @@ class CurrentUserDetailSerializer(UserSerializerBase):
 class UserUpdateSerializer(UserSerializerBase):
 
     class Meta(UserSerializerBase.Meta):
-        fields = UserSerializerBase.Meta.fields + ("phone","profile", "location", "agency", "picture")
+        fields = UserSerializerBase.Meta.fields + ("phone","profile", "location", "agency", "picture","user_type",)
         read_only_fields = ("slug",)
         extra_kwargs = {
             "password": {"write_only": True},
