@@ -22,16 +22,20 @@ class HugginClient:
         """
 
         payload = {
-        "model": self.model_ia,
-        "messages": [
-        {
-            "role": "system",
-            "content": system_prompt
-        },
-        {
-            "role": "user",
-            "content": f"""Question utilisateur:{query} Contexte disponible: {context}"""
-        }
+            "model": self.model_ia,
+            "messages": [
+                {
+                    "role": "system",
+                    "content": system_prompt
+                },
+                {
+                    "role": "user",
+                    "content": f"QUESTION:\n{query}"
+                },
+                {
+                    "role": "user",
+                    "content": f"CONTEXTE:\n{context}"
+                }
             ],
             "temperature": 0,
             "max_tokens": 256

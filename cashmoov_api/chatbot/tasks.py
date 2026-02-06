@@ -43,7 +43,7 @@ def normalize_embedding(content: str, *, is_query: bool = False):
         outputs = model(**inputs)
         embedding = outputs.last_hidden_state.mean(dim=1)
         embedding = torch.nn.functional.normalize(embedding, p=2, dim=1)
-
+    print('************* fin de la normalisation et embeding **********')
     return embedding[0].cpu().numpy().tolist()
 
 

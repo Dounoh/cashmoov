@@ -14,7 +14,7 @@ from .prompt_llm import llm_humanise
 logger = logging.getLogger(__name__)
 
 
-def search_documents_sync(query_text, top_k=5, min_similarity=0.2):
+def search_documents_sync(query_text, top_k=2, min_similarity=0.2):
     """
     Recherche sémantique des documents les plus pertinents.
     Cette fonction nous permet de retrouver les 5 documents les plus pertinents
@@ -24,7 +24,6 @@ def search_documents_sync(query_text, top_k=5, min_similarity=0.2):
         return []
 
     try:
-
         norm_query = normalize_embedding(content=query_text, is_query=True)
 
         # documents = (
@@ -34,7 +33,6 @@ def search_documents_sync(query_text, top_k=5, min_similarity=0.2):
         #     .filter(similarity__lte=max_similarity)
         #     .order_by('similarity')[:top_k]
         # )
-
         documents = (
             Document.objects.filter(is_active=True)
             .annotate(
@@ -45,6 +43,7 @@ def search_documents_sync(query_text, top_k=5, min_similarity=0.2):
             .order_by("-similarity")
             .only("title", "content", "source_type")[:top_k]
         )
+        print('fin document recherche')
 
         if not documents.exists():
             logger.info(f" **** Aucun document pertinent trouvé pour: {query_text} ")
@@ -52,9 +51,9 @@ def search_documents_sync(query_text, top_k=5, min_similarity=0.2):
 
         results = [
             {
-                "title": doc.title,
-                "context": doc.content,
-                "similarity_score":  round(float(doc.similarity), 3),
+                # "title": doc.title,
+                "context": f"{doc.title} :{doc.content}",
+                # "similarity_score":  round(float(doc.similarity), 3),
             }
             for doc in documents
         ]
@@ -68,7 +67,7 @@ def search_documents_sync(query_text, top_k=5, min_similarity=0.2):
         return []
 
 
-async def search_documents(query_text, top_k=5, max_similarity=0.7):
+async def search_documents(query_text, top_k=2, min_similarity=0.2):
     results = await database_sync_to_async(search_documents_sync)(
         query_text, top_k, min_similarity=0.2
     )
