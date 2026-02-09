@@ -43,7 +43,6 @@ def search_documents_sync(query_text, top_k=2, min_similarity=0.2):
             .order_by("-similarity")
             .only("title", "content", "source_type")[:top_k]
         )
-        print('fin document recherche')
 
         if not documents.exists():
             logger.info(f" **** Aucun document pertinent trouvé pour: {query_text} ")
