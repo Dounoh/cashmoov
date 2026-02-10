@@ -38,7 +38,6 @@ class User(AbstractUser, Base):
     #     blank=True,null=True,verbose_name="user picture",
     #     )
     address = models.CharField(max_length=50, null=True, blank=True)
-    # is_active = models.BooleanField(default=True)
 
     USERNAME_FIELD = "email"
     REQUIRED_FIELDS = ["first_name", "last_name"]
