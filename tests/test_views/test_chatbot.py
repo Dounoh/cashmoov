@@ -9,10 +9,10 @@ pytestmark = pytest.mark.django_db
 
 class TestDocumentViewSet:
 
-    # def test_list_documents_unauthorized(self, api_client):
-    #     url = reverse("document-list")
-    #     response = api_client.get(url)
-    #     assert response.status_code == status.HTTP_403_FORBIDDEN
+    def test_list_documents_unauthorized(self, api_client):
+        url = reverse("document-list")
+        response = api_client.get(url)
+        assert response.status_code == status.HTTP_401_UNAUTHORIZED
 
     def test_list_documents_regular_user(self, api_client, regular_user):
         api_client.force_authenticate(user=regular_user)

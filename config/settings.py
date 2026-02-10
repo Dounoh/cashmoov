@@ -195,9 +195,8 @@ SIMPLE_JWT = {
 DJOSER = {
     "PASSWORD_RESET_CONFIRM_URL": "password/reset/confirm/{uid}/{token}",
     # 'USERNAME_RESET_CONFIRM_URL': 'username/reset/confirm/{uid}/{token}',
-    "ACTIVATION_URL": "confirm/{uid}/{token}",
-    # 'SEND_ACTIVATION_EMAIL': True,
-    "SEND_ACTIVATION_EMAIL": False,
+    'ACTIVATION_URL': 'activate/{uid}/{token}', 
+    'SEND_ACTIVATION_EMAIL': False,
     "SEND_CONFIRMATION_EMAIL": True,
     "PASSWORD_CHANGED_EMAIL_CONFIRMATION": True,
     "USER_ID_FIELD": "slug",
@@ -208,7 +207,7 @@ DJOSER = {
         "user_create": ["rest_framework.permissions.IsAdminUser"],
         "activation": ["rest_framework.permissions.AllowAny"],
         "user_delete": ["rest_framework.permissions.IsAdminUser"],
-        "user": ["rest_framework.permissions.IsAdminUser"],
+        "user": ["rest_framework.permissions.IsAuthenticated"],
         "set_username": ["rest_framework.permissions.IsAdminUser"],
         "set_email": ["rest_framework.permissions.IsAdminUser"],
     },
@@ -218,7 +217,8 @@ DJOSER = {
     },
     "SERIALIZERS": {
         "user_create": "cashmoov_api.users.serializers.UserCreateSerializer",
-        "user": "djoser.serializers.UserSerializer",
+        # "user": "djoser.serializers.UserSerializer",
+        "user": "cashmoov_api.users.serializers.CurrentUserDetailSerializer",
         "current_user": "cashmoov_api.users.serializers.CurrentUserDetailSerializer",
     },
     "HIDE_USERS": False,
@@ -283,12 +283,12 @@ STATICFILES_STORAGE = "whitenoise.storage.CompressedManifestStaticFilesStorage"
 
 
 EMAIL_BACKEND = "django.core.mail.backends.smtp.EmailBackend"
-
-EMAIL_HOST = "smtp.gmail.com"
+EMAIL_HOST = os.getenv('EMAIL_HOST')
 EMAIL_PORT = 587
 EMAIL_USE_TLS = True
-
 EMAIL_HOST_USER = os.getenv('EMAIL_HOST_USER')
 EMAIL_HOST_PASSWORD = os.getenv('EMAIL_HOST_PASSWORD')
+DEFAULT_FROM_EMAIL = os.getenv('DEFAULT_FROM_EMAIL')
 
-DEFAULT_FROM_EMAIL = EMAIL_HOST_USER
+
+

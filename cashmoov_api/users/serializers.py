@@ -47,10 +47,13 @@ class UserCreateSerializer(UserCreateSerializerBase):
 class UserDetailSerializer(UserSerializerBase):
     class Meta(UserSerializerBase.Meta):
         fields = UserSerializerBase.Meta.fields + (
+            "slug",
             "first_name",
             "last_name",
+            "email",
             "address",
-            "user_type"
+            "user_type",
+            "is_active",
             )
         read_only_fields = ("slug",)
 
@@ -65,6 +68,7 @@ class CurrentUserDetailSerializer(UserSerializerBase):
             "email",
             "address",
             "user_type",
+            "is_active"
             )
         read_only_fields = ('slug','email',)
 
