@@ -35,6 +35,7 @@ class ChatConsumer(AsyncWebsocketConsumer):
                     "username": self.user.first_name,
                     "group_name": self.room_name,
                     "message": f"l'assistant {self.user.first_name} {self.user.last_name} a rejoint votre discussion",
+                    "user_type":self.user.user_type
                 },
             )
 
@@ -71,6 +72,7 @@ class ChatConsumer(AsyncWebsocketConsumer):
             if self.user.is_authenticated
             else USER_TYPE_CUSTOMER
         )
+        user_type = self.user.user_type if self.user.is_authenticated else USER_TYPE_CUSTOMER
 
         await self.channel_layer.group_send(
             self.room_group_name,
@@ -79,6 +81,7 @@ class ChatConsumer(AsyncWebsocketConsumer):
                 "username": username,
                 "group_name": self.room_name,
                 "message": f"{username} A quitté votre discussion.",
+                "user_type":user_type
             },
         )
 
@@ -107,6 +110,7 @@ class ChatConsumer(AsyncWebsocketConsumer):
                     "username": username,
                     "group_name": self.room_name,
                     "message": message,
+                    "user_type":user_type
                 },
             )
 
@@ -159,6 +163,7 @@ class ChatConsumer(AsyncWebsocketConsumer):
                             "type": "ia.message",
                             "username": response["username"],
                             "message": response["message"],
+                            "user_type": "ia"
                         },
                     )
 
@@ -196,6 +201,7 @@ class ChatConsumer(AsyncWebsocketConsumer):
                     "username": event.get("username"),
                     "group_name": event.get("group_name"),
                     "message": event["message"],
+                    "user_type": event["user_type"]
                 }
             )
         )
@@ -207,6 +213,7 @@ class ChatConsumer(AsyncWebsocketConsumer):
                     "type": "ia.message",
                     "username": event.get("username"),
                     "message": event["message"],
+                    "user_type": event["user_type"]
                 }
             )
         )
@@ -258,9 +265,10 @@ class ChatConsumer(AsyncWebsocketConsumer):
 
         return [
             {
-                "message": chat.question,
+                "message": chat.question or "question_none",
                 "username": chat.username,
                 "group_name": group.name,
+                "answere": chat.answers or "response_none"
             }
             for chat in chats.order_by("-created_at")
         ]

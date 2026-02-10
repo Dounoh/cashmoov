@@ -19,6 +19,7 @@ class Document(models.Model):
     slug = models.SlugField(
         unique=True, default=lambda: str(uuid.uuid4()), max_length=255
     )
+    # slug = models.SlugField(default=uuid.uuid4, max_length=255, unique=True)
     title = models.CharField(max_length=255, blank=True, null=True)
     content = models.TextField()
     # embedding = VectorField(dimensions=768, null=True)
@@ -46,7 +47,7 @@ class Chatbot(Base):
     group = models.ForeignKey(
         Group, on_delete=models.CASCADE, related_name="chatbots", null=True
     )
-    question = models.TextField()
+    question = models.TextField(null=True)
     answers = models.TextField(null=True)
     used_for_training = models.BooleanField(default=False)
     validated_for_training = models.BooleanField(default=False)
