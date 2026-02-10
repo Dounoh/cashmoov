@@ -116,7 +116,7 @@ class ChatConsumer(AsyncWebsocketConsumer):
                 if not response or (response and response.get("type") == TYPE_RESPONSE):
                     users = await database_sync_to_async(get_online_users)()
 
-                    if len(users) > 0:
+                    if len(users) >= 0:
                         await self.send(
                             text_data=json.dumps(
                                 {
