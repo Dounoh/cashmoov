@@ -100,7 +100,6 @@ huggingface-hub>=0.25.0
 # ===== TORCH (CPU ONLY — garde-le si tu utilises sentence-transformers) =====
 --extra-index-url https://download.pytorch.org/whl/cpu
 torch==2.5.1+cpu
-# torchvision==0.20.1+cpu
 
 # ===== ML UTILITAIRES =====
 numpy>=1.26,<2.0
@@ -123,3 +122,4 @@ django-redis==6.0.0
 
 #====TEST====
 pre-commit
+django-cors-headers==4.9.0

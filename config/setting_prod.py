@@ -6,3 +6,17 @@ CSRF_TRUSTED_ORIGINS = ["https://dev-dounoh.xyz"]
 SECURE_PROXY_SSL_HEADER = ("HTTP_X_FORWARDED_PROTO", "https")
 CI=False
 DEBUG=False
+# CORS_ALLOWED_ORIGINS = [
+#     "http://localhost:3000",
+#     "https://monfrontend.com",
+# ]
+CORS_ALLOW_ALL_ORIGINS = True
+CORS_ALLOW_CREDENTIALS = True
+CORS_ALLOW_METHODS = [
+    "GET",
+    "POST",
+    "PUT",
+    "PATCH",
+    "DELETE",
+    "OPTIONS",
+]
