@@ -301,23 +301,27 @@ class NotificationConsumer(AsyncWebsocketConsumer):
                 }
             )
         )
+        
+        await database_sync_to_async(add_online_user)(self.username)
+        await self.alerte_online(message="Connection d'un nouveau assistant")
 
-        await self.channel_layer.group_send(
-            "online",
-            {
-                "type": "add.online",
-                "username": self.username,
-            },
-        )
 
     async def disconnect(self, close_code):
         await self.channel_layer.group_discard("notifications", self.channel_name)
+        await database_sync_to_async(remove_online_user)(self.username)
+        await self.alerte_online(message="deconnection d'un assistant")
 
+
+
+    async def alerte_online(self,message):
+        users = await database_sync_to_async(get_online_users)()
         await self.channel_layer.group_send(
             "online",
             {
-                "type": "remove.online",
-                "username": self.username,
+                "type": "online.users",
+                "count": len(users),
+                "members": users,
+                "message": message
             },
         )
 
@@ -366,11 +370,11 @@ class OnlineUser(AsyncWebsocketConsumer):
         await self.channel_layer.group_add("online", self.channel_name)
         await self.accept()
 
-        user = self.scope["user"]
-        if user.is_authenticated:
-            self.username = f"{user.first_name} {user.last_name}"
+        # user = self.scope["user"]
+        # if user.is_authenticated:
+        #     self.username = f"{user.first_name} {user.last_name}"
 
-            await database_sync_to_async(add_online_user)(self.username)
+            # await database_sync_to_async(add_online_user)(self.username)
 
         await self.broadcast_online_state(f"Assistant en ligne.")
 
@@ -405,3 +409,7 @@ class OnlineUser(AsyncWebsocketConsumer):
                 }
             )
         )
+
+    
+    # async def online_handler(self,event):
+    #     users = database_sync_to_async()
