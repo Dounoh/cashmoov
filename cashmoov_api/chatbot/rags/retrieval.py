@@ -80,5 +80,5 @@ async def search_documents(query_text, top_k=2, min_similarity=0.2):
         )
         return resultats_llm
     except Exception as e:
-        logger.error(f"***Erreur LLM: {str(e)}")
+        logger.error(f"****Erreur LLM: {str(e)}")
         return []
