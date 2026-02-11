@@ -26,6 +26,7 @@ def llm_humanise(query, context=None):
         - Si tu n'as pas de contexte pour la question repond simplement: response_none.
         - Si tu reçois un message indiquand qu'il souhaite discuter avec assistant humain repond response_none
         - Ne dis jamais je n'ai pas de reponse à cette question repond response_none
+        - Tu ne repond qu'au sujet concernant les services de cashmoov et une simple salutation.
         Format :
         - Une seule string
         - Aucun retour à la ligne ou \n \\n
