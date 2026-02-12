@@ -7,6 +7,9 @@ from cashmoov_api.chatbot.redis import (
     add_online_user,
     get_online_users,
     remove_online_user,
+    assistant_existed,
+    assistant_joigned,
+    remove_assistant_joigned
 )
 
 USER_TYPE_CUSTOMER = "customer"
@@ -28,11 +31,12 @@ class ChatConsumer(AsyncWebsocketConsumer):
         await self.accept()
 
         if self.user.is_authenticated:
+            username = f"{self.user.first_name} {self.user.last_name}"
             await self.channel_layer.group_send(
                 self.room_group_name,
                 {
                     "type": "chat.message",
-                    "username": self.user.first_name,
+                    "username": username,
                     "group_name": self.room_name,
                     "message": f"l'assistant {self.user.first_name} {self.user.last_name} a rejoint votre discussion",
                     "user_type":self.user.user_type
@@ -49,6 +53,9 @@ class ChatConsumer(AsyncWebsocketConsumer):
                     }
                 )
             )
+
+            # await database_sync_to_async(add_online_user)(username)
+            await database_sync_to_async(assistant_joigned)(self.room_group_name)
 
         else:
             await self.send(
@@ -85,6 +92,11 @@ class ChatConsumer(AsyncWebsocketConsumer):
             },
         )
 
+        if self.user.is_authenticated:
+            # await database_sync_to_async(remove_online_user)(username)
+            await database_sync_to_async(remove_assistant_joigned)(self.room_group_name)
+
+
     async def receive(self, text_data):
         response = None
         try:
@@ -115,7 +127,9 @@ class ChatConsumer(AsyncWebsocketConsumer):
             )
 
             if user_type == USER_TYPE_CUSTOMER:
-                response = await self.search_response_ia(message)
+                is_assisted = database_sync_to_async(assistant_existed)(self.room_group_name)
+                if not is_assisted:
+                    response = await self.search_response_ia(message)
 
                 if not response or (response and response.get("type") == TYPE_RESPONSE):
                     users = await database_sync_to_async(get_online_users)()
@@ -272,6 +286,7 @@ class ChatConsumer(AsyncWebsocketConsumer):
             }
             for chat in chats.order_by("-created_at")
         ]
+    
 
 
 class NotificationConsumer(AsyncWebsocketConsumer):

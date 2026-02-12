@@ -28,3 +28,15 @@ def get_online_users():
 def count_online_users():
     r = redis_conn()
     return r.scard("online_users")
+
+def assistant_joigned(group_name):
+    r= redis_conn()
+    r.sadd('chat_assistant',group_name )
+
+def assistant_existed(group_name):
+    r = redis_conn()
+    return r.sismember('chat_assistant',group_name)
+
+def remove_assistant_joigned(group_name):
+    r = redis_conn()
+    r.srem('chat_assistant', group_name)
