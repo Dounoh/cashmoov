@@ -44,8 +44,8 @@ def search_documents_sync(query_text, top_k=2, min_similarity=0.8):
             .only("title", "content", "source_type")[:top_k]
         )
 
-        if not documents.exists():
-            logger.info(f" **** Aucun document pertinent trouvé pour: {query_text} ")
+        if not documents:
+            logger.info(f"Aucun document pertinent trouvé pour: {query_text}")
             return []
 
         results = [
