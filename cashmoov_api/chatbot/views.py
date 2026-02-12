@@ -85,6 +85,7 @@ class ChatbotViewSet(viewsets.GenericViewSet):
             )
 
         result = search_documents_sync(data["question"])
+        # llm_response = result
         llm_response = llm_humanise(query=data["question"], context=result)
 
         return Response({"response": llm_response})

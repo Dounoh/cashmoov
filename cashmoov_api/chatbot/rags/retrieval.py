@@ -43,16 +43,15 @@ def search_documents_sync(query_text, top_k=2, min_similarity=0.8):
             .order_by("-similarity")
             .only("title", "content", "source_type")[:top_k]
         )
-
-        if not documents:
+        
+        documents = list(documents)
+        if len(documents) == 0:
             logger.info(f"Aucun document pertinent trouvé pour: {query_text}")
             return []
 
         results = [
             {
-                # "title": doc.title,
                 "context": f"{doc.title} :{doc.content}",
-                # "similarity_score":  round(float(doc.similarity), 3),
             }
             for doc in documents
         ]
@@ -66,7 +65,7 @@ def search_documents_sync(query_text, top_k=2, min_similarity=0.8):
         return []
 
 
-async def search_documents(query_text, top_k=2, min_similarity=0.7):
+async def search_documents(query_text, top_k=2, min_similarity=0.8):
     results = await database_sync_to_async(search_documents_sync)(
         query_text, top_k, min_similarity=min_similarity
     )
