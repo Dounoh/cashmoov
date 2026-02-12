@@ -167,7 +167,7 @@ class ChatConsumer(AsyncWebsocketConsumer):
                                     "message": message,
                                 },
                             )
-                    else:
+                    elif not is_assisted:
                         await self.send(
                             text_data=json.dumps(
                                 {
