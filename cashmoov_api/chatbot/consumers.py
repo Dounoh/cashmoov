@@ -127,22 +127,46 @@ class ChatConsumer(AsyncWebsocketConsumer):
             )
 
             if user_type == USER_TYPE_CUSTOMER:
-                is_assisted = database_sync_to_async(assistant_existed)(self.room_group_name)
-                if not is_assisted:
-                    response = await self.search_response_ia(message)
+                is_assisted = await database_sync_to_async(assistant_existed)(self.room_group_name)
 
-                if not response or (response and response.get("type") == TYPE_RESPONSE):
+                response = await self.search_response_ia(message) if not is_assisted else None
+                
+                if response and response.get('type') != TYPE_RESPONSE:
+                    await self.channel_layer.group_send(
+                        self.room_group_name,
+                        {
+                            "type": "ia.message",
+                            "username": response["username"],
+                            "message": response["message"],
+                            "user_type": "ia"
+                        },
+                    )
+                else:
                     users = await database_sync_to_async(get_online_users)()
-
-                    if len(users) > 0:
+                    if not is_assisted and len(users) > 0:
                         await self.send(
                             text_data=json.dumps(
                                 {
-                                    "type": "waiting",
-                                    "message": "Le message est transmis à un assistant humain.",
+                                    "type":"waiting",
+                                    "message":"le message est transmis à un assistant humain.",
                                 }
                             )
                         )
+
+                        await self.create_chat(
+                                group_name=self.room_group_name,
+                                username=username,
+                                message=message,
+                                )
+                        await self.channel_layer.group_send(
+                            "notifications",
+                                {
+                                    "type": "new.message",
+                                    "username": username,
+                                    "group_name": self.room_name,
+                                    "message": message,
+                                },
+                            )
                     else:
                         await self.send(
                             text_data=json.dumps(
@@ -154,39 +178,6 @@ class ChatConsumer(AsyncWebsocketConsumer):
                                 }
                             )
                         )
-
-                    await self.create_chat(
-                        group_name=self.room_group_name,
-                        username=username,
-                        message=message,
-                    )
-
-                    await self.channel_layer.group_send(
-                        "notifications",
-                        {
-                            "type": "new.message",
-                            "username": username,
-                            "group_name": self.room_name,
-                            "message": message,
-                        },
-                    )
-                else:
-                    await self.channel_layer.group_send(
-                        self.room_group_name,
-                        {
-                            "type": "ia.message",
-                            "username": response["username"],
-                            "message": response["message"],
-                            "user_type": "ia"
-                        },
-                    )
-
-                    # await self.create_chat(
-                    #     group_name=self.room_group_name,
-                    #     message=response["message"],
-                    #     username="ia",
-                    # )
-
             else:
                 await self.create_chat(
                     group_name=self.room_group_name,
@@ -426,5 +417,3 @@ class OnlineUser(AsyncWebsocketConsumer):
         )
 
     
-    # async def online_handler(self,event):
-    #     users = database_sync_to_async()
