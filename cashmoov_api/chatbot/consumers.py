@@ -35,11 +35,8 @@ class ChatConsumer(AsyncWebsocketConsumer):
             await self.channel_layer.group_send(
                 self.room_group_name,
                 {
-                    "type": "chat.message",
-                    "username": username,
-                    "group_name": self.room_name,
-                    "message": f"l'assistant {self.user.first_name} {self.user.last_name} a rejoint votre discussion",
-                    "user_type":self.user.user_type
+                    "type": "chat.joingned",
+                    "message": f"L'assistant {username} a rejoint votre discussion.",
                 },
             )
 
@@ -79,16 +76,13 @@ class ChatConsumer(AsyncWebsocketConsumer):
             if self.user.is_authenticated
             else USER_TYPE_CUSTOMER
         )
-        user_type = self.user.user_type if self.user.is_authenticated else USER_TYPE_CUSTOMER
+        # user_type = self.user.user_type if self.user.is_authenticated else USER_TYPE_CUSTOMER
 
         await self.channel_layer.group_send(
             self.room_group_name,
             {
-                "type": "chat.message",
-                "username": username,
-                "group_name": self.room_name,
-                "message": f"{username} A quitté votre discussion.",
-                "user_type":user_type
+                "type": "chat.joingned",
+                "message": f"{username} A quitté la discussion.",
             },
         )
 
@@ -239,6 +233,18 @@ class ChatConsumer(AsyncWebsocketConsumer):
                 }
             )
         )
+
+
+    async def chat_joingned(self, event):
+        await self.send(
+            text_data=json.dumps(
+                {
+                    "type": "chat.joingned",
+                    "message": event['message'],
+                }
+            )
+        )
+
 
     async def search_response_ia(self, query_text):
         from cashmoov_api.chatbot.rags.retrieval import search_documents

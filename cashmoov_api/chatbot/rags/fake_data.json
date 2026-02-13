@@ -78,7 +78,23 @@
     "title": "Compte bloqué - Déblocage",
     "content": "Procédure déblocage : 1. Vérifier emails équipe sécurité. 2. Contacter support via chat app. 3. Fournir documents identité demandés. 4. Attendre vérification. Délais déblocage : 24-72h après réception documents. Pendant blocage : aucun transfert/retrait possible. Dépôts toujours acceptés. Support peut accélérer si urgence justifiée.",
     "source_type": "training"
+  },
+  {
+    "title": "salutations",
+    "content": "Bonjour,Bonsoir, Salut, Coucou, Hello, Re-bonjour, Bienvenue, Enchanté, Bonne journée, Ravi de vous voir ",
+  },
+  {
+    "title": "identite presentation",
+    "content": "Qui es-tu ?,C'est qui ?, Ton nom ?, Quel est ton rôle ?, Tu es un humain ?, Tu es un robot ?, Présente-toi, Ton utilité ?, C'est quoi ton job ?, IA ou conseiller ? ",
+  },
+  {
+    "title": "etat humeur",
+    "content": "Comment vas-tu ?,Tu vas bien ?,Ça va ?,Tout fonctionne ?,En forme ?,Comment ça se passe ?,Ça roule ?,Comment te sens-tu ?,Quoi de neuf ?,Tout va bien ?",
+  },
+  {
+    "title": "propositions aide",
+    "content": "Besoin d'aide ?,Comment vous aider ?,Une question ?,À votre service,Puis-je vous assister ?,Quelles informations ?,Souhaitez-vous un conseil ?,Besoin d'un coup de main ?,En quoi puis-je ?,Que puis-je faire ? ",
   }
-]
 
+]
 
