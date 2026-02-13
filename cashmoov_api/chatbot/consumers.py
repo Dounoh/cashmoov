@@ -148,7 +148,12 @@ class ChatConsumer(AsyncWebsocketConsumer):
                             text_data=json.dumps(
                                 {
                                     "type":"waiting",
-                                    "message":"le message est transmis à un assistant humain.",
+                                    "message":f"""
+                                        Nous avons bien reçu votre message ! 
+                                        Un membre de notre équipe va prendre le relais pour vous aider au mieux. 
+                                        
+                                        Pas besoin de renvoyer d'autre message, nous traitons votre demande prioritairement.
+                                        """,
                                 }
                             )
                         )
@@ -173,7 +178,9 @@ class ChatConsumer(AsyncWebsocketConsumer):
                                 {
                                     "type": "waiting",
                                     "message": (
-                                        "Aucun assistant en ligne veillez revenir plus tard s'il vous plait."
+                                        "Nos conseillers sont actuellement indisponibles."
+                                        "Nous vous invitons à renouveler votre demande ultérieurement."
+                                        "Merci de votre compréhension."
                                     ),
                                 }
                             )
