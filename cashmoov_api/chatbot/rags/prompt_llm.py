@@ -24,6 +24,10 @@ def llm_humanise(query, context=None):
         Réponse courte et directe.
         Reformule seulement si le CONTEXTE permet une réponse plus claire.
         Repond aux salutations poliment en te presentant et ce que tu peux faire en tant que assistant.
+        Si la réponse ne se trouve pas STRICTEMENT dans le CONTEXTE fourni,
+        répond exactement : response_none
+        Même si tu connais la réponse.
+
         Format :
         Une seule ligne.
         Aucun texte additionnel.    
