@@ -124,7 +124,7 @@ class ChatConsumer(AsyncWebsocketConsumer):
                 is_assisted = await database_sync_to_async(assistant_existed)(self.room_group_name)
 
                 response = await self.search_response_ia(message) if not is_assisted else None
-                
+
                 if response and response.get('type') != TYPE_RESPONSE:
                     await self.channel_layer.group_send(
                         self.room_group_name,
