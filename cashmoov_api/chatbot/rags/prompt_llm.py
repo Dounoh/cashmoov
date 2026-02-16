@@ -30,7 +30,6 @@ def llm_humanise(query, context=None):
         Une seule ligne.
         Aucun texte additionnel.    
     """
-
     try:
         adapter = AdapterLlm(HugginClient())
         response = adapter.request(query, system_prompt, context=context)
