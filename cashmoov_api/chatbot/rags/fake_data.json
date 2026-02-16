@@ -1,100 +1,63 @@
 [
   {
-    "title": "Création de compte CashMoov",
-    "content": "Pour créer un compte CashMoov : 1. Téléchargez l'app depuis App Store ou Google Play.  2. Remplissez le formulaire avec nom, prénom, email, téléphone. 3. Validez votre numéro via code SMS. 4. Téléchargez pièce d'identité + justificatif de domicile pour KYC. 5. Validation sous 24h. Documents acceptés : CNI recto-verso, passeport, permis de conduire. Justificatif de domicile : facture électricité/eau/téléphone de moins de 3 mois.",
-    "source_type": "training"
-  },
-  {
-    "title": "Suppression de compte - Conditions",
-    "content": "Conditions préalables pour suppression : 1. Solde à 0 GNF (transférer ou retirer tout argent). 2. Aucune transaction en attente. 3. Résilier tous abonnements Premium. 4. Exporter son historique si besoin. Important : La suppression est IRREVERSIBLE. Vous perdrez accès à tout l'historique.",
-    "source_type": "training"
-  },
-  {
-    "title": "Suppression de compte - Procédure",
-    "content": "Procédure de suppression : 1. Envoyer email à suppression@cashmoov.net avec : nom complet, numéro de compte, copie pièce d'identité, motif. 2. Recevoir SMS de confirmation sur votre numéro enregistré. 3. Suppression effective sous 30 jours. 4. Pendant ces 30 jours, possibilité d'annuler la demande. Après suppression, vos données sont anonymisées conformément RGPD.",
-    "source_type": "training"
-  },
-  {
-    "title": "Frais de transfert - National/Europe",
-    "content": "Frais transferts nationaux : 1% du montant (minimum 0.50 GNF). Transferts Europe : 2% (minimum 2 GNF). Transferts instantanés : +1 GNF de frais supplémentaires. Les 3 premiers transferts du mois gratuits pour utilisateurs vérifiés KYC. Tous frais affichés avant validation. Pas de frais cachés.",
-    "source_type": "training"
-  },
-  {
-    "title": "Frais de transfert - International",
-    "content": "Transferts vers Afrique : 3% (minimum 3 GNF). Transferts vers autres continents : 4% (minimum 5 GNF). Taux de change : taux interbancaire + marge affichée. Délais : Europe 1-2 jours, Afrique 2-3 jours, autres 3-5 jours. Maximum : 5 000 GNF par transfert, 10 000 GNF par mois.",
-    "source_type": "training"
-  },
-  {
-    "title": "Vérification KYC - Documents",
-    "content": "KYC obligatoire pour toutes fonctionnalités. Documents acceptés : CNI recto-verso valide, passeport valide, permis de conduire (selon pays). Justificatif domicile < 3 mois : facture électricité/eau/téléphone, quittance loyer, taxe d'habitation. Prendre photo claire + selfie avec pièce d'identité. Sans KYC : limite 500 GNF/mois.",
-    "source_type": "training"
-  },
-  {
-    "title": "Vérification KYC - Délais",
-    "content": "Délais vérification KYC : Vérification automatique (IA) : 5-10 minutes (80% cas). Vérification manuelle : 24-48h. Vérification renforcée (montants élevés) : 48-72h. Week-ends rallongent délais. Accélérer : photos nettes sans reflets, documents non expirés, noms correspondants. Notification SMS/email à chaque étape.",
-    "source_type": "training"
-  },
-  {
-    "title": "Alimentation compte - Méthodes",
-    "content": "Méthodes pour créditer compte : 1. Carte bancaire Visa/Mastercard : instantané, frais 1.5%. 2. Virement SEPA : 1-2 jours ouvrables, gratuit. 3. Espèces points partenaires (relais/tabacs) : frais 2%. 4. Apple/Google Pay : instantané, frais 1%. 5. Virement CashMoov vers CashMoov : instantané gratuit. Minimum dépôt : 5 GNF.",
-    "source_type": "training"
-  },
-  {
-    "title": "Limites transactions - Standard",
-    "content": "Compte standard non vérifié : Dépôt journalier 1 000 GNF. Dépôt mensuel 5 000 GNF. Transfert journalier 2 000 GNF. Transfert mensuel 10 000 GNF. Retrait journalier 500 GNF. Ces limites s'appliquent sans KYC complet.",
-    "source_type": "training"
-  },
-  {
-    "title": "Limites transactions - Vérifié",
-    "content": "Compte vérifié KYC complet : Dépôt journalier 5 000 GNF. Dépôt mensuel 25 000 GNF. Transfert journalier 5 000 GNF. Transfert mensuel 25 000 GNF. Retrait journalier 1 000 GNF. Augmentation limites possible sur demande avec justificatifs revenus. Contactez support pour demande augmentation.",
-    "source_type": "training"
-  },
-  {
-    "title": "Support client - Contacts",
-    "content": "Support disponible : Chat dans app 24/7 (réponse < 5min). Email support@cashmoov.net (réponse < 24h). Téléphone 09 70 80 90 10 (Lun-Ven 9h-18h). Twitter @CashMoovSupport (réponse < 2h). Pour urgence : utiliser chat. Préparer numéro compte avant appel. Réclamations formelles par email avec pièces jointes.",
-    "source_type": "training"
-  },
-  {
-    "title": "Sécurité - Mesures",
-    "content": "Sécurité CashMoov : Chiffrement AES-256 bout en bout. 2FA obligatoire transactions > 500 GNF. Options 2FA : SMS, Google Authenticator, clé physique. Notifications instantanées transactions. Vérification biométrique mobile (empreinte/facial). Audit sécurité annuel. En cas perte téléphone : contacter support IMMEDIATEMENT pour bloquer accès.",
-    "source_type": "training"
-  },
-  {
-    "title": "Pays supportés - Zones",
-    "content": "CashMoov disponible : Zone Euro : FR, BE, DE, ES, IT, PT, NL, IE, AT. Afrique : SN, CI, CM, ML, MA, TN, DZ, BJ, TG. Amérique : CA (beta), US (transferts uniquement). Transferts vers 60+ pays. Restrictions pays sous embargo. Pour pays non listés : contacter support. App en FR, EN, ES, PT.",
-    "source_type": "training"
-  },
-  {
-    "title": "Transferts internationaux - Procédure",
-    "content": "Transfert international : 1. Envoyer > International. 2. Choisir pays + devise. 3. Entrer coordonnées bénéficiaire (nom, banque, IBAN, mobile). 4. Vérifier taux change. 5. Confirmer avec PIN. Taux : interbancaire + marge affichée. Délais : Europe 1-2j, Afrique 2-3j. Suivi temps réel dans app. Max 5 000 GNF/transfert.",
-    "source_type": "training"
-  },
-  {
-    "title": "Compte bloqué - Causes",
-    "content": "Causes blocage compte : Activité suspecte détectée. Documents KYC expirés. Tentative connexion frauduleuse. Plainte autre utilisateur. Retours de paiement fréquents. Usage contraire CGU. Solde négatif non régularisé. Suspicion blanchiment. Contact support avec documents identité pour déblocage.",
-    "source_type": "training"
-  },
-  {
-    "title": "Compte bloqué - Déblocage",
-    "content": "Procédure déblocage : 1. Vérifier emails équipe sécurité. 2. Contacter support via chat app. 3. Fournir documents identité demandés. 4. Attendre vérification. Délais déblocage : 24-72h après réception documents. Pendant blocage : aucun transfert/retrait possible. Dépôts toujours acceptés. Support peut accélérer si urgence justifiée.",
-    "source_type": "training"
-  },
-  {
     "title": "salutations",
-    "content": "Bonjour,Bonsoir, Salut, Coucou, Hello, Re-bonjour, Bienvenue, Enchanté, Bonne journée, Ravi de vous voir ",
+    "content": "Bonjour,Bonsoir, Salut, Coucou, Hello, Re-bonjour, Bienvenue, Enchanté, Bonne journée, Ravi de vous voir "
   },
   {
     "title": "identite presentation",
-    "content": "Qui es-tu ?,C'est qui ?, Ton nom ?, Quel est ton rôle ?, Tu es un humain ?, Tu es un robot ?, Présente-toi, Ton utilité ?, C'est quoi ton job ?, IA ou conseiller ? ",
+    "content": "Qui es-tu ?,C'est qui ?, Ton nom ?, Quel est ton rôle ?, Tu es un humain ?, Tu es un robot ?, Présente-toi, Ton utilité ?, C'est quoi ton job ?, IA ou conseiller ? "
   },
   {
     "title": "etat humeur",
-    "content": "Comment vas-tu ?,Tu vas bien ?,Ça va ?,Tout fonctionne ?,En forme ?,Comment ça se passe ?,Ça roule ?,Comment te sens-tu ?,Quoi de neuf ?,Tout va bien ?",
+    "content": "Comment vas-tu ?,Tu vas bien ?,Ça va ?,Tout fonctionne ?,En forme ?,Comment ça se passe ?,Ça roule ?,Comment te sens-tu ?,Quoi de neuf ?,Tout va bien ?"
   },
   {
     "title": "propositions aide",
-    "content": "Besoin d'aide ?,Comment vous aider ?,Une question ?,À votre service,Puis-je vous assister ?,Quelles informations ?,Souhaitez-vous un conseil ?,Besoin d'un coup de main ?,En quoi puis-je ?,Que puis-je faire ? ",
+    "content": "Besoin d'aide ?,Comment vous aider ?,Une question ?,À votre service,Puis-je vous assister ?,Quelles informations ?,Souhaitez-vous un conseil ?,Besoin d'un coup de main ?,En quoi puis-je ?,Que puis-je faire ? "
+  },
+  {
+    "title": "Adresse des agences",
+    "content": "Contactez le service client via le chat sur le site, au 621 64 00 00 ou via WhatsApp au 661 64 00 00 pour obtenir l’adresse de l’agence la plus proche."
+  },
+  {
+    "title": "Réactivation d’un code bloqué",
+    "content": "Envoyez l’identifiant (ex: MS28384) et le montant (ex: 5 000 000) ici dans ce chat ou sur whatsApp au 661 64 00 00. Aucun autre texte."
+  },
+  {
+    "title": "Transaction 'sur réservation'",
+    "content": "Transaction en attente de traitement. Disparaît une fois finalisée."
+  },
+  {
+    "title": "Déblocage/réinitialisation de compte",
+    "content": "Demande écrite obligatoire au back office : 625 251 625."
+  },
+  {
+    "title": "Annulation d’une transaction",
+    "content": "Fournir : identifiant du code, montant, motif d’annulation via whatsapp au 661 64 00 00 ou ici dans le chat."
+  },
+  {
+    "title": "Quand faire un remboursement ?",
+    "content": "Un remboursement est une annulation effectuée volontairement par le client alors que les service CashMoov est disponible à 100%"
+  },
+  {
+    "title": "Blocage de l’OTP",
+    "content": "Solution : essayer chez un autre partenaire CashMoov ou patienter 24h avant de tenter de nouveau le paiement du code."
+  },
+  {
+    "title": "CashMoov",
+    "content": "Entreprise de transfert d’argent et paiement mobile (depuis 2014). Les applications mobiles Cashmoov permettent aujourd'hui de transférer de l'argent dans la quasi-totalité des pays du monde transfert national et international, factures, achats, recharge, e-SIM, salaire."
+  },
+  {
+    "title": "Services proposés",
+    "content": "Transfert (national/international), paiement de salaires, dépôt/retrait via (cashmoov, orange money,ecobank), factures, recharge téléphonique."
+  },
+  {
+    "title": "Procédure de transaction",
+    "content": " 'Cash Moov national': ['Option CashMoov', 'Montant + frais', 'Numéro/nom bénéficiaire', 'Confirmation par PIN'],'Orange Money': ['Pays + option Orange Money', 'Montant + frais', 'Numéro/nom bénéficiaire', 'Confirmation par PIN']"
+  },
+  {
+    "title": "Création de compte",
+    "content":"Télécharger l’app (Play Store/App Store),Inscription : téléphone, infos perso, OTP, PIN, pièces d’identité, signature électronique"
   }
-
 ]
 

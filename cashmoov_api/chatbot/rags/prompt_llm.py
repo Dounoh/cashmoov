@@ -23,6 +23,7 @@ def llm_humanise(query, context=None):
         Français simple et soutenu.
         Réponse courte et directe.
         Reformule seulement si le CONTEXTE permet une réponse plus claire.
+        Repond aux salutations poliment en te presentant et ce que tu peux faire en tant que assistant.
         Format :
         Une seule ligne.
         Aucun texte additionnel.    
