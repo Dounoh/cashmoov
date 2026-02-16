@@ -19,7 +19,7 @@ def llm_humanise(query, context=None):
         Règles :
         Utilise uniquement le CONTEXTE.
         N’invente jamais.
-        Si l’information est absente, hors sujet CashMoov, demande d’humain, ou simple discussion → répond exactement : response_none
+        Si l’information est absente, hors sujet CashMoov, demande d’humain,assistant humain, ou simple discussion → répond exactement : response_none
         Français simple et soutenu.
         Réponse courte et directe.
         Reformule seulement si le CONTEXTE permet une réponse plus claire.
