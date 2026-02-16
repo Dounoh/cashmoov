@@ -1,70 +1,70 @@
 [
   {
-    "title": "salutations",
-    "content": "Bonjour, bonsoir, salut, coucou, hello ! Re-bonjour, bienvenue, enchanté, bonne journée, ravi de vous voir."
+    "title": "Salutations et formules de politesse",
+    "content": "Ce document regroupe les différentes formules de salutation utilisées par les clients comme bonjour, bonsoir, salut, coucou, hello, re-bonjour, bienvenue, enchanté, bonne journée ou ravi de vous voir. Il permet d’identifier une intention de salutation ou de prise de contact."
   },
   {
-    "title": "identite presentation",
-    "content": "Je suis l'assistant virtuel de CashMoov. Je suis une intelligence artificielle conçue pour répondre à vos questions sur nos services de transfert d'argent et paiement mobile. Comment puis-je vous aider aujourd'hui ?"
+    "title": "Présentation de l’assistant virtuel CashMoov",
+    "content": "Je suis l’assistant virtuel officiel de CashMoov. Je suis une intelligence artificielle conçue pour répondre aux questions concernant les services de transfert d’argent, paiement mobile, gestion de compte et assistance client. Mon rôle est d’accompagner les utilisateurs et de leur fournir des informations précises."
   },
   {
-    "title": "etat humeur",
-    "content": "Je vais très bien, merci de demander ! Mes systèmes fonctionnent parfaitement. Comment puis-je vous assister ?"
+    "title": "Réponse à la question sur l’état ou l’humeur de l’assistant",
+    "content": "Lorsque le client demande comment va l’assistant ou pose une question sur son état, la réponse appropriée est que les systèmes fonctionnent parfaitement et que l’assistant est disponible pour aider. L’objectif est de maintenir une interaction naturelle et conviviale."
   },
   {
-    "title": "propositions aide",
-    "content": "Besoin d'aide ? Comment puis-je vous aider ? Avez-vous une question ? Je suis à votre service. Puis-je vous assister avec une information, un conseil, ou un coup de main ?"
+    "title": "Proposition d’aide et assistance générale",
+    "content": "Ce document couvre les formulations utilisées pour proposer de l’aide au client comme : besoin d’aide, comment puis-je vous aider, avez-vous une question, je suis à votre service ou puis-je vous assister avec une information. Il s’agit d’intentions liées à l’assistance générale."
   },
   {
-    "title": "Adresse des agences",
-    "content": "Pour obtenir l'adresse de l'agence CashMoov la plus proche, veuillez contacter notre service client : via le chat sur notre site, par téléphone au 621 64 00 00, ou par WhatsApp au 661 64 00 00."
+    "title": "Adresse et localisation des agences CashMoov",
+    "content": "Pour connaître l’adresse de l’agence CashMoov la plus proche, le client doit contacter le service client via le chat du site officiel, par téléphone au 621 64 00 00 ou via WhatsApp au 661 64 00 00. Les adresses physiques sont communiquées directement par le support."
   },
   {
-    "title": "Réactivation d’un code bloqué",
-    "content": "Pour réactiver un code bloqué, veuillez nous envoyer votre identifiant (ex: MS28384) et le montant (ex: 5 000 000) directement dans ce chat ou sur WhatsApp au 661 64 00 00."
+    "title": "Procédure de réactivation d’un code bloqué",
+    "content": "Pour réactiver un code bloqué, le client doit transmettre son identifiant de transaction (exemple : MS28384) ainsi que le montant concerné (exemple : 5 000 000). Ces informations peuvent être envoyées directement dans le chat ou via WhatsApp au 661 64 00 00 afin que le service client procède à la vérification."
   },
   {
-    "title": "Transaction 'sur réservation'",
-    "content": "Une transaction 'sur réservation' signifie qu'elle est actuellement en attente de traitement. Elle disparaîtra automatiquement de votre historique une fois finalisée. Aucune action de votre part n'est nécessaire."
+    "title": "Signification d’une transaction en statut sur réservation",
+    "content": "Une transaction indiquée comme étant sur réservation signifie qu’elle est en attente de traitement ou de confirmation. Elle disparaîtra automatiquement de l’historique une fois finalisée. Aucune action supplémentaire n’est requise de la part du client."
   },
   {
-    "title": "Déblocage/réinitialisation de compte",
-    "content": "Pour toute demande de déblocage ou réinitialisation de compte, une demande écrite doit être envoyée à notre back office au 625 251 625."
+    "title": "Déblocage ou réinitialisation d’un compte utilisateur",
+    "content": "Pour toute demande de déblocage ou de réinitialisation de compte CashMoov, le client doit envoyer une demande écrite au back office au numéro 625 251 625. La demande doit inclure les informations nécessaires pour identifier le compte concerné."
   },
   {
-    "title": "Annulation d’une transaction",
-    "content": "Pour demander l'annulation d'une transaction, veuillez fournir l'identifiant du code, le montant, et le motif de l'annulation. Envoyez ces informations par WhatsApp au 661 64 00 00 ou directement dans ce chat."
+    "title": "Procédure d’annulation d’une transaction",
+    "content": "Pour demander l’annulation d’une transaction, le client doit fournir l’identifiant du code, le montant exact ainsi que le motif de l’annulation. Ces informations doivent être envoyées via WhatsApp au 661 64 00 00 ou directement dans le chat afin que le support puisse traiter la demande."
   },
   {
-    "title": "Quand faire un remboursement ?",
-    "content": "Un remboursement est effectué à la demande du client pour une transaction volontairement annulée, alors que le service était disponible et fonctionnel."
+    "title": "Définition et conditions de remboursement",
+    "content": "Un remboursement est effectué lorsqu’un client demande l’annulation volontaire d’une transaction alors que le service était disponible et fonctionnel. Cette procédure concerne uniquement les transactions initiées par le client et non les erreurs techniques."
   },
   {
-    "title": "Blocage de l’OTP",
-    "content": "Si votre OTP est bloqué, essayez d'effectuer le paiement chez un autre partenaire CashMoov ou patientez 24h avant de retenter le paiement."
+    "title": "Blocage du code OTP et solutions possibles",
+    "content": "Si le code OTP est bloqué lors d’un paiement, le client peut essayer d’effectuer la transaction chez un autre partenaire CashMoov ou patienter environ 24 heures avant de retenter l’opération. Cette situation peut survenir pour des raisons de sécurité."
   },
   {
-    "title": "CashMoov",
-    "content": "CashMoov est une entreprise spécialisée dans le transfert d’argent et le paiement mobile, fondée en 2014. Nos applications mobiles permettent aujourd'hui de transférer de l'argent partout dans le monde (transfert national et international), de payer des factures, d'effectuer des recharges téléphoniques, d'acheter des e-SIM, et de gérer le paiement de salaires."
+    "title": "Présentation de l’entreprise CashMoov et de ses activités",
+    "content": "CashMoov est une entreprise spécialisée dans le transfert d’argent et le paiement mobile, fondée en 2014. Elle propose des services de transfert national et international, paiement de factures, recharges téléphoniques, achat d’e-SIM et gestion de paiement de salaires via ses applications mobiles."
   },
   {
-    "title": "Services proposés",
-    "content": "CashMoov propose une gamme complète de services financiers mobiles : transfert d'argent national et international, paiement de salaires, dépôt et retrait d'argent (via CashMoov, Orange Money, Ecobank), paiement de factures, et recharge téléphonique."
+    "title": "Liste complète des services financiers proposés par CashMoov",
+    "content": "CashMoov propose des services financiers mobiles incluant le transfert d’argent national et international, le paiement de salaires, le dépôt et le retrait d’argent via CashMoov, Orange Money et Ecobank, ainsi que le paiement de factures et les recharges téléphoniques."
   },
   {
-    "title": "Procédure de transaction",
-    "content": "Pour une transaction CashMoov National : sélectionnez 'Option CashMoov', indiquez le montant et les frais, saisissez le numéro et nom du bénéficiaire, puis confirmez avec votre PIN. Pour Orange Money : sélectionnez le pays et l'option Orange Money, indiquez le montant et les frais, saisissez le numéro et nom du bénéficiaire, puis confirmez avec votre PIN."
+    "title": "Procédure pour effectuer une transaction CashMoov ou Orange Money",
+    "content": "Pour effectuer une transaction nationale CashMoov, il faut sélectionner l’option CashMoov, indiquer le montant et les frais, saisir le numéro et le nom du bénéficiaire puis confirmer avec le code PIN. Pour une transaction Orange Money, il faut sélectionner le pays et l’option Orange Money, saisir les informations du bénéficiaire puis confirmer avec le code PIN."
   },
   {
-    "title": "Création de compte",
-    "content": "Pour créer un compte CashMoov : téléchargez l'application sur le Play Store ou l'App Store, puis suivez les étapes d'inscription : numéro de téléphone, informations personnelles, validation OTP, création du code PIN, et fourniture des pièces d'identité avec signature électronique."
+    "title": "Procédure de création d’un compte CashMoov",
+    "content": "Pour créer un compte CashMoov, l’utilisateur doit télécharger l’application depuis le Play Store ou l’App Store, saisir son numéro de téléphone, compléter ses informations personnelles, valider le code OTP reçu, créer un code PIN sécurisé et fournir ses pièces d’identité avec signature électronique."
   },
   {
-    "title": "Transferts et envoi d'argent - Procédure",
-    "content": "Pour effectuer un transfert d'argent : 1. Ouvrez l'application et sélectionnez 'Envoyer' > 'International' ou 'National'. 2. Choisissez le pays et le moyen de réception. 3. Entrez les coordonnées du bénéficiaire (nom, banque, IBAN, numéro mobile). 4. Vérifiez le taux de change appliqué (taux interbancaire + marge affichée). 5. Confirmez la transaction avec votre code PIN."
+    "title": "Procédure détaillée pour envoyer un transfert national ou international",
+    "content": "Pour envoyer de l’argent, l’utilisateur doit ouvrir l’application, sélectionner envoyer puis choisir national ou international. Il doit ensuite choisir le pays et le mode de réception, entrer les coordonnées du bénéficiaire comme le nom, la banque, l’IBAN ou le numéro mobile, vérifier le taux de change appliqué incluant la marge affichée, puis confirmer la transaction avec son code PIN."
   },
   {
-    "title": "Faire le Retrait",
-    "content": "Vous pouvez effectuer le retrait de votre argent via le moyen de paiement de votre choix : en espèces chez un agent CashMoov, sur un compte Orange Money, ou vers un compte bancaire."
+    "title": "Procédure pour effectuer un retrait d’argent",
+    "content": "Le retrait d’argent peut être effectué en espèces auprès d’un agent CashMoov, transféré vers un compte Orange Money ou envoyé vers un compte bancaire. Le client peut choisir le moyen de réception qui lui convient selon sa localisation et ses préférences."
   }
 ]
