@@ -8,6 +8,7 @@ CI=False
 DEBUG=False
 CORS_ALLOWED_ORIGINS = [
     "http://localhost:3000",
+    "http://localhost:9000",
     "https://cash-moov.vercel.app",
 ]
 # CORS_ALLOW_ALL_ORIGINS = True
