@@ -1,3 +1,4 @@
+{% load static %}
 <!DOCTYPE html>
 <html lang="fr">
 <head>
@@ -12,61 +13,21 @@
     <div class="max-w-3xl w-full">
         <div class="text-center mb-12">
             <div class="mb-6 relative inline-block">
-                <div class="bg-blue-600 text-white text-4xl px-7 py-4 rounded-3xl font-black shadow-2xl shadow-blue-500/40">
+                <!-- <div class="bg-blue-600 text-white text-4xl px-7 py-4 rounded-3xl font-black shadow-2xl shadow-blue-500/40">
                     CM
                 </div>
                 <div class="absolute -top-2 -right-2 flex h-5 w-5">
                     <span class="animate-ping absolute inline-flex h-full w-full rounded-full bg-green-400 opacity-75"></span>
                     <span class="relative inline-flex rounded-full h-5 w-5 bg-green-500 border-2 border-[#0f172a]"></span>
-                </div>
+                </div> -->
+                <img src="{% static 'images/logo.jpeg' %}" alt="Mon image">
             </div>
+
             <h1 class="text-4xl md:text-5xl font-extrabold mb-3 tracking-tight">
                 CashMoov <span class="text-blue-500">API Portal</span>
             </h1>
             <p class="text-slate-400 text-lg">Infrastructure de production sécurisée</p>
         </div>
-
-        <div class="grid grid-cols-1 md:grid-cols-2 gap-6 mb-10">
-            <a href="/api/docs" class="group bg-slate-800/50 hover:bg-slate-800 border border-slate-700 p-8 rounded-3xl transition-all duration-300 hover:border-blue-500/50 hover:shadow-xl hover:shadow-blue-500/10">
-                <div class="w-12 h-12 bg-blue-500/10 rounded-xl flex items-center justify-center mb-4 group-hover:bg-blue-500 group-hover:text-white transition-colors">
-                    <i class="fas fa-book text-xl"></i>
-                </div>
-                <h3 class="text-xl font-bold mb-2">API Documentation</h3>
-                <p class="text-slate-400 text-sm leading-relaxed">
-                    Explorez les endpoints REST, les schémas de données et les guides d'intégration.
-                </p>
-            </a>
-
-            <!-- <a href="/api/shannel/" class="group bg-slate-800/50 hover:bg-slate-800 border border-slate-700 p-8 rounded-3xl transition-all duration-300 hover:border-orange-500/50 hover:shadow-xl hover:shadow-orange-500/10">
-                <div class="w-12 h-12 bg-orange-500/10 rounded-xl flex items-center justify-center mb-4 group-hover:bg-orange-500 group-hover:text-white transition-colors">
-                    <i class="fas fa-bolt text-xl"></i>
-                </div>
-                <h3 class="text-xl font-bold mb-2">Real-time Channels</h3>
-                <p class="text-slate-400 text-sm leading-relaxed">
-                    Accédez aux flux WebSockets pour le chat IA, les notifications et la présence.
-                </p>
-            </a> -->
-        </div>
-
-        <!-- <div class="bg-black/40 border border-slate-800 rounded-2xl p-6 font-mono text-xs">
-            <div class="flex items-center gap-2 mb-4 border-b border-slate-800 pb-3 text-slate-500 uppercase tracking-widest">
-                <i class="fas fa-terminal"></i> Direct Access Info
-            </div>
-            <div class="space-y-2">
-                <div class="flex justify-between">
-                    <span class="text-slate-500">REST Base:</span>
-                    <span class="text-blue-400">https://dev-dounoh.xyz/api/v1/</span>
-                </div>
-                <div class="flex justify-between">
-                    <span class="text-slate-500">WS Gateway:</span>
-                    <span class="text-orange-400">wss://dev-dounoh.xyz/ws/</span>
-                </div>
-                <div class="flex justify-between border-t border-slate-800/50 pt-2 mt-2">
-                    <span class="text-slate-500">System:</span>
-                    <span class="text-green-500">Online</span>
-                </div>
-            </div>
-        </div> -->
 
         <div class="mt-12 text-center">
             <p class="text-slate-500 text-[11px] uppercase tracking-[0.2em] font-bold">
