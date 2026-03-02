@@ -1,34 +1,62 @@
-example.com {
+# example.com {
 
-    encode zstd gzip
+#     encode zstd gzip
 
+#     header {
+#         Content-Security-Policy "
+#             default-src 'self';
+#             script-src 'self';
+#             style-src 'self' 'unsafe-inline';
+#             img-src 'self' data: https:;
+#             font-src 'self' https:;
+#             connect-src 'self' https:;
+#             frame-ancestors 'none';
+#             base-uri 'self';
+#             form-action 'self';
+#         "
+#         Permissions-Policy "
+#             accelerometer=(),
+#             camera=(),
+#             geolocation=(),
+#             gyroscope=(),
+#             magnetometer=(),
+#             microphone=(),
+#             payment=(),
+#             usb=()
+#         "
+#         X-Frame-Options "DENY"
+#         X-Content-Type-Options "nosniff"
+#         Referrer-Policy "strict-origin-when-cross-origin"
+#         Strict-Transport-Security "max-age=63072000; includeSubDomains; preload"
+#     }
+
+#     reverse_proxy api:8000
+# }
+
+
+dev-dounoh.xyz {
+    encode gzip
+
+    # En-têtes de sécurité (corrigés)
     header {
-        Content-Security-Policy "
-            default-src 'self';
-            script-src 'self';
-            style-src 'self' 'unsafe-inline';
-            img-src 'self' data: https:;
-            font-src 'self' https:;
-            connect-src 'self' https:;
-            frame-ancestors 'none';
-            base-uri 'self';
-            form-action 'self';
-        "
-        Permissions-Policy "
-            accelerometer=(),
-            camera=(),
-            geolocation=(),
-            gyroscope=(),
-            magnetometer=(),
-            microphone=(),
-            payment=(),
-            usb=()
-        "
-        X-Frame-Options "DENY"
+        Content-Security-Policy "default-src 'self'; script-src 'self'; style-src 'self' 'unsafe-inline'; img-src 'self' data: https:; font-src 'self' https:; connect-src 'self' https:; frame-ancestors 'none'; base-uri 'self'; form-action 'self'"
+        Permissions-Policy "accelerometer=(), camera=(), geolocation=(), gyroscope=(), magnetometer=(), microphone=(), payment=(), usb=()"
         X-Content-Type-Options "nosniff"
+        X-Frame-Options "DENY"
         Referrer-Policy "strict-origin-when-cross-origin"
-        Strict-Transport-Security "max-age=63072000; includeSubDomains; preload"
     }
 
-    reverse_proxy api:8000
+    handle /ws/* {
+    reverse_proxy cashmoov_api:8000
+}
+
+    # Route API - redirige vers le backend
+    handle /api/* {
+        reverse_proxy cashmoov_api:8000
+    }
+
+    # Route par défaut - redirige vers le frontend (Nginx)
+    handle {
+        reverse_proxy frontend:80
+    }
 }

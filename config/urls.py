@@ -72,6 +72,6 @@ urlpatterns = [
 
     path('', TemplateView.as_view(template_name="home.html"), name='home'),
 
-    path('admin-cashmoov/', admin.site.urls),
+    path('api/admin-cashmoov/', admin.site.urls),
     path('api/', include('config.api_routers')),    
 ]
