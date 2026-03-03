@@ -14,7 +14,7 @@ from .prompt_llm import llm_humanise
 logger = logging.getLogger(__name__)
 
 
-def search_documents_sync(query_text, top_k=3, min_similarity=0.75):
+def search_documents_sync(query_text, top_k=2, min_similarity=0.75):
     """
     Recherche sémantique des documents les plus pertinents.
     Cette fonction nous permet de retrouver les 5 documents les plus pertinents
