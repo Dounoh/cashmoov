@@ -70,7 +70,7 @@ urlpatterns = [
 
     path('api/shannel/', TemplateView.as_view(template_name="channel_docs.html"), name='channel'),
 
-    path('', TemplateView.as_view(template_name="home.html"), name='home'),
+    # path('', TemplateView.as_view(template_name="home.html"), name='home'),
 
     path('api/admin-cashmoov/', admin.site.urls),
     path('api/', include('config.api_routers')),    
