@@ -14,7 +14,7 @@ from .prompt_llm import llm_humanise
 logger = logging.getLogger(__name__)
 
 
-def search_documents_sync(query_text, top_k=2, min_similarity=0.75):
+def search_documents_sync(query_text, top_k=2, min_similarity=0.8):
     """
     Recherche sémantique des documents les plus pertinents.
     Cette fonction nous permet de retrouver les 5 documents les plus pertinents
@@ -65,7 +65,7 @@ def search_documents_sync(query_text, top_k=2, min_similarity=0.75):
         return []
 
 
-async def search_documents(query_text, top_k=3, min_similarity=0.75):
+async def search_documents(query_text, top_k=2, min_similarity=0.8):
     results = await database_sync_to_async(search_documents_sync)(
         query_text, top_k, min_similarity=min_similarity
     )
