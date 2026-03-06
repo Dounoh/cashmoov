@@ -1,57 +1,70 @@
 [
   {
     "title": "Adresse et localisation des agences CashMoov",
-    "content": "Pour connaître l’adresse de l’agence CashMoov la plus proche, le client doit contacter le service client via le chat du site officiel, par téléphone au 621 64 00 00 ou via WhatsApp au 661 64 00 00. Les adresses physiques sont communiquées directement par le support."
+    "content": "Pour connaître l’adresse de l’agence CashMoov la plus proche, le client doit contacter le service client via le chat du site officiel, par téléphone au 621 64 00 00 ou via WhatsApp au 661 64 00 00. Les adresses physiques sont communiquées directement par le support.",
+    "source_type": "training"
   },
   {
     "title": "Procédure de réactivation d’un code bloqué",
-    "content": "Pour réactiver un code bloqué, le client doit transmettre son identifiant de transaction (exemple : MS28384) ainsi que le montant concerné (exemple : 5 000 000). Ces informations peuvent être envoyées directement dans le chat ou via WhatsApp au 661 64 00 00 afin que le service client procède à la vérification."
+    "content": "Pour réactiver un code bloqué, le client doit transmettre son identifiant de transaction (exemple : MS28384) ainsi que le montant concerné (exemple : 5 000 000). Ces informations peuvent être envoyées directement dans le chat ou via WhatsApp au 661 64 00 00 afin que le service client procède à la vérification.",
+    "source_type": "training"
   },
   {
     "title": "Signification d’une transaction en statut sur réservation",
-    "content": "Une transaction indiquée comme étant sur réservation signifie qu’elle est en attente de traitement ou de confirmation. Elle disparaîtra automatiquement de l’historique une fois finalisée. Aucune action supplémentaire n’est requise de la part du client."
+    "content": "Une transaction indiquée comme étant sur réservation signifie qu’elle est en attente de traitement ou de confirmation. Elle disparaîtra automatiquement de l’historique une fois finalisée. Aucune action supplémentaire n’est requise de la part du client.",
+    "source_type": "training"
   },
   {
     "title": "Déblocage ou réinitialisation d’un compte utilisateur",
-    "content": "Pour toute demande de déblocage ou de réinitialisation de compte CashMoov, le client doit envoyer une demande écrite au back office au numéro 625 251 625. La demande doit inclure les informations nécessaires pour identifier le compte concerné."
+    "content": "Pour toute demande de déblocage ou de réinitialisation de compte CashMoov, le client doit envoyer une demande écrite au back office au numéro 625 251 625. La demande doit inclure les informations nécessaires pour identifier le compte concerné.",
+    "source_type": "training"
   },
   {
     "title": "Procédure d’annulation d’une transaction",
-    "content": "Pour demander l’annulation d’une transaction, le client doit fournir l’identifiant du code, le montant exact ainsi que le motif de l’annulation. Ces informations doivent être envoyées via WhatsApp au 661 64 00 00 ou directement dans le chat afin que le support puisse traiter la demande."
+    "content": "Pour demander l’annulation d’une transaction, le client doit fournir l’identifiant du code, le montant exact ainsi que le motif de l’annulation. Ces informations doivent être envoyées via WhatsApp au 661 64 00 00 ou directement dans le chat afin que le support puisse traiter la demande.",
+    "source_type": "training"
   },
   {
     "title": "Définition et conditions de remboursement",
-    "content": "Un remboursement est effectué lorsqu’un client demande l’annulation volontaire d’une transaction alors que le service était disponible et fonctionnel. Cette procédure concerne uniquement les transactions initiées par le client et non les erreurs techniques."
+    "content": "Un remboursement est effectué lorsqu’un client demande l’annulation volontaire d’une transaction alors que le service était disponible et fonctionnel. Cette procédure concerne uniquement les transactions initiées par le client et non les erreurs techniques.",
+    "source_type": "training"
   },
   {
     "title": "Blocage du code OTP et solutions possibles",
-    "content": "Si le code OTP est bloqué lors d’un paiement, le client peut essayer d’effectuer la transaction chez un autre partenaire CashMoov ou patienter environ 24 heures avant de retenter l’opération. Cette situation peut survenir pour des raisons de sécurité."
+    "content": "Si le code OTP est bloqué lors d’un paiement, le client peut essayer d’effectuer la transaction chez un autre partenaire CashMoov ou patienter environ 24 heures avant de retenter l’opération. Cette situation peut survenir pour des raisons de sécurité.",
+    "source_type": "training"
   },
   {
     "title": "Présentation de l’entreprise CashMoov et de ses activités",
-    "content": "CashMoov est une entreprise spécialisée dans le transfert d’argent et le paiement mobile, fondée en 2014. Elle propose des services de transfert national et international, paiement de factures, recharges téléphoniques, achat d’e-SIM et gestion de paiement de salaires via ses applications mobiles."
+    "content": "CashMoov est une entreprise spécialisée dans le transfert d’argent et le paiement mobile, fondée en 2014. Elle propose des services de transfert national et international, paiement de factures, recharges téléphoniques, achat d’e-SIM et gestion de paiement de salaires via ses applications mobiles.",
+    "source_type": "training"
   },
   {
     "title": "Liste complète des services financiers proposés par CashMoov",
-    "content": "CashMoov propose des services financiers mobiles incluant le transfert d’argent national et international, le paiement de salaires, le dépôt et le retrait d’argent via CashMoov, Orange Money et Ecobank, ainsi que le paiement de factures et les recharges téléphoniques."
+    "content": "CashMoov propose des services financiers mobiles incluant le transfert d’argent national et international, le paiement de salaires, le dépôt et le retrait d’argent via CashMoov, Orange Money et Ecobank, ainsi que le paiement de factures et les recharges téléphoniques.",
+    "source_type": "training"
   },
   {
     "title": "Procédure pour effectuer une transaction CashMoov ou Orange Money",
-    "content": "Pour effectuer une transaction nationale CashMoov, il faut sélectionner l’option CashMoov, indiquer le montant et les frais, saisir le numéro et le nom du bénéficiaire puis confirmer avec le code PIN. Pour une transaction Orange Money, il faut sélectionner le pays et l’option Orange Money, saisir les informations du bénéficiaire puis confirmer avec le code PIN."
+    "content": "Pour effectuer une transaction nationale CashMoov, il faut sélectionner l’option CashMoov, indiquer le montant et les frais, saisir le numéro et le nom du bénéficiaire puis confirmer avec le code PIN. Pour une transaction Orange Money, il faut sélectionner le pays et l’option Orange Money, saisir les informations du bénéficiaire puis confirmer avec le code PIN.",
+    "source_type": "training"
   },
   {
     "title": "Procédure de création d’un compte CashMoov",
-    "content": "Pour créer un compte CashMoov, l’utilisateur doit télécharger l’application depuis le Play Store ou l’App Store, saisir son numéro de téléphone, compléter ses informations personnelles, valider le code OTP reçu, créer un code PIN sécurisé et fournir ses pièces d’identité avec signature électronique."
+    "content": "Pour créer un compte CashMoov, l’utilisateur doit télécharger l’application depuis le Play Store ou l’App Store, saisir son numéro de téléphone, compléter ses informations personnelles, valider le code OTP reçu, créer un code PIN sécurisé et fournir ses pièces d’identité avec signature électronique.",
+    "source_type": "training"
   },
   {
     "title": "Procédure détaillée pour envoyer un transfert national ou international",
-    "content": "Pour envoyer de l’argent, l’utilisateur doit ouvrir l’application, sélectionner envoyer puis choisir national ou international. Il doit ensuite choisir le pays et le mode de réception, entrer les coordonnées du bénéficiaire comme le nom, la banque, l’IBAN ou le numéro mobile, vérifier le taux de change appliqué incluant la marge affichée, puis confirmer la transaction avec son code PIN."
+    "content": "Pour envoyer de l’argent, l’utilisateur doit ouvrir l’application, sélectionner envoyer puis choisir national ou international. Il doit ensuite choisir le pays et le mode de réception, entrer les coordonnées du bénéficiaire comme le nom, la banque, l’IBAN ou le numéro mobile, vérifier le taux de change appliqué incluant la marge affichée, puis confirmer la transaction avec son code PIN.",
+    "source_type": "training"
   },
   {
     "title": "Procédure pour effectuer un retrait d’argent",
-    "content": "Le retrait d’argent peut être effectué en espèces auprès d’un agent CashMoov, transféré vers un compte Orange Money ou envoyé vers un compte bancaire. Le client peut choisir le moyen de réception qui lui convient selon sa localisation et ses préférences."
+    "content": "Le retrait d’argent peut être effectué en espèces auprès d’un agent CashMoov, transféré vers un compte Orange Money ou envoyé vers un compte bancaire. Le client peut choisir le moyen de réception qui lui convient selon sa localisation et ses préférences.",
+    "source_type": "training"
   },
-    {
+  {
     "title": "Accueil - CashMoov",
     "content": "Transferez de l'argent et faites vos Paiements en toute simplicité. CashMoov est un portefeuille électronique qui vous permet de Transférer de l'argent dans plus de 63 pays. Téléchargez et Partagez le sourire.",
     "source_type": "training"
@@ -62,7 +75,7 @@
     "source_type": "training"
   },
   {
-    "title": "Caractéristique ",
+    "title": "Caractéristique",
     "content": "Transferts instantanés Envoyez de l'argent en quelques secondes, 24h/24 et 7j/7. 100% sécurisé : Vos transactions sont protégées par un cryptage de niveau bancaire. Réseau mondial : Plus de 63 pays et 150 devises disponibles pour vos transferts. Support dédié : Notre équipe est disponible pour vous aider à tout moment.",
     "source_type": "training"
   },
@@ -80,8 +93,20 @@
     "title": "Partenaires",
     "content": "Nous travaillons avec les meilleurs pour vous offrir un service d'excellence. MTN Mobile Money, Orange Money, LAGUIPRES Sarl, PricewhiterhouseCoopers, BATIPRO, Performance-Guinée, Bci, Ecobank",
     "source_type": "training"
+  },
+  {
+    "title": "Recharge de compte CashMoov via Orange Money",
+    "content": "Pour recharger votre compte CashMoov en utilisant Orange Money, suivez ces étapes : 1. Ouvrez l'application et choisissez orange money. 2. Sélectionnez recevoir. 3. Saisissez le montant que vous souhaitez recharger. 4. Entrez le numéro de téléphone. 5. Confirmez l'opération avec votre code secret. 6. Vous recevrez une confirmation par SMS, MAIL et le montant sera crédité sur votre compte CashMoov sous quelques minutes.",
+    "source_type": "training"
+  },
+  {
+    "title": "Recharge de compte CashMoov chez un agent CashMoov",
+    "content": "Pour recharger votre compte CashMoov en espèces chez un agent agréé : 1. Rendez-vous chez l'agent avec votre téléphone et l'argent à déposer. 2. Donnez votre numéro de téléphone lié à votre compte CashMoov à l'agent. 3. Remettez le montant en espèces à l'agent. 4. L'agent effectuera la transaction. 5. Vous recevrez une notification de confirmation sur votre application CashMoov instantanément.",
+    "source_type": "training"
+  },
+  {
+    "title": "Informations générales sur la recharge CashMoov",
+    "content": "CashMoov propose plusieurs moyens de recharger votre compte : - Orange Money : recharge instantanée depuis votre compte mobile money. - Virement bancaire : recharge via votre banque. - Agent CashMoov : dépôt d'espèces chez un agent partenaire. Quel que soit le moyen choisi, assurez-vous que votre compte est actif et que vous disposez des informations nécessaires (numéro de téléphone, identifiants). Les montants minimum et maximum peuvent varier selon le mode de recharge. Consultez l'application pour connaître les plafonds applicables à votre compte. En cas de problème, contactez le support client via l'application.",
+    "source_type": "training"
   }
 ]
-
-
-

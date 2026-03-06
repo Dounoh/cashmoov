@@ -5,7 +5,7 @@ SECURE_SSL_REDIRECT = False
 CSRF_TRUSTED_ORIGINS = ["https://dev-dounoh.xyz","https://api.dev-dounoh.xyz"]
 SECURE_PROXY_SSL_HEADER = ("HTTP_X_FORWARDED_PROTO", "https")
 CI=False
-DEBUG=False
+# DEBUG=False
 CORS_ALLOWED_ORIGINS = [
     "http://localhost:3000",
     "https://dev-dounoh.xyz",
