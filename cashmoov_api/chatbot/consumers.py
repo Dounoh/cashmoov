@@ -1,5 +1,6 @@
 import json
 
+from asgiref.sync import sync_to_async
 from channels.db import database_sync_to_async
 from channels.generic.websocket import AsyncWebsocketConsumer
 
@@ -19,7 +20,15 @@ TYPE_RESPONSE = "response_none"
 
 class ChatConsumer(AsyncWebsocketConsumer):
     """
-    Le consumer pour la gestion de tout ce qui est chat
+    Consumer principal pour la messagerie en temps réel.
+
+    Cette classe gère :
+    - l'envoi et la réception de messages WebSocket
+    - l'intégration RAG (recherche vectorielle + LLM) quand aucun
+      assistant humain n'est présent
+    - la prise en compte des deux derniers messages du fil afin que le
+      modèle comprenne le contexte de la conversation en plus des
+      documents RAG.
     """
 
     async def connect(self):
@@ -247,17 +256,37 @@ class ChatConsumer(AsyncWebsocketConsumer):
 
 
     async def search_response_ia(self, query_text):
+        # Récupération de contexte RAG et historique de conversation
         from cashmoov_api.chatbot.rags.retrieval import search_documents
-
-        response = None
+        from cashmoov_api.chatbot.rags.prompt_llm import llm_humanise
 
         try:
-            response = await search_documents(query_text)
+            # on recherche d'abord les passages pertinents
+            context_rag = await search_documents(query_text)
+
+            # récupération de l'historique des deux derniers messages dans cette
+            # discussion afin d'informer le LLM du fil de la conversation.
+            history = await self.load_chat(self.room_group_name)
+            # 'history' renvoie les chats triés par '-created_at'. on prend deux
+            last_two = history[:2]  # peut être vide
+            history_text = "\n".join(
+                f"{msg['username']}: {msg['message']}" for msg in reversed(last_two)
+            )
+
+            # concaténer historique et contexte RAG
+            full_context = "".join([
+                (history_text + "\n\n") if history_text else "",
+                context_rag or "",
+            ])
+
+            if not full_context.strip():
+                # pas de contexte ni historique, on laisse le LLM répondre seul
+                return await sync_to_async(llm_humanise)(query_text)
+
+            return await sync_to_async(llm_humanise)(query_text, context=full_context)
         except Exception as e:
             await self.send_error(f"Erreur IA: {str(e)}")
-            response = None
-
-        return response
+            return None
 
     @database_sync_to_async
     def create_chat(self, group_name, message=None, username=None, answers=None):

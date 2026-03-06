@@ -14,7 +14,7 @@ class HugginClient:
     }
 
     # model_ia = "zai-org/GLM-4.7:novita" 
-    model_ia = "meta-llama/Meta-Llama-3-8B-Instruct:featherless-ai"
+    model_ia = os.getenv("HF_MODEL", "meta-llama/Meta-Llama-3-8B-Instruct:featherless-ai")
 
     def request_ia(self, query, system_prompt, context):
         """
@@ -24,21 +24,13 @@ class HugginClient:
         payload = {
             "model": self.model_ia,
             "messages": [
-                {
-                    "role": "system",
-                    "content": system_prompt
-                },
-                {
-                    "role": "user",
-                    "content": f"QUESTION:\n{query}"
-                },
-                {
-                    "role": "user",
-                    "content": f"CONTEXTE:\n{context}"
-                }
+                {"role": "system", "content": system_prompt},
+                {"role": "user", "content": f"QUESTION:\n{query}"},
+                {"role": "user", "content": f"CONTEXTE:\n{context}"},
             ],
             "temperature": 0,
-            "max_tokens": 256
+            # token limit configurable via env; 128 suffices pour de courtes réponses
+            "max_tokens": int(os.getenv("HF_MAX_TOKENS", "128")),
         }
 
         response = requests.post(

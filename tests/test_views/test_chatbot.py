@@ -60,6 +60,14 @@ class TestDocumentViewSet:
 
 class TestChatbotViewSet:
 
+    @pytest.fixture(autouse=True)
+    def stub_llm(self, monkeypatch):
+        # prevent real API calls during unit tests
+        monkeypatch.setattr(
+            "cashmoov_api.chatbot.rags.prompt_llm.llm_humanise",
+            lambda query, context="": {"username": "CashMoov IA", "message": "stub", "type": "discussion", "source": "", "destination": ""},
+        )
+
     def test_ask_question_with_data(self, api_client, document_fixture):
         url = reverse("chatbot-ask")
         data = {"question": "string"}

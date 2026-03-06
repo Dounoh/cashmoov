@@ -72,7 +72,11 @@ class ChatbotViewSet(viewsets.GenericViewSet):
     @action(detail=False, methods=["post"], url_path="ask")
     def ask(self, request):
         """
-        Endpoint pour poser une question au chatbot
+        Endpoint pour poser une question au chatbot.
+        Il s'agit d'une requête synchrone indépendante : aucun historique de
+        conversation n'est pris en compte (contrairement au consumer WebSocket).
+        La récupération vectorielle renvoie un contexte (chaîne). La génération
+        LLM est effectuée une unique fois ici pour minimiser les appels API.
         """
         serializer = ChatbotRequestSerializer(data=request.data)
         serializer.is_valid(raise_exception=True)
@@ -84,10 +88,9 @@ class ChatbotViewSet(viewsets.GenericViewSet):
                 status=status.HTTP_400_BAD_REQUEST,
             )
 
-        result = search_documents_sync(data["question"])
-        # llm_response = result
-        llm_response = llm_humanise(query=data["question"], context=result)
-
+        # retrieval returns une chaîne de contexte ou ""
+        context = search_documents_sync(data["question"])
+        llm_response = llm_humanise(query=data["question"], context=context)
         return Response({"response": llm_response})
 
 
